@@ -65,6 +65,18 @@ model Cuisine {
     chefs UserCuisine[]
 }
 
+model UserCuisine {
+    id String @id @default(cuid())
+
+    chef Chef @relation(fields: [chefId], references: [id])
+    chefId String
+
+    cuisine Cuisine @relation(fields: [cuisineId], references: [id])
+    cuisineId String
+
+    @@unique([chefId, cuisineId])
+}
+
 model Listing {
     id String @id @default(cuid())
     title String
