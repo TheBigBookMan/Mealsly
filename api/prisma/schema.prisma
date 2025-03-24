@@ -194,3 +194,16 @@ model ItemReview {
     listing Listing @relation(fields: [listingId], references: [id])
     listingId String
 }
+
+model Schedule {
+    id String @id @default(cuid())
+    dayOfWeek Int
+    startTime String
+    endTime String
+    pickup Boolean
+    dropoff Boolean
+    dropoffFee Float?
+
+    chef Chef @relation(fields: [chefId], references: [id])
+    chefId String
+}
