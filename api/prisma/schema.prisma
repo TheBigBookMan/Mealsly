@@ -119,3 +119,23 @@ model OrderItem {
     quantity Int
     price Float
 }
+
+model Transaction {
+    id String @id @default(cuid())
+    amount Float
+    status TransactionStatus
+    createdAt DateTime @default(now())
+    releasedAt DateTime?
+    paymentMethod String?
+    paymentIntentId String?
+
+    order Order @relation(fields: [orderId], references: [id])
+    orderId String
+}
+
+enum TransactionStatus {
+    HELD
+    RELEASED
+    REFUNDED
+    FAILED
+}
