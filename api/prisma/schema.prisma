@@ -17,11 +17,11 @@ model User {
     id  String  @id @default(cuid())
     firebaseUid String  @unique
     email   String  @unique
-    role    Role
+    firstName String
+    lastName String
+    profileImage String?
     createdAt DateTime @default(now())
-}
 
-enum Role {
-    chef
-    eater
+    chef Chef?
+    eater Eater?
 }
