@@ -56,3 +56,8 @@ model Chef {
     orders Order[] @relation('ChefOrders')
 }
 
+model Cuisine {
+    id String @id @default(cuid())
+    name String @unique
+    chefs UserCuisine[]
+}
