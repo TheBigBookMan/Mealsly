@@ -178,3 +178,19 @@ model ChefReview {
     eater Eater @relation('EaterChefReviews', fields: [eaterId], references: [id])
     eaterId String
 }
+
+model ItemReview {
+    id String @id @default(cuid())
+    rating Int
+    comment String?
+    createdAt DateTime @default(now())
+
+    chef Chef @relation('ChefItemReviews', fields: [chefId], references: [id])
+    chefId String
+
+    eater Eater @relation('EaterItemReviews', fields: [eaterId], references: [id])
+    eaterId String
+
+    listing Listing @relation(fields: [listingId], references: [id])
+    listingId String
+}
