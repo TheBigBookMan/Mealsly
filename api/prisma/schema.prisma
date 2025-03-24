@@ -81,3 +81,29 @@ model Listing {
     orderItems OrderItem[]
     reviews ItemReview[]
 }
+
+model Order {
+    id String @id @default(cuid())
+    status OrderStatus
+    totalPrice Float
+    pickupTime DateTime?
+    createdAt DateTime @default(now())
+
+    chef Chef @relation('ChefOrders', fields: [chefId], references: [id])
+    chefId String
+
+    eater Eater @relation('EaterOrders', fields: [eaterId], references: [id])
+    eaterId String
+
+    orderItems OrderItem[]
+    transaction Transaction?
+}
+
+enum OrderStatus {
+    PENDING
+    CONFIRMED
+    PREPARING
+    READY
+    COMPLETED
+    CANCELLED
+}
