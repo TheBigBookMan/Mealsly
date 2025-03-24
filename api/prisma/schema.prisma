@@ -32,6 +32,7 @@ model Eater {
     userId String @unique
     
     orders Order[] @relation('EaterOrders')
+    itemReviews ItemReview[] @relation('EaterItemReviews')
     reviews ChefReview[] @relation('EaterChefReviews')
     recurringOrders RecurringOrder[]
 }
@@ -54,6 +55,7 @@ model Chef {
     chefReviews ChefReview[] @relation('ChefReviews')
     itemReviews ItemReview[] @relation('ChefItemReviews')
     orders Order[] @relation('ChefOrders')
+    schedules Schedule[]
 }
 
 model Cuisine {
