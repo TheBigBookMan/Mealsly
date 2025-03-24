@@ -139,3 +139,29 @@ enum TransactionStatus {
     REFUNDED
     FAILED
 }
+
+model RecurringOrder {
+    id String @id @default(cuid())
+    quantity Int
+    nextOrder DateTime
+    frequency Frequency
+    active Boolean @default(true)
+
+    eater Eater @relation(fields: [eaterId], references: [id])
+    eaterId String
+
+    chef Chef @relation(fields: [chefId], references: [id])
+    chefId String
+
+    listing Listing @relation(fields: [listingId], references: [id])
+    listingId String
+
+    orders Order[]
+}
+
+enum Frequency {
+    DAILY
+    WEEKLY
+    BIWEEKLY
+    MONTHLY
+}
