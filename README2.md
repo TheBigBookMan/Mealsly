@@ -1,3 +1,68 @@
+# Measly
+
+## Frontend (webapp)
+- map view with nearby listings
+- search filters
+- wishlist
+- favourites
+- recently ordered
+- quick order
+- updates of order progression
+- transactiopn history
+- schedule pickup time window
+
+## API
+### Auth
+- sign in with firebase
+- verification firebase
+- store user in DB
+- user role authorisation
+- middleware protect routes based on role and signed in
+
+### Chefs
+- register selling
+- create listing
+- set a schedule of days to cook/pickup/dropoff food
+- set dish availability based on portions per day
+- specify things like gluten free/vegan options
+- basic inventory tracking for the chef
+- decide if pickup or dropoff (increase charge if dropoff)- give this option to the buyer as well if they want to charge extra for the drop off- make some sort of amount based on proximity
+- edit/delete listing
+- view incoming orders
+- mark order as 'prepared' or 'completed'
+
+### Eaters
+- sign up
+- browse food listings
+    - search/filter bar
+    - interactive map
+- filter by cuisine, price, location, gluten free/vegan etc
+- place order
+- view active and past orders
+- rate and review seller after pickup
+
+### Transactions
+- integrate stripe connection
+- buyer pays- funds help in escrow
+- we take percentage
+- funds released to seller after pickup (manual or auto)
+- QR code scan on pickup (seller phone or print out) for buyer to scan and onces scanned the money from escrow goes through
+
+### Order Management
+- tracking order status- pending, preparing, ready, completed
+- notifications (email/sms/in-app) order updates
+
+### AI (future)
+- recommendation on dishes to buy (purchase history, location, time of day/season)
+- sentiment anaylsis- analyse reviews to detect sentiment and keywords mentioned (too spicy, great value)
+- semantic search (eg spicy noodles can show noodle sellers)
+- chatbot ('whats available nearby?')
+
+## IoS
+
+## Android
+
+
 ease of setting up, where a chef write in a short description of what they want to make and AI makes a template for their lisintg- to setup
 
 miscellanous filter for things like oranges or apples or something simple
