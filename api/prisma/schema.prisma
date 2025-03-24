@@ -35,3 +35,24 @@ model Eater {
     reviews ChefReview[] @relation('EaterChefReviews')
     recurringOrders RecurringOrder[]
 }
+
+model Chef {
+    id String @id @default(cuid())
+    user User @relation(fields: [userId], references: [id])
+    userId String @unique
+
+    bio String?
+    postcode String
+    suburb String
+    state String
+    latitude Float?
+    longitude Float?
+
+    Cuisines UserCuisine[]
+    listings Listing[]
+
+    chefReviews ChefReview[] @relation('ChefReviews')
+    itemReviews ItemReview[] @relation('ChefItemReviews')
+    orders Order[] @relation('ChefOrders')
+}
+
