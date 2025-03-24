@@ -1,5 +1,40 @@
 # Measly
 
+## MVP
+### Chefs/Businesses
+- signup
+- create a profile
+- create listing
+- customise listing
+    - categories (indian, vietnamese etc)
+    - dietry (gluten free, vegetarion)
+    - location
+    - pickup, dropoff
+- set up a schedule (when they will cook)
+- have a history of things made
+
+### Eaters
+- signup
+    - google
+    - facebook
+    - email
+- view listings
+- search and filter by categories, diet, location, pickup/dropoff
+- view map with filtering
+- make a reocurring schedule for ordering of food
+- place order
+- review
+
+### Order
+- information from chef and eater
+- cancellation fee
+- payment through QR code
+
+### Transaction
+- history of transaction
+
+
+
 ## Frontend (webapp)
 - map view with nearby listings
 - search filters
@@ -47,6 +82,8 @@
 - we take percentage
 - funds released to seller after pickup (manual or auto)
 - QR code scan on pickup (seller phone or print out) for buyer to scan and onces scanned the money from escrow goes through
+- or maybe the chef has to enter a code that the buyer is given
+- cancellation fee as well maybe like cant cancelled 1 day before the pickup date
 
 ### Order Management
 - tracking order status- pending, preparing, ready, completed
