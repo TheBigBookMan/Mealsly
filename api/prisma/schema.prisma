@@ -32,9 +32,9 @@ model Eater {
     userId String @unique
     isActive Boolean @default(true)
     
-    orders Order[] @relation('EaterOrders')
-    itemReviews ItemReview[] @relation('EaterItemReviews')
-    reviews ChefReview[] @relation('EaterChefReviews')
+    orders Order[] @relation("EaterOrders")
+    itemReviews ItemReview[] @relation("EaterItemReviews")
+    reviews ChefReview[] @relation("EaterChefReviews")
     recurringOrders RecurringOrder[]
 }
 
@@ -53,9 +53,9 @@ model Chef {
     Cuisines UserCuisine[]
     listings Listing[]
 
-    chefReviews ChefReview[] @relation('ChefReviews')
-    itemReviews ItemReview[] @relation('ChefItemReviews')
-    orders Order[] @relation('ChefOrders')
+    chefReviews ChefReview[] @relation("ChefReviews")
+    itemReviews ItemReview[] @relation("ChefItemReviews")
+    orders Order[] @relation("ChefOrders")
     schedules Schedule[]
 }
 
@@ -84,14 +84,32 @@ model Listing {
     price Float
     image String?
     available Boolean @default(true)
-    dietryTags String[]
     createdAt DateTime @default(now())
+
+    dietryTags ListingTag[]
 
     chef Chef @relation(fields: [chefId], references: [id])
     chefId String
 
     orderItems OrderItem[]
     reviews ItemReview[]
+}
+
+model Tag {
+    id String @id @default(cuid())
+    name String @unique
+    listings ListingTag[]
+}
+
+model ListingTag {
+    id String @id @default(cuid())
+    listing Listing @relation(fields: [listingId], references: [id])
+    listingId String
+
+    tag Tag @relation(fields: [tagId], references: [id])
+    tagId String
+
+    @@unique([listingId, tagId])
 }
 
 model Order {
@@ -101,10 +119,10 @@ model Order {
     pickupTime DateTime?
     createdAt DateTime @default(now())
 
-    chef Chef @relation('ChefOrders', fields: [chefId], references: [id])
+    chef Chef @relation("ChefOrders", fields: [chefId], references: [id])
     chefId String
 
-    eater Eater @relation('EaterOrders', fields: [eaterId], references: [id])
+    eater Eater @relation("EaterOrders", fields: [eaterId], references: [id])
     eaterId String
 
     orderItems OrderItem[]
@@ -184,10 +202,10 @@ model ChefReview {
     comment String?
     createdAt DateTime @default(now())
 
-    chef Chef @relation('ChefReviews', fields: [chefId], references: [id])
+    chef Chef @relation("ChefReviews", fields: [chefId], references: [id])
     chefId String
 
-    eater Eater @relation('EaterChefReviews', fields: [eaterId], references: [id])
+    eater Eater @relation("EaterChefReviews", fields: [eaterId], references: [id])
     eaterId String
 }
 
@@ -197,10 +215,10 @@ model ItemReview {
     comment String?
     createdAt DateTime @default(now())
 
-    chef Chef @relation('ChefItemReviews', fields: [chefId], references: [id])
+    chef Chef @relation("ChefItemReviews", fields: [chefId], references: [id])
     chefId String
 
-    eater Eater @relation('EaterItemReviews', fields: [eaterId], references: [id])
+    eater Eater @relation("EaterItemReviews", fields: [eaterId], references: [id])
     eaterId String
 
     listing Listing @relation(fields: [listingId], references: [id])
