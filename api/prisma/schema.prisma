@@ -25,3 +25,13 @@ model User {
     chef Chef?
     eater Eater?
 }
+
+model Eater {
+    id String @id @default(cuid())
+    user User @relation(fields: [userId], references: [id])
+    userId String @unique
+    
+    orders Order[] @relation('EaterOrders')
+    reviews ChefReview[] @relation('EaterChefReviews')
+    recurringOrders RecurringOrder[]
+}
