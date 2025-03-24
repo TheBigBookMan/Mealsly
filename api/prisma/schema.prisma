@@ -30,6 +30,7 @@ model Eater {
     id String @id @default(cuid())
     user User @relation(fields: [userId], references: [id])
     userId String @unique
+    isActive Boolean @default(true)
     
     orders Order[] @relation('EaterOrders')
     itemReviews ItemReview[] @relation('EaterItemReviews')
@@ -62,4 +63,21 @@ model Cuisine {
     id String @id @default(cuid())
     name String @unique
     chefs UserCuisine[]
+}
+
+model Listing {
+    id String @id @default(cuid())
+    title String
+    description String
+    price Float
+    image String?
+    available Boolean @default(true)
+    dietryTags String[]
+    createdAt DateTime @default(now())
+
+    chef Chef @relation(fields: [chefId], references: [id])
+    chefId String
+
+    orderItems OrderItem[]
+    reviews ItemReview[]
 }
