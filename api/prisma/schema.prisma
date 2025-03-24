@@ -165,3 +165,16 @@ enum Frequency {
     BIWEEKLY
     MONTHLY
 }
+
+model ChefReview {
+    id String @id @default(cuid())
+    rating Int
+    comment String?
+    createdAt DateTime @default(now())
+
+    chef Chef @relation('ChefReviews', fields: [chefId], references: [id])
+    chefId String
+
+    eater Eater @relation('EaterChefReviews', fields: [eaterId], references: [id])
+    eaterId String
+}
