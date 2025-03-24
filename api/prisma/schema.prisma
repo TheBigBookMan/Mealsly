@@ -107,3 +107,15 @@ enum OrderStatus {
     COMPLETED
     CANCELLED
 }
+
+model OrderItem {
+    id String @id @default(cuid())
+    order Order @relation(fields: [orderId], references: [id])
+    orderId String
+
+    listing Listing @relation(fields: [listingId], references: [id])
+    listingId String
+
+    quantity Int
+    price Float
+}
