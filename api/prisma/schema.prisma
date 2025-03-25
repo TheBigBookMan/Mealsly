@@ -237,3 +237,10 @@ model Schedule {
     chef Chef @relation(fields: [chefId], references: [id])
     chefId String
 }
+
+model Admin {
+    id String @id @default(cuid())
+    email String @unique
+    firebaseUid String  @unique
+    createdAt DateTime @default(now())
+}
