@@ -1,6 +1,21 @@
 const { prisma } = require('../db');
 
 class ChefController {
+    async getAllChefs (req, res) {
+        try {
+
+            const chefs = await prisma.chef.findMany({
+                include: {user: true}
+            })
+
+            res.json(chefs);
+
+        } catch(error) {
+            console.error('Error fetching chefs:', error);
+            res.status(500).json({message: 'Something went wrong:', error});
+        }
+    };
+
     async getChefById (req, res){
         const { id } = req.params;
 
