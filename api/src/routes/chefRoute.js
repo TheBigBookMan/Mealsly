@@ -9,4 +9,7 @@ router.get('/', chefController.getAllChefs);
 // '/:chefId' Get chef by ID
 router.get('/:id', chefController.getChefById);
 
+// '/:id/inactive' Make chef inactive or active (toggle) by id
+router.get('/:id', chefController.becomeInactive);
+
 module.exports = router;
