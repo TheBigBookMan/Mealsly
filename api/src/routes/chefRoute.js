@@ -12,6 +12,7 @@ router.post('/', chefController.createChef);
 // Get chef by ID
 router.get('/:id', chefController.getChefById);
 // Put update chef information
+router.put('/:id', chefController.updateChefDetails);
 
 // Delete delete chef permanently- need to add in a warning about that
 

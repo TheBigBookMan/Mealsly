@@ -7,7 +7,6 @@ class ChefController {
             email,
             firstName,
             lastName,
-            profileImage,
             bio,
             postcode,
             suburb,
@@ -22,9 +21,7 @@ class ChefController {
                 }
             });
 
-            if(userExists) {
-                return res.status(400).json({message: 'User already exists'});
-            }
+            if(userExists) return res.status(400).json({message: 'User already exists'});
 
             const user = await prisma.user.create({
                 data: {
@@ -32,7 +29,6 @@ class ChefController {
                     email,
                     firstName,
                     lastName,
-                    profileImage
                 }
             });
 
@@ -85,14 +81,40 @@ class ChefController {
                 }
             });
 
-            if (!chef) {
-                return res.status(404).json({ message: 'Chef not found' });
-            }
+            if (!chef) return res.status(404).json({ message: 'Chef not found' });
+            
 
             res.json(chef);
         } catch (error) {
             console.error('Error fetching chef:', error);
             res.status(500).json({ message: 'Something went wrong', error });
+        }
+    };
+
+    async updateChefDetails (res, req) {
+        const {id} = req.params;
+
+        try {
+
+            const chefExists = await prisma.chef.findUnique({where: {id}});
+
+            if(!chefExists) return res.status(404).json({message: 'Chef not found.'});
+
+            const updatedChef = await prisma.chef.update({
+                where: { id },
+                data: {
+                    ...(bio && { bio }),
+                    ...(postcode && { postcode }),
+                    ...(suburb && { suburb }),
+                    ...(state && { state }),
+                }
+            });
+
+            res.json({ success: true, chef: updatedChef });
+
+        } catch(error) {
+            console.error(`Error updating chef information:`, error);
+            res.status(500).json({message: 'Something went wrong.', error});
         }
     };
 
@@ -103,9 +125,7 @@ class ChefController {
 
             const chefExists = await prisma.chef.findUnique({where: {id}});
 
-            if(!chefExists) {
-                return res.status(404).json({message: 'Chef not found'});
-            }
+            if(!chefExists) return res.status(404).json({message: 'Chef not found'});
 
             const newActive = !chefExists.isActive;
 
