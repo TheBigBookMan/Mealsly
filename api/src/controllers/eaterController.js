@@ -127,6 +127,28 @@ class EaterController {
             console.error('Could not update eater details', error);
             res.status(500).json({message: 'Something went wrong.', error});
         }
+    };
+
+    // TODO probably never use this as cascading issues can be troubling
+    async deleteEaterById (req, res) {
+        const {id} = req.params;
+
+        try {
+            
+            const eaterExists = await prisma.eater.findUnique({where: {id}});
+
+            if(!eaterExists) return res.status(404).json({message: 'Eater not found'});
+
+            const deletedEater = await prisma.eater.delete({
+                where: {id}
+            });
+
+            return res.json({success: true, message: 'Eater deleted', eater: deletedEater});
+
+        } catch (error) {
+            console.error('Could not delete eater by ID', error);
+            res.status(500).json({message: 'Something went wrong.', error});
+        }
     }
 }
 
