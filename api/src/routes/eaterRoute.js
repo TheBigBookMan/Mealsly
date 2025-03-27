@@ -8,4 +8,8 @@ router.get('/', eaterController.getAllEaters);
 // Post create an Eater
 router.post('/', eaterController.createEater);
 
+// * /:id
+// Get eater by ID
+router.get('/:id', eaterController.getEaterById);
+
 module.exports = router;

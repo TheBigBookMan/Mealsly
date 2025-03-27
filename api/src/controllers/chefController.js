@@ -83,7 +83,6 @@ class ChefController {
 
             if (!chef) return res.status(404).json({ message: 'Chef not found' });
             
-
             res.json(chef);
         } catch (error) {
             console.error('Error fetching chef:', error);
