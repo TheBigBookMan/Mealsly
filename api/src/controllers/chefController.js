@@ -235,4 +235,4 @@ class ChefController {
     }
 }
 
-module.exports = new ChefController;
+module.exports = new ChefController();
