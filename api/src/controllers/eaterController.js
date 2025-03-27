@@ -189,6 +189,31 @@ class EaterController {
         }
     }
 
+    async updateEaterLatLon (req, res) {
+        const {id} = req.params;
+        const {latitude, longitude} = req.body;
+
+        try {
+            
+            const eaterExists = await prisma.eater.findUnique({where: {id}});
+
+            if(!eaterExists) return res.status(404).json({message: 'Eater not found.'});
+
+            const updatedEaterLatLon = await prisma.eater.update({
+                where: {id},
+                data: {
+                    latitude,
+                    longitude
+                }
+            });
+
+            return res.json({success: true, message: 'Successfully updated eater lat and lon', updatedEater: updatedEaterLatLon});
+
+        } catch (error) {
+            console.error('Could not update eater lat lon', error);
+            res.status(500).json({message: 'Something went wrong.'});
+        }
+    }
 }
 
 

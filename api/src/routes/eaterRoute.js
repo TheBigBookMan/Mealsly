@@ -28,5 +28,7 @@ router.delete('/:id/profile-picture', eaterController.deleteEaterProfilePic);
 // * /:id/lat-lon
 // Get Eaters latitude and longitude by ID
 router.get('/:id/lat-lon', eaterController.getEaterLatLon);
+// Put update eater latitude and longitude by ID
+router.put('/:id/lat-lon', eaterController.updateEaterLatLon);
 
 module.exports = router;
