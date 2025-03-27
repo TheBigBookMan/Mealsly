@@ -118,6 +118,28 @@ class ChefController {
         }
     };
 
+    // TODO probably never use this as cascading issues can be troubling
+    async deleteChefById (req, res) {
+        const {id} = req.params;
+
+        try {
+
+            const existingChef = await prisma.chef.findUnique({where: {id}});
+
+            if(!existingChef) return res.status(404).json({message: 'Chef not found.'});
+
+            const deletedChef = await prisma.chef.delete({
+                where: {id}
+            });
+
+            return res.json({success: true, message: 'Chef deleted', chef: deletedChef});
+
+        } catch(error) {
+            console.error('Error deleting chef:', error);
+            res.status(500).json({message: 'Something went wrong:', error});
+        }
+    }
+
     async getChefProfilePic (res, req) {
         const {id} = req.params;
         // TODO will get from S3 bucket
