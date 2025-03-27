@@ -30,7 +30,6 @@ model Eater {
     id String @id @default(cuid())
     user User @relation(fields: [userId], references: [id])
     userId String @unique
-    isActive Boolean @default(true)
     
     orders Order[] @relation("EaterOrders")
     itemReviews ItemReview[] @relation("EaterItemReviews")
@@ -42,6 +41,7 @@ model Chef {
     id String @id @default(cuid())
     user User @relation(fields: [userId], references: [id])
     userId String @unique
+    isActive Boolean @default(true)
 
     bio String?
     postcode String
@@ -240,4 +240,11 @@ model Schedule {
 
     chef Chef @relation(fields: [chefId], references: [id])
     chefId String
+}
+
+model Admin {
+    id String @id @default(cuid())
+    email String @unique
+    firebaseUid String  @unique
+    createdAt DateTime @default(now())
 }
