@@ -2,8 +2,17 @@ const { prisma } = require('../db');
 
 class ChefController {
     async createChef (req, res) {
-        // TODO this will have specific body paramaters to match the model fields
-        const {email, firebaseUid} = req.body;
+        const {
+            firebaseUid,
+            email,
+            firstName,
+            lastName,
+            profileImage,
+            bio,
+            postcode,
+            suburb,
+            state
+        } = req.body;
 
         try {
 
@@ -17,7 +26,30 @@ class ChefController {
                 return res.status(400).json({message: 'User already exists'});
             }
 
-            
+            const user = await prisma.user.create({
+                data: {
+                    firebaseUid,
+                    email,
+                    firstName,
+                    lastName,
+                    profileImage
+                }
+            });
+
+            const chef = await prisma.chef.create({
+                data: {
+                    userId: user.id,
+                    bio,
+                    postcode,
+                    suburb,
+                    state
+                },
+                include: {
+                    user: true
+                }
+            });
+
+            return res.status(201).json({success: true, chef});
 
         } catch(error) {
             console.error('Error creating chef:', error);
