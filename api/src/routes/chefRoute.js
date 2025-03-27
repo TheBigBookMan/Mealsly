@@ -26,7 +26,11 @@ router.put('/:id/profile-picture', chefController.updateChefProfilePic);
 router.delete('/:id/profile-picture', chefController.deleteChefProfilePic);
 
 // * /:id/inactive
-// Make chef inactive or active (toggle) by id
+// Make chef inactive or active (toggle) by ID
 router.get('/:id/inactive', chefController.becomeInactive);
+
+// * /:id/lat-lon
+// Get chefs latitude and longitude by ID
+router.get('/:id/lat-lon', chefController.getChefLatLon);
 
 module.exports = router;

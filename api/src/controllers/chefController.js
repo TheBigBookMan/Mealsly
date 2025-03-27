@@ -91,7 +91,7 @@ class ChefController {
         }
     };
 
-    async updateChefDetails (res, req) {
+    async updateChefDetails (req, res) {
         const {id} = req.params;
 
         try {
@@ -140,22 +140,45 @@ class ChefController {
         }
     }
 
-    async getChefProfilePic (res, req) {
+    async getChefProfilePic (req, res) {
         const {id} = req.params;
         // TODO will get from S3 bucket
     };
 
-    async updateChefProfilePic (res, req) {
+    async updateChefProfilePic (req, res) {
         const {id} = req.params;
         // TODO this will update the current S3 bucket with picture
     }
 
-    async deleteChefProfilePic (res, req) {
+    async deleteChefProfilePic (req, res) {
         const {id} = req.params;
         // TODO this will delete the profile pic URL, maybe from S3 bucket as well?
     }
 
-    async becomeInactive (res, req) {
+    async getChefLatLon (req, res) {
+        const {id} = req.params;
+
+        try {
+
+            const latlon = await prisma.chef.findUnique({
+                where: {id},
+                select: {
+                    latitude: true,
+                    longitude: true
+                }
+            });
+
+            if(!chef) return res.status(404).json({message: 'Chef not found'});
+
+            return res.json(latlon);
+
+        } catch(error) {
+            console.error('Error getting lat lon:', error);
+            res.status(500).json({message: 'Something went wrong.', error});
+        }
+    }
+
+    async becomeInactive (req, res) {
         const {id} = req.params;
 
         try {
