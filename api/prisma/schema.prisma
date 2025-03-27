@@ -53,6 +53,8 @@ model Chef {
     Cuisines UserCuisine[]
     listings Listing[]
 
+    recurringOrders RecurringOrder[]
+
     chefReviews ChefReview[] @relation("ChefReviews")
     itemReviews ItemReview[] @relation("ChefItemReviews")
     orders Order[] @relation("ChefOrders")
@@ -91,6 +93,7 @@ model Listing {
     chef Chef @relation(fields: [chefId], references: [id])
     chefId String
 
+    recurringOrders RecurringOrder[]
     orderItems OrderItem[]
     reviews ItemReview[]
 }
@@ -125,6 +128,7 @@ model Order {
     eater Eater @relation("EaterOrders", fields: [eaterId], references: [id])
     eaterId String
 
+    recurringOrders RecurringOrder[]
     orderItems OrderItem[]
     transaction Transaction?
 }
@@ -160,7 +164,7 @@ model Transaction {
     paymentIntentId String?
 
     order Order @relation(fields: [orderId], references: [id])
-    orderId String
+    orderId String @unique
 }
 
 enum TransactionStatus {
