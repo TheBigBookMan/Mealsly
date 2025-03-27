@@ -1,6 +1,29 @@
 const { prisma } = require('../db');
 
 class ChefController {
+    async createChef (req, res) {
+        // TODO this will have specific body paramaters to match the model fields
+        const {email, firebaseUid} = req.body;
+
+        try {
+
+            const userExists = await prisma.user.findUnique({
+                where: {
+                    OR: [{firebaseUid}, {email}]
+                }
+            });
+
+            if(userExists) {
+                return res.status(400).json({message: 'User already exists'});
+            }
+
+            
+
+        } catch(error) {
+            console.error('Error creating chef:', error);
+        }
+    }
+
     async getAllChefs (req, res) {
         try {
 
