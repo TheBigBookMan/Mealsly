@@ -14,6 +14,14 @@ router.get('/:id', chefController.getChefById);
 // Put update chef information
 router.put('/:id', chefController.updateChefDetails);
 
+// * /:id/profile-picture
+// Get profile pic for chef by ID
+router.get('/:id/profile-picture', chefController.getChefProfilePic);
+// Put update profile pic for chef
+router.put('/:id/profile-picture', chefController.updateChefProfilePic);
+// Delete remove profile pic for chef
+router.delete('/:id/profile-picture', chefController.deleteChefProfilePic);
+
 // Delete delete chef permanently- need to add in a warning about that
 
 // * /:id/inactive

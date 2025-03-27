@@ -118,6 +118,21 @@ class ChefController {
         }
     };
 
+    async getChefProfilePic (res, req) {
+        const {id} = req.params;
+        // TODO will get from S3 bucket
+    };
+
+    async updateChefProfilePic (res, req) {
+        const {id} = req.params;
+        // TODO this will update the current S3 bucket with picture
+    }
+
+    async deleteChefProfilePic (res, req) {
+        const {id} = req.params;
+        // TODO this will delete the profile pic URL, maybe from S3 bucket as well?
+    }
+
     async becomeInactive (res, req) {
         const {id} = req.params;
 
