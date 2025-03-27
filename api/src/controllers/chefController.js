@@ -92,6 +92,7 @@ class ChefController {
 
     async updateChefDetails (req, res) {
         const {id} = req.params;
+        const { bio, postcode, suburb, state } = req.body;
 
         try {
 

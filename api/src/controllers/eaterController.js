@@ -90,6 +90,43 @@ class EaterController {
             console.error('Could not get eater by Id', error);
             res.status(500).json({message: 'Something went wrong.', error});
         }
+    };
+
+    async updateEaterDetails (req, res) {
+        const {id} = req.params;
+        const {postcode,
+            suburb,
+            state} = req.body;
+
+        try {
+
+            const eaterExists = await prisma.eater.findUnique({where: {id}});
+
+            if(!eaterExists) return res.status(404).json({message: 'Eater not found'});
+
+            const updatedEater = await prisma.eater.update({
+                where: {id},
+                data: {
+
+                    user: {
+                        update: {
+                            ...(postcode && {postcode}),
+                            ...(suburb && {suburb}),
+                            ...(state && {state})
+                        }
+                    }
+                },
+                include: {
+                    user: true
+                }
+            });
+
+            res.json({success: true, eater: updatedEater});
+
+        } catch(error) {
+            console.error('Could not update eater details', error);
+            res.status(500).json({message: 'Something went wrong.', error});
+        }
     }
 }
 
