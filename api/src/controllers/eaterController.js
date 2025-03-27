@@ -150,6 +150,21 @@ class EaterController {
             res.status(500).json({message: 'Something went wrong.', error});
         }
     }
+
+    async getEaterProfilePic (req, res) {
+        const {id} = req.params;
+        // TODO will get from S3 bucket
+    }
+
+    async updateEaterProfilePic (req, res) {
+        const {id} = req.params;
+        // TODO this will update current S3 bucket with picture
+    }
+
+    async deleteEaterProfilePic (req, res) {
+        const {id} = req.params;
+        // TODO this will delete the profile pic URL, maybe from S3 bucket as well?
+    }
 }
 
 

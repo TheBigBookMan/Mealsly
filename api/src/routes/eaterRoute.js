@@ -17,4 +17,12 @@ router.put('/:id', eaterController.updateEaterDetails);
 // TODO add warning on front end its permanent and they can just put as inactive temporarily
 router.delete('/:id', eaterController.deleteEaterById);
 
+// * /id/profile-picture
+// Get profile pic for Eater by ID
+router.get('/:id/profile-picture', eaterController.getEaterProfilePic);
+// Put update profile pic for Eater
+router.put('/:id/profile-picture', eaterController.updateEaterProfilePic);
+// Delete remove profile pic for Eater
+router.delete('/:id/profile-picture', eaterController.deleteEaterProfilePic);
+
 module.exports = router;
