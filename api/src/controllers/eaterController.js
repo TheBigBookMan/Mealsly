@@ -7,6 +7,9 @@ class EaterController {
             email,
             firstName,
             lastName,
+            postcode,
+            suburb,
+            state
         } = req.body;
 
         try {
@@ -25,6 +28,9 @@ class EaterController {
                     email,
                     firstName,
                     lastName,
+                    postcode,
+                    suburb,
+                    state
                 }
             });
 

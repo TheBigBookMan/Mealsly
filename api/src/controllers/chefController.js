@@ -29,16 +29,16 @@ class ChefController {
                     email,
                     firstName,
                     lastName,
+                    postcode,
+                    suburb,
+                    state
                 }
             });
 
             const chef = await prisma.chef.create({
                 data: {
                     userId: user.id,
-                    bio,
-                    postcode,
-                    suburb,
-                    state
+                    bio
                 },
                 include: {
                     user: true
@@ -103,9 +103,18 @@ class ChefController {
                 where: { id },
                 data: {
                     ...(bio && { bio }),
-                    ...(postcode && { postcode }),
-                    ...(suburb && { suburb }),
-                    ...(state && { state }),
+            
+                    // Update user fields using nested write
+                    user: {
+                        update: {
+                            ...(postcode && { postcode }),
+                            ...(suburb && { suburb }),
+                            ...(state && { state })
+                        }
+                    }
+                },
+                include: {
+                    user: true
                 }
             });
 

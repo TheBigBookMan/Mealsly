@@ -19,6 +19,9 @@ model User {
     email   String  @unique
     firstName String
     lastName String
+    postcode String
+    suburb String
+    state String
     profileImage String?
     createdAt DateTime @default(now())
 
@@ -44,9 +47,7 @@ model Chef {
     isActive Boolean @default(true)
 
     bio String?
-    postcode String
-    suburb String
-    state String
+    
     latitude Float?
     longitude Float?
 
