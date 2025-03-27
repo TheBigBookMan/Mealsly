@@ -5,5 +5,7 @@ const eaterController = require('../controllers/eaterController');
 // * /
 // Get all Eaters
 router.get('/', eaterController.getAllEaters);
+// Post create an Eater
+router.post('/', eaterController.createEater);
 
 module.exports = router;
