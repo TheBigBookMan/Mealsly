@@ -164,7 +164,31 @@ class EaterController {
     async deleteEaterProfilePic (req, res) {
         const {id} = req.params;
         // TODO this will delete the profile pic URL, maybe from S3 bucket as well?
+    };
+
+    async getEaterLatLon (req, res) {
+        const {id} = req.params;
+
+        try {
+            
+            const latlon = await prisma.eater.findUnique({
+                where: {id},
+                select: {
+                    latitude: true,
+                    longitude: true
+                }
+            });
+
+            if(!latlon) return res.status(404).json({message: 'Eater not found.'});
+
+            return res.json(latlon);
+
+        } catch (error) {
+            console.error('Could not get eater lat lon', error);
+            res.status(500).json({message: 'Something went wrong.', error});
+        }
     }
+
 }
 
 
