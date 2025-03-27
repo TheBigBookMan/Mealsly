@@ -32,5 +32,7 @@ router.get('/:id/inactive', chefController.becomeInactive);
 // * /:id/lat-lon
 // Get chefs latitude and longitude by ID
 router.get('/:id/lat-lon', chefController.getChefLatLon);
+// Put update chef latitude and longitude by ID
+router.put('/:id/lat-lon', chefController.updateChefLatLon);
 
 module.exports = router;

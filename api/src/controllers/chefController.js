@@ -176,6 +176,32 @@ class ChefController {
             console.error('Error getting lat lon:', error);
             res.status(500).json({message: 'Something went wrong.', error});
         }
+    };
+
+    async updateChefLatLon (req, res) {
+        const {id} = req.params;
+        const {latitude, longitude} = req.body;
+
+        try {
+
+            const chefExists = await prisma.chef.findUnique({where: {id}});
+
+            if(!chefExists) return res.status(404).json({message: 'Chef not found.'});
+
+            const updatedChefLatLon = await prisma.chef.update({
+                where: {id},
+                data: {
+                    latitude,
+                    longitude
+                }
+            });
+
+            return res.json({success: true, message: 'Successfully updated chef lat lon.', updatedChef: updatedChefLatLon});
+
+        } catch(error) {
+            console.error('Error updating chef lat lon', error);
+            res.status(500).json({message: 'Something went wrong', error});
+        }
     }
 
     async becomeInactive (req, res) {
