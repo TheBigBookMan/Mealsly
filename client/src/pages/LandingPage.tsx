@@ -1,6 +1,6 @@
 const LandingPage = () => {
     return (
-        <div>
+        <div className='h-full'>
             <p>Landing Page</p>
         </div>
     )
