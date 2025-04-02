@@ -7,10 +7,12 @@ import ListingsPage from "./pages/ListingsPage";
 import MapPage from "./pages/MapPage";
 import Navbar from "./components/common/Navbar/Navbar";
 import MessagesPage from "./pages/MessagesPage";
+import Header from "./components/common/Header/Header";
+import NotificationsPage from "./pages/NotificationsPage";
+import RegisterChefPage from "./pages/RegisterChefPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
-    console.log(user);
 
     //   if (loading) return <div>Loading...</div>;
     if (!user) return <Navigate to="/" replace />;
@@ -20,7 +22,8 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 export default function App() {
     return (
-        <div className='flex flex-col justify-between min-h-screen w-screen text-slate-700 font-sans'>
+        <div className='flex flex-col justify-between md:justify-normal min-h-screen w-screen text-slate-500 font-sans'>
+            <Header />
 
             <Routes>
                 <Route path="/" element={<LandingPage />} />
@@ -37,6 +40,8 @@ export default function App() {
                 <Route path="/listings" element={<ListingsPage />} />
                 <Route path="/map" element={<MapPage />} />
                 <Route path="/messages" element={<MessagesPage />} />
+                <Route path="/notifications" element={<NotificationsPage />} />
+                <Route path="/register-chef" element={<RegisterChefPage />} />
             </Routes>
 
             <Navbar />
