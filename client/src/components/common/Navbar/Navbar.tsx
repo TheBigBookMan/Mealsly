@@ -2,6 +2,7 @@ import { useUser } from "../../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { MapPinIcon, MagnifyingGlassIcon, ChatBubbleLeftIcon, UserCircleIcon, ListBulletIcon } from '@heroicons/react/24/outline';
 import { useLocation } from "react-router-dom";
+import ME from '../../../assets/Me.jpg';
 
 const Navbar = () => {
     const {user, loading} = useUser();
@@ -33,7 +34,7 @@ const Navbar = () => {
 
             {user && (
                 <Link to="/profile" className={`flex flex-col items-center ${pathname === '/profile' && 'text-sky-600 font-bold'}`}>
-                    <UserCircleIcon className="w-6 h-6 " />
+                    <img src={ME} className={`rounded-full w-6 h-6 ${pathname === '/profile' && 'border-2 border-sky-600'}`} />
                     <p className='text-xs'>Profile</p>
                 </Link>
             )}
