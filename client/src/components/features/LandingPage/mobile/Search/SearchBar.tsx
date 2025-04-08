@@ -25,7 +25,7 @@ const SearchBar = () => {
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -20, opacity: 0 }} 
                         transition={{ type: "spring", stiffness: 500, damping: 25 }}
-                        className="absolute flex flex-col w-full h-full border rounded-xl top-0 bg-white shadow-lg"
+                        className="fixed top-0 left-0 right-0 bottom-[60px] z-50 bg-white flex flex-col"
                     >
                         <SearchModal toggleModal={toggleModal} />
                     </motion.div>
