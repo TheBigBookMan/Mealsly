@@ -25,24 +25,26 @@ export default function App() {
         <div className='flex flex-col justify-between md:justify-normal min-h-screen w-screen text-slate-500 font-sans'>
             <Header />
 
-            <Routes>
-                <Route path="/" element={<LandingPage />} />
+            <div className="flex-1 overflow-y-auto">
+                <Routes>
+                    <Route path="/" element={<LandingPage />} />
 
-                <Route
-                    path="/profile"
-                    element={
-                        <ProtectedRoute>
-                            <ProfilePage />
-                        </ProtectedRoute>
-                    }
-                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <ProtectedRoute>
+                                <ProfilePage />
+                            </ProtectedRoute>
+                        }
+                        />
 
-                <Route path="/listings" element={<ListingsPage />} />
-                <Route path="/map" element={<MapPage />} />
-                <Route path="/messages" element={<MessagesPage />} />
-                <Route path="/notifications" element={<NotificationsPage />} />
-                <Route path="/register-chef" element={<RegisterChefPage />} />
-            </Routes>
+                    <Route path="/listings" element={<ListingsPage />} />
+                    <Route path="/map" element={<MapPage />} />
+                    <Route path="/messages" element={<MessagesPage />} />
+                    <Route path="/notifications" element={<NotificationsPage />} />
+                    <Route path="/register-chef" element={<RegisterChefPage />} />
+                </Routes>
+            </div>
 
             <Navbar />
         </div>

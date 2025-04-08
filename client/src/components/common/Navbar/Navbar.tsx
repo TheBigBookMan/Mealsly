@@ -9,7 +9,7 @@ const Navbar = () => {
     const {pathname} = useLocation();
 
     return (
-        <ul className='flex justify-around items-center md:hidden h-[60px] border-t'>
+        <ul className='fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center md:hidden h-[60px] border-t bg-white'>
             <Link to="/" className={`flex flex-col items-center ${pathname === '/' && 'text-sky-600 font-bold'}`}>
                 <MagnifyingGlassIcon className="w-6 h-6 " />
                 <p className='text-xs'>Explore</p>
