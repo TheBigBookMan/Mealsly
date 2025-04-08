@@ -14,22 +14,18 @@ const LandingPageMobile = () => {
 
     return (
         <div className="h-screen w-full md:hidden flex flex-col overflow-hidden">
-      {/* Sticky header section */}
-      <div className="sticky top-0 bg-white z-50 border-b">
-        <SearchBar />
-        <div className="h-[80px] w-full">
-          <CategoryCarousel
-            chooseCategory={chooseCategory}
-            selectedCategory={selectedCategory}
-          />
-        </div>
-      </div>
+            <div className="sticky top-0 bg-white z-49 border-b">
+                <SearchBar />
+                
+                <div className="h-[80px] w-full">
+                    <CategoryCarousel chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>
+                </div>
+            </div>
 
-      {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto">
-        <ListingItems selectedCategory={selectedCategory} />
-      </div>
-    </div>
+            <div className="flex-1 overflow-y-auto">
+                <ListingItems selectedCategory={selectedCategory} />
+            </div>
+        </div>
     )
 }
 

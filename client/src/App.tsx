@@ -10,6 +10,7 @@ import MessagesPage from "./pages/MessagesPage";
 import Header from "./components/common/Header/Header";
 import NotificationsPage from "./pages/NotificationsPage";
 import RegisterChefPage from "./pages/RegisterChefPage";
+import OrdersPage from "./pages/OrdersPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -38,7 +39,7 @@ export default function App() {
                         }
                         />
 
-                    <Route path="/listings" element={<ListingsPage />} />
+                    <Route path="/orders" element={<OrdersPage />} />
                     <Route path="/map" element={<MapPage />} />
                     <Route path="/messages" element={<MessagesPage />} />
                     <Route path="/notifications" element={<NotificationsPage />} />

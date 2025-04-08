@@ -9,7 +9,7 @@ const Navbar = () => {
     const {pathname} = useLocation();
 
     return (
-        <ul className='fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center md:hidden h-[60px] border-t bg-white'>
+        <ul className='fixed bottom-0 left-0 right-0 z-49 flex justify-around items-center md:hidden h-[60px] border-t bg-white'>
             <Link to="/" className={`flex flex-col items-center ${pathname === '/' && 'text-sky-600 font-bold'}`}>
                 <MagnifyingGlassIcon className="w-6 h-6 " />
                 <p className='text-xs'>Explore</p>
@@ -20,10 +20,12 @@ const Navbar = () => {
                 <p className='text-xs'>Map</p>
             </Link>
 
-            <Link to="/listings" className={`flex flex-col items-center ${pathname === '/listings' && 'text-sky-600 font-bold'}`}>
-                <ListBulletIcon className="w-6 h-6 " />
-                <p className='text-xs'>Listings</p>
-            </Link>
+            {user && (
+                <Link to="/orders" className={`flex flex-col items-center ${pathname === '/orders' && 'text-sky-600 font-bold'}`}>
+                    <ListBulletIcon className="w-6 h-6 " />
+                    <p className='text-xs'>Orders</p>
+                </Link>
+            )}
 
             {user && (
                 <Link to="/messages" className={`flex flex-col items-center ${pathname === '/messages' && 'text-sky-600 font-bold'}`}>
