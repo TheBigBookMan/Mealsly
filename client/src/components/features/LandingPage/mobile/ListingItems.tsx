@@ -32,8 +32,8 @@ const ListingItems = ({selectedCategory}: ListingItemsInterface) => {
     return (
         <ul className="flex flex-col gap-4 p-2 pb-[62px]">
             {TEMPLISTINGS.map((listing, index) => (
-                <li key={index} className="flex flex-col w-full min-h-[380px] border border-slate-200 rounded-lg hover:bg-slate-100 hover:cursor-pointer p-2">
-                    <img src={Curry1} className=" w-full  rounded-md " />
+                <li key={index} className="flex flex-col w-full min-h-[380px] border border-slate-200 rounded-3xl hover:bg-slate-100 hover:cursor-pointer p-4">
+                    <img src={Curry1} className=" w-full  rounded-3xl " />
 
                     <div className='flex flex-col'>
                         <div className='flex justify-between'>
