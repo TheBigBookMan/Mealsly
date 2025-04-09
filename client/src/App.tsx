@@ -3,7 +3,6 @@ import { useUser } from "./contexts/UserContext";
 
 import LandingPage from "./pages/LandingPage";
 import ProfilePage from "./pages/ProfilePage";
-import ListingsPage from "./pages/ListingsPage";
 import MapPage from "./pages/MapPage";
 import Navbar from "./components/common/Navbar/Navbar";
 import MessagesPage from "./pages/MessagesPage";
@@ -11,6 +10,7 @@ import Header from "./components/common/Header/Header";
 import NotificationsPage from "./pages/NotificationsPage";
 import RegisterChefPage from "./pages/RegisterChefPage";
 import OrdersPage from "./pages/OrdersPage";
+import ListingPage from "./pages/ListingPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -37,7 +37,9 @@ export default function App() {
                                 <ProfilePage />
                             </ProtectedRoute>
                         }
-                        />
+                    />
+
+                    <Route path='/listing/:listingId' element={<ListingPage /> } />
 
                     <Route path="/orders" element={<OrdersPage />} />
                     <Route path="/map" element={<MapPage />} />
