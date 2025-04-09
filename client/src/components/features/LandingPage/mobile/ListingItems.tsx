@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { StarIcon } from '@heroicons/react/24/solid';
 import { PiChefHat } from "react-icons/pi";
+import { FaCarSide, FaHouseUser  } from "react-icons/fa";
 
 import Curry1 from '../../../../assets/curry.png';
 import Curry2 from '../../../../assets/curry2.png';
@@ -19,7 +20,10 @@ interface ListingTemp {
     date: string;
     rating: string;
     price: number;
+    delivery: boolean;
+    pickup: boolean;
 }
+
 
 const ListingItems = ({selectedCategory}: ListingItemsInterface) => {
     const [listings, setListings] = useState<ListingTemp[] | null>(null);
@@ -56,7 +60,17 @@ const ListingItems = ({selectedCategory}: ListingItemsInterface) => {
                         <div className="flex flex-col">
                             <p className="text-sm text-gray-500">Distance: {listing.distance / 1000}km</p>
 
-                            <p className='font-bold underline text-lg text-black'>${listing.price}</p>
+                            <div className='flex justify-between items-center'>
+                                <p className='font-bold underline text-lg text-black'>${listing.price}</p>
+
+                                <div className='flex gap-2 items-center'>
+
+                                    {listing.delivery && <FaCarSide className='text-lg' />}
+
+                                    {listing.pickup && <FaHouseUser className='text-lg' />}
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </li>

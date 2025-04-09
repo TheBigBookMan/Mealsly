@@ -5,7 +5,9 @@ export const TEMPLISTINGS = [
         date: '8-04-2025',
         rating: '4.6',
         price: 11.23,
-        chef: 'Ben Smerd'
+        chef: 'Ben Smerd',
+        delivery: true,
+        pickup: true
     },
     {
         title: 'Vindaloo Golden',
@@ -13,7 +15,9 @@ export const TEMPLISTINGS = [
         date: '9-04-2025',
         rating: '4.3',
         price: 18.23,
-        chef: 'Cafe Anthony'
+        chef: 'Cafe Anthony',
+        delivery: false,
+        pickup: true
     },
     {
         title: 'Butter Chicken',
@@ -21,6 +25,8 @@ export const TEMPLISTINGS = [
         date: '8-04-2025',
         rating: '4.9',
         price: 5.99,
-        chef: 'The big Midhy Mooman'
+        chef: 'The big Midhy Mooman',
+        delivery: true,
+        pickup: false
     },
 ]

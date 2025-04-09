@@ -91,10 +91,10 @@ model Listing {
     image String?
     available Boolean @default(true)
     createdAt DateTime @default(now())
-    
+
     delivery Boolean @default(false)
     pickup Boolean @default(true)
-    pickupAddress String?
+    pickupAddressLatLon String?
 
     dietryTags ListingTag[]
 
