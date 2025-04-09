@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { StarIcon } from '@heroicons/react/24/solid';
+import { PiChefHat } from "react-icons/pi";
+
 import Curry1 from '../../../../assets/curry.png';
 import Curry2 from '../../../../assets/curry2.png';
 import Curry3 from '../../../../assets/curry3.png';
+import { TEMPLISTINGS } from "./templist";
 
 interface ListingItemsInterface {
     selectedCategory: string;
@@ -10,7 +14,8 @@ interface ListingItemsInterface {
 // !!! TEMP
 interface ListingTemp {
     title: string;
-    distance: string;
+    chef: string;
+    distance: number;
     date: string;
     rating: string;
     price: number;
@@ -21,19 +26,42 @@ const ListingItems = ({selectedCategory}: ListingItemsInterface) => {
     // const [listings, setListings] = useState<Listing[] | null>(null);
 
     return (
-        <ul className="flex flex-col gap-4 p-2">
-      {[1, 2, 3].map((_, index) => (
-        <li
-          key={index}
-          className="flex flex-col w-full min-h-[380px] border border-slate-200 rounded-lg p-2"
-        >
-          {/* Replace this with real content */}
-          <p className="text-lg font-semibold">Listing {index + 1}</p>
-          <img src={Curry1} className="w-full h-40 object-cover rounded-md my-2" />
-          <p className="text-sm text-gray-500">Distance: 2.4km • $12.99</p>
-        </li>
-      ))}
-    </ul>
+        <ul className="flex flex-col gap-4 p-2 pb-[62px]">
+            {TEMPLISTINGS.map((listing, index) => (
+                <li key={index} className="flex flex-col w-full min-h-[380px] border border-slate-200 rounded-lg hover:bg-slate-100 hover:cursor-pointer p-2">
+                    <img src={Curry1} className=" w-full  rounded-md " />
+
+                    <div className='flex flex-col'>
+                        <div className='flex justify-between'>
+                            <p className="text-lg font-semibold text-sky-700">{listing.title}</p>
+
+                            <div className="flex items-center gap-1">
+                                <StarIcon className='w-4 text-yellow-500' />
+                                <p>{listing.rating}</p>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-between">
+                            <div className="flex items-start gap-1">
+                                <PiChefHat className='text-xl text-slate-700' />
+                                <p className="">{listing.chef}</p>
+                            </div>
+
+                            <div className='text-xs flex gap-1'>
+                                <p>Ready</p>
+                                <p className='text-sky-500'>{listing.date}</p>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <p className="text-sm text-gray-500">Distance: {listing.distance / 1000}km</p>
+
+                            <p className='font-bold underline text-lg text-black'>${listing.price}</p>
+                        </div>
+                    </div>
+                </li>
+            ))}
+        </ul>
     )
 }
 

@@ -1,6 +1,6 @@
 import { useUser } from "../../../contexts/UserContext";
 import { Link } from "react-router-dom";
-import { MapPinIcon, MagnifyingGlassIcon, ChatBubbleLeftIcon, UserCircleIcon, ListBulletIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon, MagnifyingGlassIcon, ChatBubbleLeftIcon,  ListBulletIcon } from '@heroicons/react/24/outline';
 import { useLocation } from "react-router-dom";
 import ME from '../../../assets/Me.jpg';
 
