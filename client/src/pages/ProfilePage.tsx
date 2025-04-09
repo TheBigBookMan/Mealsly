@@ -1,7 +1,13 @@
+import ProfilePageDesktop from "../components/features/ProfilePage/ProfilePageDesktop";
+import ProfilePageMobile from "../components/features/ProfilePage/ProfilePageMobile";
+
+
 const ProfilePage = () => {
     return (
-        <div>
-            <p>Profile page</p>
+        <div className='flex flex-col h-full w-full '>
+            <ProfilePageMobile />
+
+            <ProfilePageDesktop />
         </div>
     )
 }
