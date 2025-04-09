@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
 
+
 import ME from '../../../assets/Me.jpg';
 import Card from "../../common/ui/Card";
 import Button from "../../common/ui/Button";
 import Input from "../../common/ui/Input";
 import { useState } from "react";
+import IdentityVerification from "./mobile/IdentityVerification";
 
 // !!! TEMP verified field
 const PROFILETEMP = {
@@ -21,9 +23,16 @@ const PROFILETEMP = {
 const ProfilePageMobile = () => {
     const [email, setEmail] = useState<string>('');
     const [mobile, setMobile] = useState<string>('');
+    const [verifiedModal, setVerifiedModal] = useState<boolean>(false);
+
+    
+
+    
 
     return (
         <div className='flex md:hidden flex-col items-center gap-2 py-6 px-4 h-full w-full'>
+            <IdentityVerification verifiedModal={verifiedModal} setVerifiedModal={setVerifiedModal} />
+
             <div className='flex w-full justify-between' >
                 <p className="text-2xl font-bold">Profile</p>
 
@@ -102,7 +111,7 @@ const ProfilePageMobile = () => {
                                 <ShieldCheckIcon className='w-6 text-sky-700' />
                             </div>
                         ) : (
-                            <Button variant='primary' className='min-w-[120px]'>
+                            <Button onClick={() => setVerifiedModal(true)} variant='primary' className='min-w-[120px]'>
                                 <p>Verify</p>
                                 <ShieldCheckIcon className='w-6 ' />
                             </Button>
