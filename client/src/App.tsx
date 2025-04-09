@@ -11,6 +11,7 @@ import NotificationsPage from "./pages/NotificationsPage";
 import RegisterChefPage from "./pages/RegisterChefPage";
 import OrdersPage from "./pages/OrdersPage";
 import ListingPage from "./pages/ListingPage";
+import ProfileSettingsPage from "./pages/ProfileSettingsPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -35,6 +36,15 @@ export default function App() {
                         element={
                             <ProtectedRoute>
                                 <ProfilePage />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route 
+                        path="/profile-settings"
+                        element={
+                            <ProtectedRoute>
+                                <ProfileSettingsPage />
                             </ProtectedRoute>
                         }
                     />
