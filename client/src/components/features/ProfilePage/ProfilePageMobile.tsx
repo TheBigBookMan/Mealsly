@@ -5,6 +5,8 @@ import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
 import ME from '../../../assets/Me.jpg';
 import Card from "../../common/ui/Card";
 import Button from "../../common/ui/Button";
+import Input from "../../common/ui/Input";
+import { useState } from "react";
 
 // !!! TEMP verified field
 const PROFILETEMP = {
@@ -17,6 +19,9 @@ const PROFILETEMP = {
 }
 
 const ProfilePageMobile = () => {
+    const [email, setEmail] = useState<string>('');
+    const [mobile, setMobile] = useState<string>('');
+
     return (
         <div className='flex md:hidden flex-col items-center gap-2 py-6 px-4 h-full w-full'>
             <div className='flex w-full justify-between' >
@@ -54,8 +59,8 @@ const ProfilePageMobile = () => {
                                     <CheckIcon className="w-6" />
                                 </div>
                             ) : (
-                                <div className='flex justify-between'>
-                                    <input type='text' className="border border-slate-500" placeholder='Enter email' />
+                                <div className='flex gap-4 justify-between'>
+                                    <Input  type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email..." />
 
                                     <Button>
                                         <p>Confirm</p>
@@ -73,8 +78,8 @@ const ProfilePageMobile = () => {
                                     <CheckIcon className="w-6" />
                                 </div>
                             ) : (
-                                <div className='flex justify-between'>
-                                    <input type='text' className="border border-slate-500" placeholder='Enter mobile' />
+                                <div className='flex gap-4 justify-between'>
+                                    <Input  type="number" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="Mobile..." />
 
                                     <Button>
                                         <p>Confirm</p>
