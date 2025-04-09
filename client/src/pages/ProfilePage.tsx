@@ -1,6 +1,7 @@
 import ProfilePageDesktop from "../components/features/ProfilePage/ProfilePageDesktop";
 import ProfilePageMobile from "../components/features/ProfilePage/ProfilePageMobile";
 
+// TODO need to add in some sort of email with the email verification
 
 const ProfilePage = () => {
     return (

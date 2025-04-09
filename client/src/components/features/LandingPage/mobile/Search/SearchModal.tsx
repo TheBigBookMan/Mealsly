@@ -1,6 +1,7 @@
 import { XMarkIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Card from "../../../../common/ui/Card";
 import { ChangeEvent, useState } from "react";
+import Button from "../../../../common/ui/Button";
 
 interface SearchModalInterface {
     toggleModal: (state: boolean) => void;
@@ -84,6 +85,8 @@ const SearchModal = ({toggleModal}: SearchModalInterface) => {
                 <div className="flex justify-between w-full items-end">
                     <p onClick={clearFilters} className='font-bold hover:cursor-pointer hover:text-rose-400 transition'>Clear all</p>
 
+                    {/* TODO need to update the state handling on button to work */}
+                    {/* <Button ></Button> */}
                     <button onClick={submitSearch} className='flex gap-2 border rounded-xl border-sky-500 bg-sky-500 w-[120px] h-[40px] text-slate-200 items-center justify-center hover:bg-sky-600 transition'>
                         <MagnifyingGlassIcon className='w-6 h-6' />
                         <p className=''>Search</p>
