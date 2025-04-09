@@ -43,7 +43,7 @@ const ModalSlideUp: React.FC<ModalSlideUpProps> = ({
                                 <p className="font-bold text-black text-center">{title}</p>
                             </div>
 
-                            <div className='flex flex-col overflow-y-auto'>
+                            <div className='flex flex-col overflow-y-auto p-2'>
                                 {children}
                             </div>
                         </div>
