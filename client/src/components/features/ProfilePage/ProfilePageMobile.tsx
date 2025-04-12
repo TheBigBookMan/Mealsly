@@ -38,7 +38,7 @@ const ProfilePageMobile = () => {
     }
 
     return (
-        <div className='flex md:hidden flex-col items-center gap-2 py-6 px-4 h-full w-full'>
+        <div className='flex md:hidden flex-col items-center gap-2 py-6 px-4 h-full w-full pb-[60px]'>
             <IdentityVerification verifiedModal={verifiedModal} setVerifiedModal={setVerifiedModal} />
 
             <EditProfile editProfileModal={editProfileModal} setEditProfileModal={setEditProfileModal} />
