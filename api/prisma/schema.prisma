@@ -42,6 +42,7 @@ model Eater {
     itemReviews ItemReview[] @relation("EaterItemReviews")
     reviews ChefReview[] @relation("EaterChefReviews")
     recurringOrders RecurringOrder[]
+    conversations Conversation[]
 }
 
 model Chef {
@@ -57,6 +58,8 @@ model Chef {
 
     Cuisines UserCuisine[]
     listings Listing[]
+
+    conversations Conversation[]
 
     recurringOrders RecurringOrder[]
 
@@ -91,11 +94,20 @@ model Message {
     read Boolean @default(false)
 }
 
-
-
 enum SenderType {
     CHEF
     EATER
+}
+
+model Conversation {
+    id String @id @default(cuid())
+    eater Eater @relation(fields: [eaterId], references: [id])
+    eaterId String
+    chef Chef @relation(fields: [chefId], references: [id])
+    chefId String
+    messages Message[]
+    updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
 }
 
 model Cuisine {
