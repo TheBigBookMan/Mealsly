@@ -12,6 +12,9 @@ import RegisterChefPage from "./pages/RegisterChefPage";
 import OrdersPage from "./pages/OrdersPage";
 import ListingPage from "./pages/ListingPage";
 import ProfileSettingsPage from "./pages/ProfileSettingsPage";
+import PaymentPage from "./components/features/SettingsPage/PaymentPage";
+import SecurityPage from "./components/features/SettingsPage/SecurityPage";
+import SettingsPage from "./components/features/SettingsPage/SettingsPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -41,13 +44,18 @@ export default function App() {
                     />
 
                     <Route 
-                        path="/profile-settings"
+                        path="/profile-settings/*"
                         element={
                             <ProtectedRoute>
                                 <ProfileSettingsPage />
                             </ProtectedRoute>
                         }
-                    />
+                    >
+                        <Route path="payment" element={<PaymentPage />} />
+                        <Route path="security" element={<SecurityPage />} />
+                        <Route path="notifications" element={<NotificationsPage />} />
+                        <Route index element={<SettingsPage />} />
+                    </Route>
 
                     <Route path='/listing/:listingId' element={<ListingPage /> } />
 
