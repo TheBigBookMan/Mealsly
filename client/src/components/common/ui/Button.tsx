@@ -8,7 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
 }
 
-const baseStyles = "flex items-center justify-center w-[120px] h-[40px] transition text-slate-100 rounded-lg gap-2";
+const baseStyles = "flex items-center justify-center w-[120px] min-h-[40px] transition text-slate-100 rounded-lg gap-2";
 
 const variantStyles: Record<ButtonVariant, string> = {
     primary: "border border-sky-700 bg-sky-700 hover:bg-sky-800",

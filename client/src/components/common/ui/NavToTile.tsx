@@ -9,7 +9,7 @@ interface NavToTileInterface {
 
 const NavToTile = ({navTo, title, subtitle}: NavToTileInterface) => {
     return (
-        <Link to={navTo} className='h-[60px] w-full flex justify-between items-center hover:cursor-pointer hover:bg-slate-200 rounded-xl gap-4 border-2 shadow py-2 px-4 transition'>
+        <Link to={navTo} className='min-h-[60px] w-full flex justify-between items-center hover:cursor-pointer hover:bg-slate-200 rounded-xl gap-4 border-2 shadow py-2 px-4 transition'>
             <div className='flex flex-col justify-center'>
                 <p className='text-sky-700 font-bold'>{title}</p>
                 <p className='text-sm'>{subtitle}</p>
