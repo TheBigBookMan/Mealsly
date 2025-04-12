@@ -10,6 +10,8 @@ interface IdentityVerificationInterface {
     setVerifiedModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// TODO the drivers license and identity card need front enad back, passport just one
+
 const IdentityVerification = ({verifiedModal, setVerifiedModal}: IdentityVerificationInterface) => {
     const [loading, setLoading] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -51,17 +53,17 @@ const IdentityVerification = ({verifiedModal, setVerifiedModal}: IdentityVerific
                         <p>Choose an ID type</p>
 
                         <div className="flex flex-col gap-2">
-                            <div onClick={() => setSelectedId('driver')} className={`border-2  rounded-lg h-fit w-full flex gap-2 items-center p-4 hover:cursor-pointer transition ${selectedId === 'driver' ? 'border-sky-700 text-sky-700 bg-slate-100' : 'border-slate-300 hover:border-sky-700 hover:text-sky-700 hover:bg-slate-100 '}`}>
+                            <div onClick={() => setSelectedId('driver')} className={`border-2  rounded-lg h-fit w-full flex gap-2 items-center p-4 hover:cursor-pointer  ${selectedId === 'driver' ? 'border-sky-700 text-sky-700 bg-slate-100' : 'border-slate-300 hover:border-sky-700 hover:text-sky-700 hover:bg-slate-100 '}`}>
                                 <FaCar className="text-2xl" />
                                 <p>Driver's licence</p>
                             </div>
 
-                            <div onClick={() => setSelectedId('passport')} className={`border-2  rounded-lg h-fit w-full flex gap-2 items-center p-4 hover:cursor-pointer transition ${selectedId === 'passport' ? 'border-sky-700 text-sky-700 bg-slate-100' : 'border-slate-300 hover:border-sky-700 hover:text-sky-700 hover:bg-slate-100 '}`}>
+                            <div onClick={() => setSelectedId('passport')} className={`border-2  rounded-lg h-fit w-full flex gap-2 items-center p-4 hover:cursor-pointer  ${selectedId === 'passport' ? 'border-sky-700 text-sky-700 bg-slate-100' : 'border-slate-300 hover:border-sky-700 hover:text-sky-700 hover:bg-slate-100 '}`}>
                                 <GlobeAltIcon className="w-6" />
                                 <p>Passport</p>
                             </div>
                             
-                            <div onClick={() => setSelectedId('id')} className={`border-2  rounded-lg h-fit w-full flex gap-2 items-center p-4 hover:cursor-pointer transition ${selectedId === 'id' ? 'border-sky-700 text-sky-700 bg-slate-100' : 'border-slate-300 hover:border-sky-700 hover:text-sky-700 hover:bg-slate-100'}`}>
+                            <div onClick={() => setSelectedId('id')} className={`border-2  rounded-lg h-fit w-full flex gap-2 items-center p-4 hover:cursor-pointer  ${selectedId === 'id' ? 'border-sky-700 text-sky-700 bg-slate-100' : 'border-slate-300 hover:border-sky-700 hover:text-sky-700 hover:bg-slate-100'}`}>
                                 <IdentificationIcon className="w-6" />
                                 <p>Identity card</p>
                             </div>
