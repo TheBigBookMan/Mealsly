@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 import { BellIcon, CheckIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { HiOutlineLogout } from "react-icons/hi";
 
 
 import ME from '../../../assets/Me.jpg';
@@ -28,7 +29,12 @@ const ProfilePageMobile = () => {
     const [editProfileModal, setEditProfileModal] = useState<boolean>(false);
     
 
-    
+    const logoutConfirm = () => {
+        const confirmation = confirm("Are you sure you want to logout?");
+        if(!confirmation) return;
+
+        // TODO do logout from user context require call to backend
+    }
 
     return (
         <div className='flex md:hidden flex-col items-center gap-2 py-6 px-4 h-full w-full'>
@@ -119,12 +125,19 @@ const ProfilePageMobile = () => {
                             </div>
                         ) : (
                             <Button onClick={() => setVerifiedModal(true)} variant='primary' className='min-w-[120px]'>
-                                <p>Verify</p>
                                 <ShieldCheckIcon className='w-6 ' />
+                                <p>Verify</p>
                             </Button>
                         )}
                     </div>
                 </div>
+            </Card>
+
+            <Card className="w-full flex flex-col gap-4 items-center">
+                <Button onClick={logoutConfirm} variant="error" className='min-w-full'>
+                    <HiOutlineLogout className='text-xl' />
+                    <p>Logout</p>
+                </Button>
             </Card>
         </div>
     )
