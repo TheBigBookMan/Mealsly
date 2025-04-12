@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
-import { BellIcon, CheckIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { BellIcon, CheckIcon, PencilSquareIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { HiOutlineLogout } from "react-icons/hi";
 import { PiChefHat } from "react-icons/pi";
 
@@ -69,13 +69,21 @@ const ProfilePageMobile = () => {
             </Card>
 
             {/* TODO This will need to a href to the other become a chef signup dashboard thing */}
-            <div className={`h-[120px] w-full flex justify-between items-center hover:cursor-pointer hover:bg-slate-200 rounded-xl gap-4 border-2 shadow-xl py-2 px-4 transition`}>
+            <div className={`h-[120px] w-full flex justify-between items-center hover:cursor-pointer hover:bg-slate-200 rounded-xl gap-4 border-2 shadow-lg py-2 px-4 transition`}>
                 <div className='flex flex-col'>
                     <p className='text-sky-700 font-bold text-lg'>Become a chef</p>
                     <p>It's easy to start cooking and earn extra income.</p>
                 </div>
                 <PiChefHat className='text-7xl' />
             </div>
+
+            <Link to='/profile-settings' className={`h-[60px] w-full flex justify-between items-center hover:cursor-pointer hover:bg-slate-200 rounded-xl gap-4 border-2 shadow py-2 px-4 transition`}>
+                <div className='w-full h-[40px] flex justify-between items-center'>
+                    <p className='text-sky-700 font-bold'>Settings</p>
+
+                    <ChevronRightIcon className='w-6' />
+                </div>
+            </Link>
 
             <Card className="w-full flex flex-col gap-4">
                 <div className='flex flex-col border-b pb-4'>
