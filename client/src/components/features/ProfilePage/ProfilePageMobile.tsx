@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
-import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { BellIcon, CheckIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 
 
 import ME from '../../../assets/Me.jpg';
@@ -9,6 +9,7 @@ import Button from "../../common/ui/Button";
 import Input from "../../common/ui/Input";
 import { useState } from "react";
 import IdentityVerification from "./mobile/IdentityVerification";
+import EditProfile from "./mobile/EditProfile";
 
 // !!! TEMP verified field
 const PROFILETEMP = {
@@ -24,7 +25,7 @@ const ProfilePageMobile = () => {
     const [email, setEmail] = useState<string>('');
     const [mobile, setMobile] = useState<string>('');
     const [verifiedModal, setVerifiedModal] = useState<boolean>(false);
-
+    const [editProfileModal, setEditProfileModal] = useState<boolean>(false);
     
 
     
@@ -33,12 +34,18 @@ const ProfilePageMobile = () => {
         <div className='flex md:hidden flex-col items-center gap-2 py-6 px-4 h-full w-full'>
             <IdentityVerification verifiedModal={verifiedModal} setVerifiedModal={setVerifiedModal} />
 
+            <EditProfile editProfileModal={editProfileModal} setEditProfileModal={setEditProfileModal} />
+
             <div className='flex w-full justify-between' >
                 <p className="text-2xl font-bold">Profile</p>
 
-                <Link to='/notifications'>
-                    <BellIcon className="w-8" />
-                </Link>
+                <div className='flex gap-4'>
+                    <PencilSquareIcon onClick={() => setEditProfileModal(true)} className='w-8 hover:cursor-pointer hover:text-sky-700' />
+
+                    <Link to='/notifications'>
+                        <BellIcon className="w-8 hover:text-sky-700" />
+                    </Link>
+                </div>
             </div>
 
             <Card className="w-full flex justify-between items-center">
