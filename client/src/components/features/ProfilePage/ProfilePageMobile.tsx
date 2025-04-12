@@ -12,6 +12,7 @@ import Input from "../../common/ui/Input";
 import { useState } from "react";
 import IdentityVerification from "./mobile/IdentityVerification";
 import EditProfile from "./mobile/EditProfile";
+import NavToTile from "../../common/ui/NavToTile";
 
 // !!! TEMP verified field
 const PROFILETEMP = {
@@ -77,13 +78,7 @@ const ProfilePageMobile = () => {
                 <PiChefHat className='text-7xl' />
             </div>
 
-            <Link to='/profile-settings' className={`h-[60px] w-full flex justify-between items-center hover:cursor-pointer hover:bg-slate-200 rounded-xl gap-4 border-2 shadow py-2 px-4 transition`}>
-                <div className='w-full h-[40px] flex justify-between items-center'>
-                    <p className='text-sky-700 font-bold'>Settings</p>
-
-                    <ChevronRightIcon className='w-6' />
-                </div>
-            </Link>
+            <NavToTile navTo="/profile-settings" title="Settings" subtitle={null} />
 
             <Card className="w-full flex flex-col gap-4">
                 <div className='flex flex-col border-b pb-4'>

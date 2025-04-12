@@ -51,7 +51,7 @@ export default function App() {
                             </ProtectedRoute>
                         }
                     >
-                        <Route path="payment" element={<PaymentPage />} />
+                        <Route path="payments" element={<PaymentPage />} />
                         <Route path="security" element={<SecurityPage />} />
                         <Route path="notifications" element={<NotificationsPage />} />
                         <Route index element={<SettingsPage />} />
