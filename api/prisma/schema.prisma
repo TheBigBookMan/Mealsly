@@ -79,6 +79,25 @@ model PaymentMethod {
     createdAt DateTime @default(now())
 }
 
+model Message {
+    id String @id @default(cuid())
+    content String
+    senderType SenderType
+    senderId String
+    recipientId String
+    conversation Conversation @relation(fields: [conversationId], references: [id])
+    conversationId String
+    createdAt DateTime @default(now())
+    read Boolean @default(false)
+}
+
+
+
+enum SenderType {
+    CHEF
+    EATER
+}
+
 model Cuisine {
     id String @id @default(cuid())
     name String @unique
