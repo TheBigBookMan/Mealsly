@@ -69,6 +69,47 @@ model Chef {
     schedules Schedule[]
 
     Deal Deal[]
+
+    EventChef EventChef[]
+}
+
+model Event {
+    id String @id @default(cuid())
+    title String
+    description String?
+    startTime DateTime
+    endTime DateTime
+    latitude Float
+    longitude Float
+    address String?
+    city String?
+    country String?
+
+    eventChefs EventChef[]
+    eventCuisines EventCuisine[]
+    createdAt DateTime @default(now())
+}
+
+model EventChef {
+    id String @id @default(cuid())
+    event Event @relation(fields: [eventId], references: [id])
+    eventId String
+
+    chef Chef @relation(fields: [chefId], references: [id])
+    chefId String
+
+    @@unique([eventId, chefId])
+}
+
+model EventCuisine {
+    id String @id @default(cuid())
+    event Event @relation(fields: [eventId], references: [id])
+    eventId String
+
+    cuisine Cuisine @relation(fields: [cuisineId], references: [id])
+    cuisineId String
+
+    @@unique([eventId, cuisineId])
 }
 
 model PaymentMethod {
@@ -116,6 +157,8 @@ model Cuisine {
     id String @id @default(cuid())
     name String @unique
     chefs UserCuisine[]
+
+    EventCuisine EventCuisine[]
 }
 
 model UserCuisine {
