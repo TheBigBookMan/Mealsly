@@ -43,6 +43,10 @@ model Eater {
     reviews ChefReview[] @relation("EaterChefReviews")
     recurringOrders RecurringOrder[]
     conversations Conversation[]
+
+    chefSubscriptions ChefSubscription[]
+
+    notifications Notification[]
 }
 
 model Chef {
@@ -68,9 +72,29 @@ model Chef {
     orders Order[] @relation("ChefOrders")
     schedules Schedule[]
 
-    Deal Deal[]
+    deals Deal[]
 
-    EventChef EventChef[]
+    eventChefs EventChef[]
+
+    chefSubscriptions ChefSubscription[]
+}
+
+enum NotificationType {
+    EVENT_PROMOTION
+    CHEF_PROMOTION
+    GENERAL
+}
+
+model Notification {
+    id String @id @default(cuid())
+    recipient Eater @relation(fields: [eaterId], references: [id])
+    eaterId String
+
+    title String
+    message String
+    type NotificationType
+    read Boolean @default(false)
+    createdAt DateTime @default(now())
 }
 
 model Event {
@@ -110,6 +134,17 @@ model EventCuisine {
     cuisineId String
 
     @@unique([eventId, cuisineId])
+}
+
+model ChefSubscription {
+    id String @id @default(cuid())
+    eater Eater @relation(fields: [eaterId], references: [id])
+    eaterId String
+
+    chef Chef @relation(fields: [chefId], references: [id])
+    chefId String
+
+    @@unique([eaterId, chefId])
 }
 
 model PaymentMethod {
