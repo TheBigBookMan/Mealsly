@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Me from '../assets/Me.jpg';
 
 const TESTMESSAGE = [
@@ -28,7 +29,7 @@ const MessagesPage = () => {
 
             <ul className='flex flex-col gap-4 w-full h-full overflow-y-auto'>
                 {TESTMESSAGE.map(message => (
-                    <li className="flex border-b p-2 h-[80px] gap-2 text-sm items-center">
+                    <Link to={`/messages/${message.id}`} className="flex  p-2 py-4 min-h-[80px] gap-2 text-sm items-center hover:bg-slate-200 rounded-xl transition border border-white">
                         <img src={Me} className="w-16 h-16 rounded-full object-cover" />
                     
                         <div className="flex flex-col w-full min-w-0">
@@ -41,7 +42,7 @@ const MessagesPage = () => {
                                 {message.message}
                             </p>
                         </div>
-                    </li>
+                    </Link>
                 ))}
             </ul>
         </div>

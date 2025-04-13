@@ -13,6 +13,8 @@ type PaymentCard = {
     cardCountry: string
 }
 
+// TODO this needs to link into Stripe and stuff for setting up the data in DB
+
 const PaymentPage = () => {
     const [addPaymentModal, setAddPaymentModal] = useState<boolean>(false);
     const [newCard, setNewCard] = useState<PaymentCard>({
