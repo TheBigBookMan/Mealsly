@@ -23,4 +23,15 @@ declare global {
         createdAt: string;
         seen: boolean;
     };
+
+    interface Order {
+        id: string;
+        status: "PENDING" | "CONFIRMED" | "PREPARING" | "READY" | "COMPLETED" | "CANCELLED";
+        totalPrice: number;
+        pickupTime: string;
+        createdAt: string;
+        dealId: string?;
+        chefId: string;
+        eaterId: string;
+    }
 };
