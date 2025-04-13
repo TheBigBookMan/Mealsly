@@ -16,6 +16,7 @@ import PaymentPage from "./components/features/SettingsPage/PaymentPage";
 import SecurityPage from "./components/features/SettingsPage/SecurityPage";
 import SettingsPage from "./components/features/SettingsPage/SettingsPage";
 import PaymentsPage from "./pages/PaymentsPage";
+import MessagePage from "./pages/MessagePage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -31,7 +32,7 @@ export default function App() {
         <div className='flex flex-col justify-between md:justify-normal min-h-screen w-screen text-slate-500 font-sans'>
             <Header />
 
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1  w-full">
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
 
@@ -67,11 +68,28 @@ export default function App() {
                         <Route index element={<SettingsPage />} />
                     </Route>
 
+                    <Route 
+                        path="/messages" 
+                        element={
+                            <ProtectedRoute>
+                                <MessagesPage />
+                            </ProtectedRoute>
+                        } 
+                    />
+
+                    <Route 
+                        path="/messages/:messageId" 
+                        element={
+                            <ProtectedRoute>
+                                <MessagePage />
+                            </ProtectedRoute>
+                        } 
+                    />
+
                     <Route path='/listing/:listingId' element={<ListingPage /> } />
+                    <Route path="/map" element={<MapPage />} />
 
                     <Route path="/orders" element={<OrdersPage />} />
-                    <Route path="/map" element={<MapPage />} />
-                    <Route path="/messages" element={<MessagesPage />} />
                     <Route path="/notifications" element={<NotificationsPage />} />
                     <Route path="/register-chef" element={<RegisterChefPage />} />
                 </Routes>

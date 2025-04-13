@@ -15,4 +15,12 @@ declare global {
         createdAt: string;
 
     }
+
+    interface Message {
+        id: string;
+        senderType: "CHEF" | "EATER";
+        content: string;
+        createdAt: string;
+        seen: boolean;
+    };
 };
