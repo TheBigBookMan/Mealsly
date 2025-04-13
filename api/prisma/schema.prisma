@@ -67,6 +67,8 @@ model Chef {
     itemReviews ItemReview[] @relation("ChefItemReviews")
     orders Order[] @relation("ChefOrders")
     schedules Schedule[]
+
+    Deal Deal[]
 }
 
 model PaymentMethod {
@@ -149,6 +151,8 @@ model Listing {
     recurringOrders RecurringOrder[]
     orderItems OrderItem[]
     reviews ItemReview[]
+
+    DealListing DealListing[]
 }
 
 model Tag {
@@ -174,6 +178,8 @@ model Order {
     totalPrice Float
     pickupTime DateTime?
     createdAt DateTime @default(now())
+
+    dealId String?
 
     chef Chef @relation("ChefOrders", fields: [chefId], references: [id])
     chefId String
@@ -205,6 +211,39 @@ model OrderItem {
 
     quantity Int
     price Float
+}
+
+enum DealType {
+    DISCOUNT
+    FIXED
+}
+
+model Deal {
+    id String @id @default(cuid())
+    title String
+    description String?
+    dealType DealType
+    discountPercentage Float?
+    fixedPrice Float?
+    bundleQuantity Int
+    
+    validFrom DateTime
+    validTo DateTime
+    chef Chef @relation(fields: [chefId], references: [id])
+    chefId String
+
+    dealListings DealListing[]
+    createdAt DateTime @default(now())
+}
+
+model DealListing {
+    id String @id @default(cuid())
+    deal Deal @relation(fields: [dealId], references: [id])
+    dealId String
+    listing Listing @relation(fields: [listingId], references: [id])
+    listingId String
+
+    @@unique([dealId, listingId])
 }
 
 model Transaction {
