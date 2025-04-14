@@ -1,4 +1,5 @@
 const {prisma} = require('../db/prisma');
+const {errorHttp} = require('../utils/errors');
 
 class EaterController {
     async createEater (req, res) {
@@ -46,8 +47,7 @@ class EaterController {
             return res.status(201).json({success: true, eater});
 
         } catch(error) {
-            console.error('Could not create Eater', error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Could not create Eater:', 500);
         }
     }
 
@@ -61,8 +61,7 @@ class EaterController {
             res.json(eaters);
 
         } catch(error) {
-            console.error('Could not get all eaters', error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Could not get all eaters:', 500);
         }
     }
 
@@ -87,8 +86,7 @@ class EaterController {
             res.json(eater);
 
         } catch(error) {
-            console.error('Could not get eater by Id', error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Could not get eater by Id:', 500);
         }
     };
 
@@ -124,8 +122,7 @@ class EaterController {
             res.json({success: true, eater: updatedEater});
 
         } catch(error) {
-            console.error('Could not update eater details', error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Could not update eater details:', 500);
         }
     };
 
@@ -146,8 +143,7 @@ class EaterController {
             return res.json({success: true, message: 'Eater deleted', eater: deletedEater});
 
         } catch (error) {
-            console.error('Could not delete eater by ID', error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Could not delete eater by ID:', 500);
         }
     }
 
@@ -184,8 +180,7 @@ class EaterController {
             return res.json(latlon);
 
         } catch (error) {
-            console.error('Could not get eater lat lon', error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Could not get eater lat lon:', 500);
         }
     }
 
@@ -210,8 +205,7 @@ class EaterController {
             return res.json({success: true, message: 'Successfully updated eater lat and lon', updatedEater: updatedEaterLatLon});
 
         } catch (error) {
-            console.error('Could not update eater lat lon', error);
-            res.status(500).json({message: 'Something went wrong.'});
+            errorHttp(res, error, 'Could not update eater lat lon:', 500);
         }
     }
 }

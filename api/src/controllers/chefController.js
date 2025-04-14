@@ -1,5 +1,6 @@
 const { prisma } = require('../db/prisma');
 const { ChefService } = require('../services/chefService');
+const { errorHttp } = require('../utils/errors');
 
 class ChefController {
     async createChef (req, res) {
@@ -49,8 +50,7 @@ class ChefController {
             return res.status(201).json({success: true, chef});
 
         } catch(error) {
-            console.error('Error creating chef:', error);
-            res.status(500).json({message: "Something went wrong", error});
+            errorHttp(res, error, 'Error creating chef:', 500);
         }
     }
 
@@ -61,8 +61,7 @@ class ChefController {
             res.json(chefs);
 
         } catch(error) {
-            console.error('Error fetching chefs:', error);
-            res.status(500).json({message: 'Something went wrong:', error});
+            errorHttp(res, error, 'Error fetching chefs:', 500);
         }
     };
 
@@ -84,8 +83,7 @@ class ChefController {
             
             res.json(chef);
         } catch (error) {
-            console.error('Error fetching chef:', error);
-            res.status(500).json({ message: 'Something went wrong', error });
+            errorHttp(res, error, 'Error fetching chef:', 500);
         }
     };
 
@@ -121,8 +119,7 @@ class ChefController {
             res.json({ success: true, chef: updatedChef });
 
         } catch(error) {
-            console.error(`Error updating chef information:`, error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Error updating chef information:', 500);
         }
     };
 
@@ -143,8 +140,7 @@ class ChefController {
             return res.json({success: true, message: 'Chef deleted', chef: deletedChef});
 
         } catch(error) {
-            console.error('Error deleting chef:', error);
-            res.status(500).json({message: 'Something went wrong:', error});
+            errorHttp(res, error, 'Error deleting chef:', 500);
         }
     }
 
@@ -181,8 +177,7 @@ class ChefController {
             return res.json(latlon);
 
         } catch(error) {
-            console.error('Error getting lat lon:', error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Error getting lat lon:', 500);
         }
     };
 
@@ -207,8 +202,7 @@ class ChefController {
             return res.json({success: true, message: 'Successfully updated chef lat lon.', updatedChef: updatedChefLatLon});
 
         } catch(error) {
-            console.error('Error updating chef lat lon', error);
-            res.status(500).json({message: 'Something went wrong', error});
+            errorHttp(res, error, 'Error updating chef lat lon:', 500);
         }
     }
 
@@ -237,8 +231,7 @@ class ChefController {
             });
 
         } catch(error) {
-            console.error('Error changing to inactive:', error);
-            res.status(500).json({message: 'Something went wrong.', error});
+            errorHttp(res, error, 'Error changing to inactive:', 500);
         }
     }
 }
