@@ -17,11 +17,11 @@ model User {
     id  String  @id @default(cuid())
     firebaseUid String  @unique
     email   String  @unique
-    firstName String
-    lastName String
-    postcode String
-    suburb String
-    state String
+    firstName String?
+    lastName String?
+    postcode String?
+    suburb String?
+    state String?
     profileImage String?
     createdAt DateTime @default(now())
     paymentMethods PaymentMethod[]

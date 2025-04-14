@@ -28,15 +28,15 @@ const Navbar = () => {
             )}
 
             {user && (
-                <Link to="/messages" className={`flex flex-col items-center ${pathname === '/messages' && 'text-sky-600 font-bold'}`}>
+                <Link to="/messages" className={`flex flex-col items-center ${pathname.includes('/messages') && 'text-sky-600 font-bold'}`}>
                     <ChatBubbleLeftIcon className="w-6 h-6 " />
                     <p className='text-xs'>Messages</p>
                 </Link>
             )}
 
             {user && (
-                <Link to="/profile" className={`flex flex-col items-center ${pathname === '/profile' && 'text-sky-600 font-bold'}`}>
-                    <img src={ME} className={`rounded-full w-6 h-6 ${pathname === '/profile' && 'border-2 border-sky-600'}`} />
+                <Link to="/profile" className={`flex flex-col items-center ${pathname.includes('/profile') && 'text-sky-600 font-bold'}`}>
+                    <img src={ME} className={`rounded-full w-6 h-6 ${pathname.includes('/profile') && 'border-2 border-sky-600'}`} />
                     <p className='text-xs'>Profile</p>
                 </Link>
             )}

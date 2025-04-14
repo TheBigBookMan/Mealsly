@@ -28,10 +28,10 @@ declare global {
         id: string;
         status: "PENDING" | "CONFIRMED" | "PREPARING" | "READY" | "COMPLETED" | "CANCELLED";
         totalPrice: number;
+        chefName: string;
         pickupTime: string;
         createdAt: string;
-        dealId: string?;
-        chefId: string;
+        dealId: string;
         eaterId: string;
     }
 };

@@ -5,6 +5,7 @@ const verifyFirebaseToken = require("../middleware/verifyFirebaseToken");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// ? Create user as an eater
 router.post("/login", verifyFirebaseToken, async (req, res) => {
     const { uid, email, name, picture } = req.firebaseUser;
 
@@ -12,18 +13,26 @@ router.post("/login", verifyFirebaseToken, async (req, res) => {
         let user = await prisma.user.findUnique({ where: { firebaseUid: uid } });
 
         if (!user) {
-        user = await prisma.user.create({
-            data: {
-            firebaseUid: uid,
-            email,
-            firstName: name || "User",
-            lastName: "",
-            profileImage: picture || null,
-            postcode: "",
-            suburb: "",
-            state: "",
-            },
-        });
+            user = await prisma.user.create({
+                data: {
+                    firebaseUid: uid,
+                    email,
+                    firstName: name || "User",
+                    lastName: "",
+                    profileImage: picture || null,
+                    postcode: "",
+                    suburb: "",
+                    state: "",
+                },
+            });
+
+            await prisma.eater.create({
+                data: {
+                    userId: user.id
+                }
+            });
+
+            user = await prisma.user.findUnique({where: {id: user.id}, include: {eater: true}});
         }
 
         res.json(user);
@@ -32,5 +41,7 @@ router.post("/login", verifyFirebaseToken, async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 });
+
+// ? Create user as a chef
 
 module.exports = router;
