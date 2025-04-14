@@ -3,13 +3,23 @@ import { Link } from "react-router-dom";
 import { MapPinIcon, MagnifyingGlassIcon, ChatBubbleLeftIcon,  ListBulletIcon } from '@heroicons/react/24/outline';
 import { useLocation } from "react-router-dom";
 import ME from '../../../assets/Me.jpg';
+import { CiLogin } from "react-icons/ci";
+import Login from "../../../pages/Login";
+import { useState } from "react";
+import ModalSlideUp from "../ui/ModalSlideUp";
 
 const Navbar = () => {
     const {user, loading} = useUser();
     const {pathname} = useLocation();
 
+    const [loginModal, setLoginModal] = useState<boolean>(false);
+
     return (
         <ul className='fixed bottom-0 left-0 right-0 z-49 flex justify-around items-center md:hidden h-[60px] border-t bg-white'>
+            <ModalSlideUp isOpen={loginModal} onClose={() => setLoginModal(false)} title="Login">
+                <Login />
+            </ModalSlideUp>
+            
             <Link to="/" className={`flex flex-col items-center ${pathname === '/' && 'text-sky-600 font-bold'}`}>
                 <MagnifyingGlassIcon className="w-6 h-6 " />
                 <p className='text-xs'>Explore</p>
@@ -19,6 +29,13 @@ const Navbar = () => {
                 <MapPinIcon className="w-6 h-6 " />
                 <p className='text-xs'>Map</p>
             </Link>
+
+            {!user && (
+                <div onClick={() => setLoginModal(true)} className={`flex flex-col items-center`}>
+                    <CiLogin className='text-2xl' />
+                    <p className='text-xs'>Login</p>
+                </div>
+            )}
 
             {user && (
                 <Link to="/orders" className={`flex flex-col items-center ${pathname === '/orders' && 'text-sky-600 font-bold'}`}>
