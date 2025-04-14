@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const routes = require('./routes');
-const { prisma } = require('./db');
+const routes = require('./routes/route');
+const { prisma } = require('./db/prisma');
 
 dotenv.config();
 
@@ -15,5 +15,5 @@ app.use('/api', routes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Mealsly API running at http://localhost:${PORT}`);
+    console.log(`Mealsly API running at http://localhost:${PORT}`);
 });

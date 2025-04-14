@@ -11,8 +11,8 @@ const transactionRoutes = require('./transactionRoute');
 router.use('/auth', authRoutes);
 router.use('/chef', chefRoutes);
 router.use('/eater', eaterRoutes);
-router.use('/listing', listingRoutes);
-router.use('/order', orderRoutes);
-router.use('/transaction', transactionRoutes);
+// router.use('/listing', listingRoutes);
+// router.use('/order', orderRoutes);
+// router.use('/transaction', transactionRoutes);
 
 module.exports = router;
