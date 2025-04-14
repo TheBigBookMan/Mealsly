@@ -1,4 +1,5 @@
 const { prisma } = require('../db/prisma');
+const { ChefService } = require('../services/chefService');
 
 class ChefController {
     async createChef (req, res) {
@@ -49,16 +50,14 @@ class ChefController {
 
         } catch(error) {
             console.error('Error creating chef:', error);
+            res.status(500).json({message: "Something went wrong", error});
         }
     }
 
     async getAllChefs (req, res) {
         try {
 
-            const chefs = await prisma.chef.findMany({
-                include: {user: true}
-            })
-
+            const chefs = await ChefService.getChefs();
             res.json(chefs);
 
         } catch(error) {
