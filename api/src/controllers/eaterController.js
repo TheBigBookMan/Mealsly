@@ -1,5 +1,8 @@
 const {prisma} = require('../db/prisma');
+const { EaterService } = require('../services/eaterService');
 const {errorHttp} = require('../utils/errors');
+
+const eaterService = new EaterService();
 
 class EaterController {
     async createEater (req, res) {
@@ -53,13 +56,8 @@ class EaterController {
 
     async getAllEaters (req, res) {
         try {
-
-            const eaters = await prisma.eaters.findMany({
-                include: {user: true}
-            });
-
+            const eaters = await eaterService.getEaters();
             res.json(eaters);
-
         } catch(error) {
             errorHttp(res, error, 'Could not get all eaters:', 500);
         }
@@ -98,7 +96,7 @@ class EaterController {
 
         try {
 
-            const eaterExists = await prisma.eater.findUnique({where: {id}});
+            const eaterExists = await eaterService.getExistingEaterId(id);
 
             if(!eaterExists) return res.status(404).json({message: 'Eater not found'});
 
@@ -132,7 +130,7 @@ class EaterController {
 
         try {
             
-            const eaterExists = await prisma.eater.findUnique({where: {id}});
+            const eaterExists = await eaterService.getExistingEaterId(id);
 
             if(!eaterExists) return res.status(404).json({message: 'Eater not found'});
 
@@ -190,7 +188,7 @@ class EaterController {
 
         try {
             
-            const eaterExists = await prisma.eater.findUnique({where: {id}});
+            const eaterExists = await eaterService.getExistingEaterId(id);
 
             if(!eaterExists) return res.status(404).json({message: 'Eater not found.'});
 
