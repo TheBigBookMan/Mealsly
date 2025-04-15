@@ -8,4 +8,20 @@ export class ChefModel {
             include: {user: true}
         });
     }
+
+    async getExistingChefId(id) {
+        return await prisma.chef.findUnique({where: {id}});
+    }
+
+    async findChefIncludeAll(id) {
+        return await prisma.chef.findUnique({
+            where: { id },
+            include: {
+                user: true,
+                listings: true,
+                itemReviews: true,
+                chefReviews: true
+            }
+        });
+    }
 }
