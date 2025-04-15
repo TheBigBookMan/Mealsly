@@ -16,9 +16,7 @@ const UserContext = createContext<UserContextType>({
 });
 
 export const UserProvider = ({children}: {children: React.ReactNode}) => {
-    const [user, setUser] = useState<User | null>({
-        username: 'Ben'
-    });
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     const login = async () => {
