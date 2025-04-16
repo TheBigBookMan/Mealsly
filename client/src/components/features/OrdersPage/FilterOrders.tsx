@@ -1,4 +1,10 @@
-const FilterOrders = () => {
+
+interface FilterOrdersInterface {
+    filter: string;
+    setFilter: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const FilterOrders = ({filter, setFilter}: FilterOrdersInterface) => {
     return (
         <div>
             <p>Filters</p>

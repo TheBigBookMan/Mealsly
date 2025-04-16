@@ -50,6 +50,7 @@ const OrdersPage = () => {
     const [upcomingOrders, setUpcomingOrders] = useState<Order[]>([]);
 
     useEffect(() => {
+        console.log(filter);
         // TODO TEMP
         setOrders(ORDERTEMP);
         const checkUpcoming = ORDERTEMP.filter(order => order.status === 'PENDING');
@@ -59,7 +60,7 @@ const OrdersPage = () => {
     return (
         <div className='flex flex-col h-full w-full  p-4'>
             <ModalSlideHalfUp isOpen={filterModal} onClose={() => setFilterModal(false)} title="Filter by...">
-                <FilterOrders />
+                <FilterOrders filter={filter} setFilter={setFilter} />
             </ModalSlideHalfUp>
 
             <p className='font-bold text-2xl'>Orders</p>
