@@ -1,7 +1,11 @@
+import { useEffect, useState } from "react";
+import OrdersListings from "../components/features/OrdersPage/OrdersListings";
 import { Link } from "react-router-dom";
 import Button from "../components/common/ui/Button";
-
-import Curry from '../assets/curry.png';
+import Curry from '../assets/curry3.png';
+import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
+import ModalSlideHalfUp from "../components/common/ui/ModalSlideHalfUp";
+import FilterOrders from "../components/features/OrdersPage/FilterOrders";
 
 const ORDERTEMP: Order[] = [
     {
@@ -12,7 +16,8 @@ const ORDERTEMP: Order[] = [
         createdAt: '11-04-2025',
         chefName: 'Ben Smerd',
         eaterId: '1',
-        dealId: ''
+        dealId: '',
+        title: 'Hot Chicken Curry'
     },
     {
         id: '123232',
@@ -22,7 +27,8 @@ const ORDERTEMP: Order[] = [
         createdAt: '11-04-2025',
         chefName: 'Big Madgey Moo Curry',
         eaterId: '1',
-        dealId: ''
+        dealId: '',
+        title: 'Rogan Josh'
     },
     {
         id: '434',
@@ -32,16 +38,33 @@ const ORDERTEMP: Order[] = [
         createdAt: '11-04-2025',
         chefName: 'Cafe Anthony',
         eaterId: '1',
-        dealId: ''
+        dealId: '',
+        title: 'Best Curry in SA'
     },
 ]
 
 const OrdersPage = () => {
+    const [filter, setFilter] = useState<string>('All');
+    const [filterModal, setFilterModal] = useState<boolean>(false);
+    const [orders, setOrders] = useState<Order[]>([]);
+    const [upcomingOrders, setUpcomingOrders] = useState<Order[]>([]);
+
+    useEffect(() => {
+        // TODO TEMP
+        setOrders(ORDERTEMP);
+        const checkUpcoming = ORDERTEMP.filter(order => order.status === 'PENDING');
+        setUpcomingOrders(checkUpcoming);
+    }, [filter]);
+
     return (
-        <div className='flex flex-col h-full w-full gap-4 p-4'>
+        <div className='flex flex-col h-full w-full  p-4'>
+            <ModalSlideHalfUp isOpen={filterModal} onClose={() => setFilterModal(false)} title="Filter by...">
+                <FilterOrders />
+            </ModalSlideHalfUp>
+
             <p className='font-bold text-2xl'>Orders</p>
             
-            {ORDERTEMP.length === 0 ? (
+            {orders.length === 0 ? (
                 <div className='flex flex-col gap-2'>
                     <p className='text-xl font-bold text-black'>No meals ordered yet!</p>
 
@@ -52,18 +75,48 @@ const OrdersPage = () => {
                     </Link>
                 </div>
             ) : (
-                <ul className='flex flex-col w-full h-full gap-2'>
-                    {ORDERTEMP.map(order => (
-                        <li className='flex w-full h-[80px] border gap-2'>
-                            <img src={Curry} className='w-20 rounded-xl'/>
+                <div className='flex flex-col gap-2'>
+                    <div className='flex flex-col'>
+                        <p className='text-sky-700 font-bold text-lg'>Upcoming</p>
 
-                            <div className='flex flex-col'>
-                                <p className='text-sky-700'>{order.chefName}</p>
+                        {upcomingOrders && upcomingOrders.length === 0 ? (
+                            <div className='flex flex-col gap-2'>
+                                <p className=''>You have no upcoming meals</p>
+
+                                <Link to='/' >
+                                    <Button variant="info" className='min-w-fit px-2'>
+                                        <p>Have a browse</p>
+                                    </Button>
+                                </Link>
                             </div>
-                        </li>
-                    ))}
-                </ul>
-            )}  
+                        ) : (
+                            <div className='flex flex-col'>
+                                {upcomingOrders.map(order => (
+                                    <li className='flex w-full h-[80px] border gap-2'>
+                                        <img src={Curry} className='w-20 rounded-xl'/>
+                
+                                        <div className='flex flex-col'>
+                                            <p className='text-sky-700'>{order.title}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className='flex flex-col'>
+                        <div className='flex justify-between w-full items-center'>
+                            <p className='text-sky-700 font-bold text-lg'>Past</p>
+
+                            <div onClick={() => setFilterModal(true)} className='hover:cursor-pointer'>
+                                <AdjustmentsHorizontalIcon className='w-6 text-black' />
+                            </div>
+                        </div>  
+
+                        <OrdersListings orders={orders} />
+                    </div>
+                </div>
+            )} 
         </div>
     )
 }

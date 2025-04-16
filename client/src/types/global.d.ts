@@ -40,6 +40,7 @@ declare global {
 
     interface Order {
         id: string;
+        title: string;
         status: "PENDING" | "CONFIRMED" | "PREPARING" | "READY" | "COMPLETED" | "CANCELLED";
         totalPrice: number;
         chefName: string;
