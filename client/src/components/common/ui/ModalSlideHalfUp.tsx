@@ -32,10 +32,10 @@ const ModalSlideHalfUp: React.FC<ModalSlideHalfUpProps> = ({
                     <motion.div
                         initial={{ y: "100%" }}
                         animate={{ y: 0 }}
-                        exit={{ y: "110%" }}
+                        exit={{ y: "120%" }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         className={`fixed left-0 right-0 bottom-[60px] z-50 bg-white rounded-t-xl shadow-xl w-full overflow-y-auto ${className}`}
-                        style={{ height: "fit-content", maxHeight: "calc(100vh - 60px)" }}
+                        style={{ height: "fit-content" }}
                     >
 
                         <div className='flex flex-col w-full h-full '>
