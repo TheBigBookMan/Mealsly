@@ -1,5 +1,7 @@
 import {createContext, useContext, useEffect, useState} from 'react';
 import { loginWithGoogle } from '../utils/auth';
+import { onAuthStateChanged } from "firebase/auth";
+import {auth} from '../utils/firebase';
 import api from '../utils/api';
 
 type UserContextType = {
@@ -30,14 +32,12 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
             const token = await loginWithGoogle();
         
             // Call your backend to get user profile
-            const res = await api.post("/api/auth/login", {
+            const res = await api.post("/auth/login", {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-        
-            if(res.data) {
-                
 
-                // setUser(data);
+            if(res.data) {
+                setUser(res.data);
             }
             
         } catch (err) {
@@ -55,7 +55,7 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
             const token = await loginWithGoogle();
         
             // Call your backend to get user profile
-            const res = await api.post("/api/auth/login", {
+            const res = await api.post("/auth/login", {
                 headers: { Authorization: `Bearer ${token}` },
             });
         
@@ -77,7 +77,7 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
 
             // TODO make a simple email and password login
             // Call your backend to get user profile
-            const res = await api.post("/api/auth/login-email", {
+            const res = await api.post("/auth/login-email", {
                 
             });
         
@@ -90,10 +90,34 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
     }
 
     const logout = async () => {
-        console.log('logout');
-
+        await auth.signOut();
         setUser(null);
     }
+
+    // ✅ Persist session on refresh
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            if (firebaseUser) {
+                try {
+                    const token = await firebaseUser.getIdToken();
+
+                    const res = await api.post("/auth/login", {}, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
+
+                    setUser(res.data);
+                } catch (error) {
+                    console.error("Auto-login error:", error);
+                    setUser(null);
+                }
+            } else {
+                setUser(null);
+            }
+            setLoading(false);
+        });
+
+        return () => unsubscribe(); // cleanup
+    }, []);
 
     return (
         <UserContext.Provider value={{user, loading, logout, loginGoogle, loginWithEmail, loginFacebook}}>

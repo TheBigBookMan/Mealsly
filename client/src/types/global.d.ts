@@ -8,6 +8,14 @@ declare global {
 
     interface User {
         email: string;
+        id: string;
+        firstName: string;
+        lastName: string;
+        profileImage: string;
+        postcode: string;
+        suburb: string;
+        state: string;
+        eaterId: string;
     }
 
     interface Listing {
