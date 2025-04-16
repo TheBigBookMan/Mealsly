@@ -11,7 +11,7 @@ router.post("/login", verifyFirebaseToken, async (req, res) => {
     const { uid, email, name, picture } = req.firebaseUser;
 
     try {
-        let user = await prisma.user.findUnique({ where: { firebaseUid: uid } });
+        let user = await prisma.user.findUnique({ where: { firebaseUid: uid }, include: {eater: true} });
 
         if (!user) {
             user = await prisma.user.create({
@@ -24,19 +24,25 @@ router.post("/login", verifyFirebaseToken, async (req, res) => {
                     postcode: "",
                     suburb: "",
                     state: "",
+                    eater: {
+                        create: {},
+                    },
                 },
+                include: { eater: true },
             });
-
-            await prisma.eater.create({
-                data: {
-                    userId: user.id
-                }
-            });
-
-            user = await prisma.user.findUnique({where: {id: user.id}, include: {eater: true}});
         }
 
-        res.json(user);
+        res.json({
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            profileImage: user.profileImage,
+            postcode: user.postcode,
+            suburb: user.suburb,
+            state: user.state,
+            eaterId: user.eater?.id || null,
+        });
     } catch (error) {
         errorHttp(res, error, "Error in /login:", 500);
     }

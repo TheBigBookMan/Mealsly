@@ -1,8 +1,6 @@
-import { ChefModel } from "../models/chefModel";
+const chefModel = require("../models/chefModel");
 
-const chefModel = new ChefModel();
-
-export class ChefService {
+class ChefService {
     async getChefs() {
         const chefs = await chefModel.findAllChefs();
         return chefs;
@@ -17,3 +15,5 @@ export class ChefService {
         return chef;
     }
 }
+
+module.exports = new ChefService();

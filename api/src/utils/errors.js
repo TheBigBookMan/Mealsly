@@ -1,6 +1,6 @@
-import { Response } from 'express';
+const Response = require('express');
 
-export const errorHttp = (
+const errorHttp = (
     res,
     error,
     errorMsg,
@@ -12,3 +12,5 @@ export const errorHttp = (
         error: process.env.NODE_ENV === 'development' ? error : undefined,
     });
 };
+
+module.exports = errorHttp;

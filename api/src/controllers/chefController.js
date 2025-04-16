@@ -1,8 +1,6 @@
 const { prisma } = require('../db/prisma');
-const { ChefService } = require('../services/chefService');
+const chefService = require('../services/chefService');
 const { errorHttp } = require('../utils/errors');
-
-const chefService = new ChefService();
 
 class ChefController {
     async createChef (req, res) {

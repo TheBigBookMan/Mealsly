@@ -1,8 +1,6 @@
-import {PrismaClient} from '@prisma/client';
+const {prisma} = require('../db/prisma');
 
-const prisma = new PrismaClient();
-
-export class ChefModel {
+class ChefModel {
     async findAllChefs() {
         return await prisma.chef.findMany({
             include: {user: true}
@@ -25,3 +23,5 @@ export class ChefModel {
         });
     }
 }
+
+module.exports = new ChefModel();

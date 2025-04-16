@@ -1,8 +1,6 @@
-import {PrismaClient} from '@prisma/client';
+const {prisma} = require('../db/prisma');
 
-const prisma = new PrismaClient();
-
-export class EaterModel {
+class EaterModel {
     async findAllEaters() {
         return await prisma.eaters.findMany({
             include: {user: true}
@@ -26,3 +24,5 @@ export class EaterModel {
         });
     }
 }
+
+module.exports = new EaterModel();

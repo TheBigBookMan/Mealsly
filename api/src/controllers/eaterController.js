@@ -1,8 +1,6 @@
 const {prisma} = require('../db/prisma');
-const { EaterService } = require('../services/eaterService');
+const eaterService = require('../services/eaterService');
 const {errorHttp} = require('../utils/errors');
-
-const eaterService = new EaterService();
 
 class EaterController {
     async createEater (req, res) {

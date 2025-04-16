@@ -6,7 +6,7 @@ import { FaFacebook } from "react-icons/fa";
 import { useUser } from "../contexts/UserContext";
 
 const Login = () => {
-    const {loginWithEmail, loginWithFacebook, loginWithGoogle} = useUser();
+    const {loginWithEmail, loginFacebook, loginGoogle} = useUser();
 
     const [loginDetails, setLoginDetails] = useState<LoginWithEmailDetails>({
         email: "",
@@ -28,7 +28,7 @@ const Login = () => {
 
                 <div className="space-y-4">
                     <Input
-                     onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && submitLoginEmailDetails()}
+                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && submitLoginEmailDetails()}
                         type="email"
                         label="Email"
                         value={loginDetails.email}
@@ -61,12 +61,12 @@ const Login = () => {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <button onClick={loginWithGoogle} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium text-gray-800">
+                    <button onClick={loginGoogle} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium text-gray-800">
                         <FcGoogle size={20} />
                         Sign in with Google
                     </button>
 
-                    <button onClick={loginWithFacebook} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-medium text-white">
+                    <button onClick={loginFacebook} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-medium text-white">
                         <FaFacebook size={20} />
                         Sign in with Facebook
                     </button>

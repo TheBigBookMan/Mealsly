@@ -1,8 +1,6 @@
-import { EaterModel } from "../models/eaterModel";
+const eaterModel = require('../models/eaterModel');
 
-const eaterModel = new EaterModel();
-
-export class EaterService {
+class EaterService {
     async getEaters() {
         const eaters = await eaterModel.findAllEaters();
         return eaters;
@@ -17,3 +15,5 @@ export class EaterService {
         return eater;
     }
 }
+
+module.exports = new EaterService();

@@ -6,8 +6,8 @@ type UserContextType = {
     user: User | null;
     loading: boolean;
     logout: () => void;
-    loginWithGoogle: () => void;
-    loginWithFacebook: () => void;
+    loginGoogle: () => void;
+    loginFacebook: () => void;
     loginWithEmail: ({email, password}: LoginWithEmailDetails) => void;
 };
 
@@ -15,21 +15,17 @@ const UserContext = createContext<UserContextType>({
     user: null,
     loading: true,
     logout() {},
-    loginWithFacebook() {},
-    loginWithGoogle() {},
+    loginFacebook() {},
+    loginGoogle() {},
     loginWithEmail() {}
 });
 
 export const UserProvider = ({children}: {children: React.ReactNode}) => {
-    const [user, setUser] = useState<User | null>({
-        username: ''
-    });
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     // ? Login with google
-    const loginWithGoogle = async (): Promise<void> => {
-        console.log('login with google');
-        return;
+    const loginGoogle = async (): Promise<void> => {
         try {
             const token = await loginWithGoogle();
         
@@ -38,8 +34,11 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
                 headers: { Authorization: `Bearer ${token}` },
             });
         
-            console.log(res);;
-            // setUser(data);
+            if(res.data) {
+                
+
+                // setUser(data);
+            }
             
         } catch (err) {
             console.error("Login error with google", err);
@@ -47,7 +46,7 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
     };
 
     // ? Login with facebook
-    const loginWithFacebook = async (): Promise<void> => {
+    const loginFacebook = async (): Promise<void> => {
         console.log('login with facebook');
         return;
 
@@ -97,7 +96,7 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
     }
 
     return (
-        <UserContext.Provider value={{user, loading, logout, loginWithGoogle, loginWithEmail, loginWithFacebook}}>
+        <UserContext.Provider value={{user, loading, logout, loginGoogle, loginWithEmail, loginFacebook}}>
             {children}
         </UserContext.Provider>
     )
