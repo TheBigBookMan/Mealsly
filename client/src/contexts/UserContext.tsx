@@ -1,5 +1,6 @@
 import {createContext, useContext, useEffect, useState} from 'react';
 import { loginWithGoogle } from '../utils/auth';
+import api from '../utils/api';
 
 type UserContextType = {
     user: User | null;
@@ -20,7 +21,9 @@ const UserContext = createContext<UserContextType>({
 });
 
 export const UserProvider = ({children}: {children: React.ReactNode}) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>({
+        username: ''
+    });
     const [loading, setLoading] = useState<boolean>(true);
 
     // ? Login with google
@@ -31,12 +34,12 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
             const token = await loginWithGoogle();
         
             // Call your backend to get user profile
-            const res = await fetch("/api/auth/login", {
+            const res = await api.post("/api/auth/login", {
                 headers: { Authorization: `Bearer ${token}` },
             });
         
-            const data = await res.json();
-            setUser(data);
+            console.log(res);;
+            // setUser(data);
             
         } catch (err) {
             console.error("Login error with google", err);
@@ -45,8 +48,20 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
 
     // ? Login with facebook
     const loginWithFacebook = async (): Promise<void> => {
+        console.log('login with facebook');
+        return;
+
         try {
-            console.log('login with facebook');
+
+            const token = await loginWithGoogle();
+        
+            // Call your backend to get user profile
+            const res = await api.post("/api/auth/login", {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+        
+            console.log(res);
+            // setUser(data);
 
         } catch(err) {
             console.error("Login error with facebook", err);
@@ -59,6 +74,16 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
 
             console.log(email);
             console.log(password);
+            return;
+
+            // TODO make a simple email and password login
+            // Call your backend to get user profile
+            const res = await api.post("/api/auth/login-email", {
+                
+            });
+        
+            console.log(res);
+            // setUser(data);
 
         } catch(err) {
             console.error('Login error with email', err);
@@ -67,6 +92,8 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
 
     const logout = async () => {
         console.log('logout');
+
+        setUser(null);
     }
 
     return (
