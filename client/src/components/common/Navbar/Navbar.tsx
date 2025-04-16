@@ -31,7 +31,7 @@ const Navbar = () => {
             </Link>
 
             {!user && (
-                <div onClick={() => setLoginModal(true)} className={`flex flex-col items-center`}>
+                <div onClick={() => setLoginModal(true)} className={`flex flex-col items-center hover:cursor-pointer`}>
                     <CiLogin className='text-2xl' />
                     <p className='text-xs'>Login</p>
                 </div>

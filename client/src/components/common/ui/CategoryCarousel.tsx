@@ -23,7 +23,7 @@ const cuisines = {
 
 const CategoryCarousel = ({chooseCategory, selectedCategory}: CategoryCarouselInterface) => {
     return (
-        <ul className="flex gap-2 overflow-x-auto w-full items-end px-4 py-2 text-xs">
+        <ul className="flex gap-2 overflow-x-auto w-full items-end px-4 py-2 text-xs bg-slate-100">
             {cuisines && Object.entries(cuisines).map(([cuisine, code]) => {
                 const isSelected = selectedCategory === cuisine;
         

@@ -11,8 +11,8 @@ const SearchBar = () => {
     }
 
     return (
-        <div className='h-[60px] flex items-center justify-center pt-2 sticky top-0 bg-white z-50'>
-            <div onClick={() => setSearchModal(!searchModal)} className='w-5/6 border rounded-3xl border-sky-200 shadow-lg h-5/6 flex items-center justify-center gap-2 hover:bg-sky-100 hover:cursor-pointer transition'>
+        <div className='h-[60px] flex items-center justify-center pt-2 sticky top-0 bg-slate-100 z-50'>
+            <div onClick={() => setSearchModal(!searchModal)} className='w-5/6 bg-white border rounded-3xl border-sky-200 shadow-lg h-5/6 flex items-center justify-center gap-2 hover:bg-sky-100 hover:cursor-pointer transition'>
                 <MagnifyingGlassIcon className='w-6 h-6' />
 
                 <p>Search...</p>

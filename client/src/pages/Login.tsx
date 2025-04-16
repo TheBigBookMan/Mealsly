@@ -3,17 +3,23 @@ import Input from "../components/common/ui/Input";
 import Button from "../components/common/ui/Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-
-interface LoginDetails {
-    email: string;
-    password: string;
-}
+import { useUser } from "../contexts/UserContext";
 
 const Login = () => {
-    const [loginDetails, setLoginDetails] = useState<LoginDetails>({
+    const {loginWithEmail, loginWithFacebook, loginWithGoogle} = useUser();
+
+    const [loginDetails, setLoginDetails] = useState<LoginWithEmailDetails>({
         email: "",
         password: "",
     });
+
+    const submitLoginEmailDetails = () => {
+        console.log("submit login");
+        console.log(loginDetails);
+        const {email, password} = loginDetails;
+
+        loginWithEmail({email, password});
+    }
 
     return (
         <div className="flex flex-col h-fit w-full items-center justify-center bg-gray-50 px-4">
@@ -22,6 +28,7 @@ const Login = () => {
 
                 <div className="space-y-4">
                     <Input
+                     onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && submitLoginEmailDetails()}
                         type="email"
                         label="Email"
                         value={loginDetails.email}
@@ -30,6 +37,7 @@ const Login = () => {
                         }
                     />
                     <Input
+                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && submitLoginEmailDetails()}
                         type="password"
                         label="Password"
                         value={loginDetails.password}
@@ -38,7 +46,7 @@ const Login = () => {
                         }
                     />
 
-                    <Button className="w-full py-3 rounded-xl font-semibold" variant="info">
+                    <Button onClick={submitLoginEmailDetails} className="w-full py-3 rounded-xl font-semibold" variant="info">
                         Login
                     </Button>
                 </div>
@@ -53,12 +61,12 @@ const Login = () => {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <button className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium text-gray-800">
+                    <button onClick={loginWithGoogle} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium text-gray-800">
                         <FcGoogle size={20} />
                         Sign in with Google
                     </button>
 
-                    <button className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-medium text-white">
+                    <button onClick={loginWithFacebook} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-medium text-white">
                         <FaFacebook size={20} />
                         Sign in with Facebook
                     </button>

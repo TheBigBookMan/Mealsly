@@ -11,4 +11,9 @@ export class EaterService {
     async getExistingEaterId(id) {
         return await eaterModel.getExistingEaterId(id);
     }
+
+    async getEaterIncludeAll(id) {
+        const eater = await eaterModel.findEaterIncludeAll(id);
+        return eater;
+    }
 }

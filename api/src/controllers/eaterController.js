@@ -68,16 +68,7 @@ class EaterController {
 
         try {
 
-            const eater = await prisma.eater.findUnique({
-                where: {id},
-                include: {
-                    user: true,
-                    orders: true,
-                    itemReviews: true,
-                    reviews: true,
-                    recurringOrders: true
-                }
-            });
+            const eater = await eaterService.getEaterIncludeAll(id);
 
             if(!eater) return res.status(404).json({message: 'Eater not found.'});
 
