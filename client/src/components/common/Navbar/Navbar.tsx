@@ -1,8 +1,7 @@
 import { useUser } from "../../../contexts/UserContext";
 import { Link } from "react-router-dom";
-import { MapPinIcon, MagnifyingGlassIcon, ChatBubbleLeftIcon,  ListBulletIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon, MagnifyingGlassIcon, ChatBubbleLeftIcon,  CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { useLocation } from "react-router-dom";
-import ME from '../../../assets/Me.jpg';
 import { CiLogin } from "react-icons/ci";
 import Login from "../../../pages/Login";
 import { useEffect, useState } from "react";
@@ -38,9 +37,9 @@ const Navbar = () => {
             )}
 
             {user && (
-                <Link to="/orders" className={`flex flex-col items-center ${pathname === '/orders' && 'text-sky-600 font-bold'}`}>
-                    <ListBulletIcon className="w-6 h-6 " />
-                    <p className='text-xs'>Orders</p>
+                <Link to="/plan" className={`flex flex-col items-center ${pathname === '/plan' && 'text-sky-600 font-bold'}`}>
+                    <CalendarDaysIcon className="w-6 h-6 " />
+                    <p className='text-xs'>Plan</p>
                 </Link>
             )}
 

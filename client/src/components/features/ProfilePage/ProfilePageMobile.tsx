@@ -81,6 +81,8 @@ const ProfilePageMobile = () => {
                 <PiChefHat className='text-7xl' />
             </div>
 
+            <NavToTile navTo="/orders" title="Orders" subtitle={null} />
+            
             <NavToTile navTo="/profile-settings" title="Settings" subtitle={null} />
 
             <Card className="w-full flex flex-col gap-4">
