@@ -13,6 +13,7 @@ import { useState } from "react";
 import IdentityVerification from "./mobile/IdentityVerification";
 import EditProfile from "./mobile/EditProfile";
 import NavToTile from "../../common/ui/NavToTile";
+import { useUser } from "../../../contexts/UserContext";
 
 // !!! TEMP verified field
 const PROFILETEMP = {
@@ -29,13 +30,14 @@ const ProfilePageMobile = () => {
     const [mobile, setMobile] = useState<string>('');
     const [verifiedModal, setVerifiedModal] = useState<boolean>(false);
     const [editProfileModal, setEditProfileModal] = useState<boolean>(false);
+    const {logout} = useUser();
     
 
-    const logoutConfirm = () => {
+    const logoutConfirm = async (): Promise<void> => {
         const confirmation = confirm("Are you sure you want to logout?");
         if(!confirmation) return;
 
-        // TODO do logout from user context require call to backend
+        await logout();
     }
 
     return (
