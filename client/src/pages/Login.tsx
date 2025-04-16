@@ -5,7 +5,11 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useUser } from "../contexts/UserContext";
 
-const Login = () => {
+interface LoginInterface {
+    setLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Login = ({setLoginModal}: LoginInterface) => {
     const {loginWithEmail, loginFacebook, loginGoogle} = useUser();
 
     const [loginDetails, setLoginDetails] = useState<LoginWithEmailDetails>({
@@ -13,12 +17,21 @@ const Login = () => {
         password: "",
     });
 
-    const submitLoginEmailDetails = () => {
-        console.log("submit login");
-        console.log(loginDetails);
-        const {email, password} = loginDetails;
+    const loginFunc = async (type: string): Promise<void> => {
+        if(type === 'email') {
+            console.log("submit login");
+            console.log(loginDetails);
+            const {email, password} = loginDetails;
+            await loginWithEmail({email, password});
+        } else if(type === 'google') {
+            await loginGoogle();
+        } else if(type === 'facebook') {
+            await loginFacebook();
+        }
 
-        loginWithEmail({email, password});
+        // TODO need check if success then remove login modal, if fail then provide message
+
+        setLoginModal(false);
     }
 
     return (
@@ -28,7 +41,7 @@ const Login = () => {
 
                 <div className="space-y-4">
                     <Input
-                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && submitLoginEmailDetails()}
+                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && loginFunc('email')}
                         type="email"
                         label="Email"
                         value={loginDetails.email}
@@ -37,7 +50,7 @@ const Login = () => {
                         }
                     />
                     <Input
-                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && submitLoginEmailDetails()}
+                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && loginFunc('email')}
                         type="password"
                         label="Password"
                         value={loginDetails.password}
@@ -46,7 +59,7 @@ const Login = () => {
                         }
                     />
 
-                    <Button onClick={submitLoginEmailDetails} className="w-full py-3 rounded-xl font-semibold" variant="info">
+                    <Button onClick={() => loginFunc('email')} className="w-full py-3 rounded-xl font-semibold" variant="info">
                         Login
                     </Button>
                 </div>
@@ -61,12 +74,12 @@ const Login = () => {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    <button onClick={loginGoogle} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium text-gray-800">
+                    <button onClick={() => loginFunc('google')} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium text-gray-800">
                         <FcGoogle size={20} />
                         Sign in with Google
                     </button>
 
-                    <button onClick={loginFacebook} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-medium text-white">
+                    <button onClick={() => loginFunc('facebook')} className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-medium text-white">
                         <FaFacebook size={20} />
                         Sign in with Facebook
                     </button>

@@ -17,7 +17,7 @@ const Navbar = () => {
     return (
         <ul className='fixed bottom-0 left-0 right-0 z-49 flex justify-around items-center md:hidden h-[60px] border-t bg-white'>
             <ModalSlideUp isOpen={loginModal} onClose={() => setLoginModal(false)} title="Login">
-                <Login />
+                <Login setLoginModal={setLoginModal} />
             </ModalSlideUp>
             
             <Link to="/" className={`flex flex-col items-center ${pathname === '/' && 'text-sky-600 font-bold'}`}>
