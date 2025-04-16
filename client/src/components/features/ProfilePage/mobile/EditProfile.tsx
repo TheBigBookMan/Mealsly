@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModalSlideUp from "../../../common/ui/ModalSlideUp";
 
 import Me from '../../../../assets/Me.jpg';
 import FileUpload from "../../../common/ui/FileUpload";
 import Button from "../../../common/ui/Button";
 import Input from "../../../common/ui/Input";
+import { useUser } from "../../../../contexts/UserContext";
 
 interface EditProfileInterface {
     editProfileModal: boolean;
@@ -25,6 +26,8 @@ type EditProfileDetails = {
 }
 
 const EditProfile = ({editProfileModal, setEditProfileModal}: EditProfileInterface) => {   
+    const {user} = useUser();
+    
     const [imgUploadLoading, setImgUploadLoading] = useState(false);
     
     const [profileDetails, setProfileDetails] = useState<ProfileDetails>({
@@ -92,13 +95,23 @@ const EditProfile = ({editProfileModal, setEditProfileModal}: EditProfileInterfa
         }
     }
 
-    // TODO useEffect to get the profile details from backend or something
+    // TODO need to add in mobile number
+    useEffect(() => {
+        if(user) {
+            setProfileDetails({
+                legalName: `${user.firstName} ${user.lastName}`,
+                email: user.email,
+                phoneNumber: '123123123123123',
+                profilePic: user.profileImage
+            });
+        }
+    }, [user]);
 
     return (
         <ModalSlideUp title='Edit Profile' isOpen={editProfileModal} onClose={() => checkUnsaved()}>
             <div className='flex flex-col w-full h-full px-2'>
                 <div className='flex justify-between w-full items-center border-b py-4'>
-                    <img src={Me} className='w-20 rounded-full'/>
+                    <img src={profileDetails.profilePic} className='w-20 rounded-full'/>
                     
                     <div className='ml-auto'>
                         <FileUpload
