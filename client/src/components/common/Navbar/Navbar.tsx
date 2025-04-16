@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import ME from '../../../assets/Me.jpg';
 import { CiLogin } from "react-icons/ci";
 import Login from "../../../pages/Login";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalSlideUp from "../ui/ModalSlideUp";
 
 const Navbar = () => {
@@ -53,7 +53,7 @@ const Navbar = () => {
 
             {user && (
                 <Link to="/profile" className={`flex flex-col items-center ${pathname.includes('/profile') && 'text-sky-600 font-bold'}`}>
-                    <img src={ME} className={`rounded-full w-6 h-6 ${pathname.includes('/profile') && 'border-2 border-sky-600'}`} />
+                    <img src={user.profileImage} className={`rounded-full w-6 h-6 ${pathname.includes('/profile') && 'border-2 border-sky-600'}`} />
                     <p className='text-xs'>Profile</p>
                 </Link>
             )}
