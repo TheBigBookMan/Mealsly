@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StarIcon } from '@heroicons/react/24/solid';
 import { PiChefHat } from "react-icons/pi";
 import { FaCarSide, FaHouseUser  } from "react-icons/fa";
@@ -10,6 +10,7 @@ import { TEMPLISTINGS } from "./templist";
 
 interface ListingItemsInterface {
     selectedCategory: string;
+    selectedType: string;
 } 
 
 // !!! TEMP
@@ -25,9 +26,14 @@ interface ListingTemp {
 }
 
 
-const ListingItems = ({selectedCategory}: ListingItemsInterface) => {
+const ListingItems = ({selectedCategory, selectedType}: ListingItemsInterface) => {
     const [listings, setListings] = useState<ListingTemp[] | null>(null);
     // const [listings, setListings] = useState<Listing[] | null>(null);
+
+    // useEffect(() => {
+    //     console.log(selectedCategory);
+    //     console.log(selectedType);
+    // }, [selectedType, selectedCategory]);
 
     return (
         <ul className="flex flex-col gap-4 p-2 pb-[62px]">

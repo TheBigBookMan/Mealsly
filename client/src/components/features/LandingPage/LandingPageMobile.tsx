@@ -27,7 +27,7 @@ const LandingPageMobile = () => {
             </div>
 
             <div className="flex-1 overflow-y-auto">
-                <ListingItems selectedCategory={selectedCategory} />
+                <ListingItems selectedCategory={selectedCategory} selectedType={selectedType} />
             </div>
         </div>
     )
