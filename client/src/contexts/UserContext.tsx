@@ -40,8 +40,9 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
                 setUser(res.data);
             }
             
-        } catch (err) {
-            console.error("Login error with google", err);
+        } catch (err: any) {
+            const message = err?.response?.data?.message || "Login with Google failed.";
+            throw new Error(message);
         }
     };
 

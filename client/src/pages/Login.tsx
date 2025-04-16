@@ -12,32 +12,46 @@ interface LoginInterface {
 const Login = ({setLoginModal}: LoginInterface) => {
     const {loginWithEmail, loginFacebook, loginGoogle} = useUser();
 
+    const [isError, setIsError] = useState<string | null>(null);
     const [loginDetails, setLoginDetails] = useState<LoginWithEmailDetails>({
         email: "",
         password: "",
     });
 
     const loginFunc = async (type: string): Promise<void> => {
-        if(type === 'email') {
-            console.log("submit login");
-            console.log(loginDetails);
-            const {email, password} = loginDetails;
-            await loginWithEmail({email, password});
-        } else if(type === 'google') {
-            await loginGoogle();
-        } else if(type === 'facebook') {
-            await loginFacebook();
+        try {
+            if (type === 'email') {
+                const { email, password } = loginDetails;
+
+                if(email === '' || password === '') {
+                    setIsError('Please add in your credentials.');
+                    return;
+                }
+
+                await loginWithEmail({ email, password });
+            } else if (type === 'google') {
+                await loginGoogle();
+            } else if (type === 'facebook') {
+                await loginFacebook();
+            }
+    
+            setLoginModal(false);
+    
+        } catch (err: any) {
+            console.error("Login error:", err.message);
+            setIsError('Could not login.');
         }
-
-        // TODO need check if success then remove login modal, if fail then provide message
-
-        setLoginModal(false);
     }
 
     return (
         <div className="flex flex-col h-fit w-full items-center justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-6 space-y-6">
-                <h1 className="text-3xl font-bold text-center text-gray-900">Mealsly</h1>
+            <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-2">
+                <div className='flex flex-col items-center gap-2'>
+                    <h1 className="text-3xl font-bold text-center text-gray-900">Mealsly</h1>
+
+                    {isError && <p className="bg-red-600 text-white text-sm px-4 py-2 rounded-xl shadow-md animate-shake">{isError}</p>}
+                    
+                </div>
 
                 <div className="space-y-4">
                     <Input
