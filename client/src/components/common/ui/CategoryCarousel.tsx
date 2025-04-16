@@ -23,7 +23,7 @@ const cuisines = {
 
 const CategoryCarousel = ({chooseCategory, selectedCategory}: CategoryCarouselInterface) => {
     return (
-        <ul className="flex gap-2 overflow-x-auto w-full items-end px-4 py-2 text-xs bg-slate-100">
+        <ul className="flex gap-2 overflow-x-auto w-full items-end px-4 py-1 text-xs bg-slate-100">
             {cuisines && Object.entries(cuisines).map(([cuisine, code]) => {
                 const isSelected = selectedCategory === cuisine;
         
@@ -35,7 +35,7 @@ const CategoryCarousel = ({chooseCategory, selectedCategory}: CategoryCarouselIn
                         hover:cursor-pointer 
                         rounded-xl 
                         flex flex-col items-center justify-end
-                        px-3 py-2
+                        px-3 py-1
                         transition-all duration-200 ease-in-out
                         ${isSelected 
                             ? 'text-sky-500 font-bold bg-slate-200 border border-slate-300'
@@ -43,7 +43,7 @@ const CategoryCarousel = ({chooseCategory, selectedCategory}: CategoryCarouselIn
                         `}
                     >
                         <div className="h-[28px] flex items-center justify-center">
-                            <Flag code={code} className="h-[24px] w-auto" />
+                            <Flag code={code} className="h-[20px] w-auto" />
                         </div>
             
                         <p className="mt-1 whitespace-nowrap">{cuisine}</p>
