@@ -14,6 +14,7 @@ import IdentityVerification from "./mobile/IdentityVerification";
 import EditProfile from "./mobile/EditProfile";
 import NavToTile from "../../common/ui/NavToTile";
 import { useUser } from "../../../contexts/UserContext";
+import { getMonthDifference } from "../../../utils/functions";
 
 // !!! TEMP verified field
 const PROFILETEMP = {
@@ -30,7 +31,7 @@ const ProfilePageMobile = () => {
     const [mobile, setMobile] = useState<string>('');
     const [verifiedModal, setVerifiedModal] = useState<boolean>(false);
     const [editProfileModal, setEditProfileModal] = useState<boolean>(false);
-    const {logout} = useUser();
+    const {logout, user} = useUser();
     
 
     const logoutConfirm = async (): Promise<void> => {
@@ -60,13 +61,13 @@ const ProfilePageMobile = () => {
 
             <Card className="w-full flex justify-between items-center">
                 <div className='flex flex-col items-center gap-2'>
-                    <img src={ME} className='w-24 rounded-full' />
+                    <img src={user?.profileImage} className='w-24 rounded-full' />
 
-                    <p className='text-2xl font-bold'>{PROFILETEMP.firstName}</p>
+                    <p className='text-2xl font-bold'>{user?.firstName}</p>
                 </div>
 
                 <div className='flex flex-col'>
-                    <p className="text-xl text-black">{PROFILETEMP.createdAt}</p>
+                    <p className="text-xl text-black">{user?.createdAt && getMonthDifference(user.createdAt)}</p>
                     <p>Month on Measly</p>
                 </div>
             </Card>

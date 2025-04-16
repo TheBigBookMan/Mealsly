@@ -16,6 +16,7 @@ declare global {
         suburb: string;
         state: string;
         eaterId: string;
+        createdAt: string;
     }
 
     interface Listing {
