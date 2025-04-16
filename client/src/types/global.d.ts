@@ -1,6 +1,11 @@
 export {};
 
 declare global {
+    interface LoginWithEmailDetails {
+        email: string;
+        password: string;
+    }
+
     interface User {
         username: string;
     }
