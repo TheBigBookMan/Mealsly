@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import CategoryCarousel from "../../common/ui/CategoryCarousel";
 import { useUser } from "../../../contexts/UserContext";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-import L from 'leaflet';
+import Map from "../../common/ui/Map";
+import { AnimatePresence, motion } from "framer-motion";
 
 // TODO need to add the map
 
@@ -23,28 +23,7 @@ const MapPageMobile = () => {
     const [chefs, setChefs] = useState<Chef[]>([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchDataForBounds = async (bounds: L.LatLngBounds) => {
-        setLoading(true);
-        const northEast = bounds.getNorthEast();
-        const southWest = bounds.getSouthWest();
     
-        console.log(`/api/chefs?neLat=${northEast.lat}&neLng=${northEast.lng}&swLat=${southWest.lat}&swLng=${southWest.lng}`);
-
-        // Example API query with bounding box
-        // const res = await fetch(`/api/chefs?neLat=${northEast.lat}&neLng=${northEast.lng}&swLat=${southWest.lat}&swLng=${southWest.lng}`);
-        // const data = await res.json();
-        // setChefs(data);
-        setLoading(false);
-    };
-
-    const MapEvents = () => {
-        const map = useMapEvents({
-            moveend: () => {
-                fetchDataForBounds(map.getBounds());
-            },
-        });
-        return null;
-    };
 
     useEffect(() => {
         if(userLocation) {
@@ -61,32 +40,29 @@ const MapPageMobile = () => {
             </div>
         
             <div className="flex-1 relative w-full">
-                {loading && (
-                    <div className="absolute top-2 right-2 bg-white p-2 rounded shadow z-[1000]">
-                        Loading chefs...
-                    </div>
-                )}
+                <AnimatePresence>
+                    {loading && (
+                        <>
+                            <motion.div
+                                initial={{ x: "100%" }}
+                                animate={{ x: 130 }}
+                                exit={{ x: "210%" }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                className={`absolute top-2 right-36 bg-white p-2 rounded shadow text-sky-700 z-[1000] `}
+                            >
+
+                                    Loading chefs...
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
         
                 {mapPosition && (
-                    <MapContainer
-                        center={mapPosition}
-                        zoom={13}
-                        scrollWheelZoom={true}
-                        className="w-full h-full z-0"
-                    >
-                        <TileLayer
-                            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-                            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                        />
+                    <Map mapPosition={mapPosition} setLoading={setLoading}>
+                        <p>Tjhs is a popup</p>
                 
-                        <Marker position={mapPosition as [number, number]}>
-                            <Popup>
-                            A pretty CSS3 popup. <br /> Easily customizable.
-                            </Popup>
-                        </Marker>
-                
-                        <MapEvents />
-                    </MapContainer>
+                        
+                    </Map>
                 )}
             </div>
         </div>
