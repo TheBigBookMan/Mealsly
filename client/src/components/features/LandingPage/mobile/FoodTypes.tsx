@@ -14,9 +14,9 @@ const FoodTypes = ({selectedType, setSelectedType}: FoodTypesInterface) => {
                 <p>Listings</p>
             </div>
 
-            <div onClick={() => setSelectedType("Deals")} className={`flex gap-1 items-start ${selectedType === 'Deals' ? 'underline text-sky-700 ' : ''}`}>
+            <div onClick={() => setSelectedType("Packs")} className={`flex gap-1 items-start ${selectedType === 'Packs' ? 'underline text-sky-700 ' : ''}`}>
                 <IoFastFoodOutline className='text-xl' />
-                <p>Deals</p>
+                <p>Packs</p>
             </div>
         </div>
     )

@@ -52,6 +52,7 @@ const OrdersPage = () => {
     useEffect(() => {
         console.log(filter);
         // TODO TEMP
+        // TODO order by date and show most recent
         setOrders(ORDERTEMP);
         const checkUpcoming = ORDERTEMP.filter(order => order.status === 'PENDING');
         setUpcomingOrders(checkUpcoming);
@@ -93,7 +94,7 @@ const OrdersPage = () => {
                         ) : (
                             <div className='flex flex-col'>
                                 {upcomingOrders.map(order => (
-                                    <li className='flex w-full h-[80px] border gap-2'>
+                                    <li key={order.id} className='flex w-full h-[80px] border gap-2'>
                                         <img src={Curry} className='w-20 rounded-xl'/>
                 
                                         <div className='flex flex-col'>
