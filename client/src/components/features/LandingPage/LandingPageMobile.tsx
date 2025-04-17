@@ -10,17 +10,13 @@ const LandingPageMobile = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [selectedType, setSelectedType] = useState<string>('Listings');
 
-    const chooseCategory = (category: string): void => {
-        setSelectedCategory(category);
-    }
-
     return (
         <div className="h-screen w-full md:hidden flex flex-col overflow-hidden">
             <div className="sticky top-0 bg-white z-49 ">
                 <SearchBar />
                 
                 <div className="h-[70px] w-full">
-                    <CategoryCarousel chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>
+                    <CategoryCarousel setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory}/>
                 </div>
 
                 <FoodTypes selectedType={selectedType} setSelectedType={setSelectedType} />

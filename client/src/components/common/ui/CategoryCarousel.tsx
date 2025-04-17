@@ -1,7 +1,7 @@
 import Flag from 'react-world-flags';
 
 interface CategoryCarouselInterface {
-    chooseCategory: (category: string) => void;
+    setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
     selectedCategory: string;
 }
 
@@ -21,7 +21,7 @@ const cuisines = {
     'American': 'US',
 }
 
-const CategoryCarousel = ({chooseCategory, selectedCategory}: CategoryCarouselInterface) => {
+const CategoryCarousel = ({setSelectedCategory, selectedCategory}: CategoryCarouselInterface) => {
     return (
         <ul className="flex gap-2 overflow-x-auto w-full items-end px-4 py-1 text-xs bg-slate-100">
             {cuisines && Object.entries(cuisines).map(([cuisine, code]) => {
@@ -30,7 +30,7 @@ const CategoryCarousel = ({chooseCategory, selectedCategory}: CategoryCarouselIn
                 return (
                     <li
                         key={cuisine}
-                        onClick={() => chooseCategory(cuisine)}
+                        onClick={() => setSelectedCategory(cuisine)}
                         className={`
                         hover:cursor-pointer 
                         rounded-xl 
