@@ -42,7 +42,9 @@ router.post("/login", verifyFirebaseToken, async (req, res) => {
             suburb: user.suburb,
             state: user.state,
             eaterId: user.eater?.id || null,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            lat: user.eater.latitude,
+            lon: user.eater.longitude
         });
     } catch (error) {
         errorHttp(res, error, "Error in /login:", 500);

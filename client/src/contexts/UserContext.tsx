@@ -32,10 +32,7 @@ const UserContext = createContext<UserContextType>({
 
 export const UserProvider = ({children}: {children: React.ReactNode}) => {
     const [user, setUser] = useState<User | null>(null);
-    const [userLocation, setUserLocation] = useState<UserLocation>({
-        lat: 0,
-        lon: 0
-    })
+    const [userLocation, setUserLocation] = useState<UserLocation | null>(null)
     const [loading, setLoading] = useState<boolean>(true);
 
     const updateEaterLocation = async (eaterId: string): Promise<void> => {
@@ -144,6 +141,10 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
                     });
 
                     setUser(res.data);
+                    setUserLocation({
+                        lat: res.data.lat,
+                        lon: res.data.lon
+                    })
                 } catch (error) {
                     console.error("Auto-login error:", error);
                     setUser(null);

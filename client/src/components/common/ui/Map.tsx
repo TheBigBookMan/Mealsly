@@ -16,7 +16,7 @@ const Map = ({mapPosition, setLoading, children}: MapInterface) => {
         const northEast = bounds.getNorthEast();
         const southWest = bounds.getSouthWest();
     
-        console.log(`/api/chefs?neLat=${northEast.lat}&neLng=${northEast.lng}&swLat=${southWest.lat}&swLng=${southWest.lng}`);
+        console.log(`/map/chefs?neLat=${northEast.lat}&neLng=${northEast.lng}&swLat=${southWest.lat}&swLng=${southWest.lng}`);
 
         // Example API query with bounding box
         // const res = await fetch(`/api/chefs?neLat=${northEast.lat}&neLng=${northEast.lng}&swLat=${southWest.lat}&swLng=${southWest.lng}`);

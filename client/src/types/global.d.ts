@@ -17,6 +17,8 @@ declare global {
         state: string;
         eaterId: string;
         createdAt: string;
+        lat: number;
+        lon: number;
     }
 
     interface UserLocation {
