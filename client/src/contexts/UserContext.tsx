@@ -1,8 +1,9 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import { loginWithGoogle } from '../utils/auth';
 import { onAuthStateChanged } from "firebase/auth";
 import {auth} from '../utils/firebase';
 import api from '../utils/api';
+import { getUserLocation } from '../utils/functions';
 
 type UserContextType = {
     user: User | null;
@@ -11,6 +12,8 @@ type UserContextType = {
     loginGoogle: () => void;
     loginFacebook: () => void;
     loginWithEmail: ({email, password}: LoginWithEmailDetails) => void;
+    userLocation: UserLocation;
+    updateEaterLocation: (eaterId: string) => void;
 };
 
 const UserContext = createContext<UserContextType>({
@@ -19,12 +22,44 @@ const UserContext = createContext<UserContextType>({
     logout() {},
     loginFacebook() {},
     loginGoogle() {},
-    loginWithEmail() {}
+    loginWithEmail() {},
+    userLocation: {
+        lat: 0,
+        lon: 0
+    },
+    updateEaterLocation() {}
 });
 
 export const UserProvider = ({children}: {children: React.ReactNode}) => {
     const [user, setUser] = useState<User | null>(null);
+    const [userLocation, setUserLocation] = useState<UserLocation>({
+        lat: 0,
+        lon: 0
+    })
     const [loading, setLoading] = useState<boolean>(true);
+
+    const updateEaterLocation = async (eaterId: string): Promise<void> => {
+        if(!eaterId) return;
+
+        try {
+            const location = await getUserLocation();
+
+            await api.put(`/eater/${eaterId}/lat-lon`, {
+                latitude: location.lat,
+                longitude: location.lon,
+            });
+
+            setUserLocation({
+                lat: location.lat,
+                lon: location.lon
+            });
+
+            console.log("Location updated");
+            
+        } catch (err) {
+            console.error("Location error:", err);
+        }
+    }
 
     // ? Login with google
     const loginGoogle = async (): Promise<void> => {
@@ -38,6 +73,7 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
 
             if(res.data) {
                 setUser(res.data);
+                await updateEaterLocation(res.data.eaterId);
             }
             
         } catch (err: any) {
@@ -121,7 +157,7 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{user, loading, logout, loginGoogle, loginWithEmail, loginFacebook}}>
+        <UserContext.Provider value={{user, loading, logout, loginGoogle, loginWithEmail, loginFacebook, userLocation, updateEaterLocation}}>
             {children}
         </UserContext.Provider>
     )

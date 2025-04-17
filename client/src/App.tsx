@@ -18,6 +18,7 @@ import SettingsPage from "./components/features/SettingsPage/SettingsPage";
 import PaymentsPage from "./pages/PaymentsPage";
 import MessagePage from "./pages/MessagePage";
 import PlanPage from "./pages/PlanPage";
+import LocationPage from "./components/features/SettingsPage/LocationPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -66,6 +67,7 @@ export default function App() {
                         <Route path="payments" element={<PaymentPage />} />
                         <Route path="security" element={<SecurityPage />} />
                         <Route path="notifications" element={<NotificationsPage />} />
+                        <Route path="location" element={<LocationPage />} />
                         <Route index element={<SettingsPage />} />
                     </Route>
 

@@ -2,7 +2,7 @@ const {prisma} = require('../db/prisma');
 
 class EaterModel {
     async findAllEaters() {
-        return await prisma.eaters.findMany({
+        return await prisma.eater.findMany({
             include: {user: true}
         });
     }

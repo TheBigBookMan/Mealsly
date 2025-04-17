@@ -19,6 +19,11 @@ declare global {
         createdAt: string;
     }
 
+    interface UserLocation {
+        lat: number;
+        lon: number;
+    }
+
     interface Listing {
         id: string;
         title: string;
