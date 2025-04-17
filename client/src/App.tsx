@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
-
+import './utils/fixLeafletIcon';
 import LandingPage from "./pages/LandingPage";
 import ProfilePage from "./pages/ProfilePage";
 import MapPage from "./pages/MapPage";
@@ -99,6 +99,7 @@ export default function App() {
                     />
 
                     <Route path='/listing/:listingId' element={<ListingPage /> } />
+                    
                     <Route path="/map" element={<MapPage />} />
 
                     <Route path="/orders" element={<OrdersPage />} />

@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import {UserProvider} from './contexts/UserContext.tsx';
+import 'leaflet/dist/leaflet.css';
 
 createRoot(document.getElementById('root')!).render(
     <UserProvider>

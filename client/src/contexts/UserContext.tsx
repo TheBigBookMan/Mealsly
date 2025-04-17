@@ -61,6 +61,7 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
         }
     }
 
+    // TODO these need to also return lat lon to store in context
     // ? Login with google
     const loginGoogle = async (): Promise<void> => {
         try {
