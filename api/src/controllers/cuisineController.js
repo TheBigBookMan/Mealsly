@@ -4,18 +4,19 @@ const { errorHttp } = require('../utils/errors');
 
 class CuisineController {
     async createCuisine (req, res) {
-        const {name, flagCode} = req.body;
+        const {name, flagCode, popularity} = req.body;
 
         try {
 
             const cuisineExists = await prisma.cuisine.findUnique({where: {name}});
 
-            if(cuisineExists) return errorHttp(res, cuisineExists.id, 'Cuisine already exits', 400);
+            if(cuisineExists) return errorHttp(res, `Existing: ${name}`, 'Cuisine already exits', 400);
 
             const cuisine = await prisma.cuisine.create({
                 data: {
                     name,
-                    flagCode
+                    flagCode,
+                    popularity
                 }
             });
 
@@ -27,12 +28,31 @@ class CuisineController {
     }
 
     async getAllCuisines (req, res) {
+        const includeChefs = req.query.includeChefs === 'true';
+
         try {
-            const cuisines = await cuisineService.getCuisines();
+            const cuisines = await cuisineService.getCuisines(includeChefs);
             res.json(cuisines);
         } catch(error) {
             errorHttp(res, error, 'Error fetching cuisines', 500);
         }
+    }
+
+    async getCuisineById (req, res) {
+        const {id} = req.params;
+        const includeChefs = req.query.includeChefs === 'true';
+
+        try {
+
+            const cuisine = await cuisineService.getExistingCuisineId(id, includeChefs);
+
+            if(!cuisine) return errorHttp(res, `Existing: ${id}`, 'Cuisine does not exist', 400);
+
+            res.json(cuisine);
+
+        } catch(error) {
+            errorHttp(res, error, 'Error fetching cuisine', 500);
+        } 
     }
 
     async updateCuisinePopularity (req, res) {
@@ -42,7 +62,7 @@ class CuisineController {
 
             const cuisineExists = await cuisineService.getExistingCuisineId(id);
 
-            if(!cuisineExists) return errorHttp(res, cuisineExists.id, 'Cuisine does not exist', 400);
+            if(!cuisineExists) return errorHttp(res, `Existing: ${id}`, 'Cuisine does not exist', 400);
 
             const updatedPopularity = cuisineExists.popularity + 1;
 

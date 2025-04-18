@@ -1,12 +1,12 @@
 const cuisineModel = require("../models/cuisineModel");
 
 class CuisineModel {
-    async getCuisines() {
-        return await cuisineModel.findAllCuisines();
+    async getCuisines(includeChefs = false) {
+        return await cuisineModel.findAllCuisines(includeChefs);
     }
 
-    async getExistingCuisineId (id) {
-        return await cuisineModel.getExistingCuisineId(id);
+    async getExistingCuisineId (id, includeChefs = false) {
+        return await cuisineModel.getExistingCuisineId(id, includeChefs);
     }
 }
 
