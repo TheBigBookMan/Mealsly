@@ -1,14 +1,16 @@
 import React, { ReactNode, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
+import api from "../../../utils/api";
 
 interface MapInterface {
     mapPosition: number[];
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    setChefsInBoundary: (chefs: Chef[]) => void;
     children: ReactNode;
 }
 
-const Map = ({mapPosition, setLoading, children}: MapInterface) => {
+const Map = ({mapPosition, setLoading, setChefsInBoundary, children}: MapInterface) => {
     
 
     const fetchDataForBounds = async (bounds: L.LatLngBounds) => {
@@ -16,14 +18,16 @@ const Map = ({mapPosition, setLoading, children}: MapInterface) => {
         const northEast = bounds.getNorthEast();
         const southWest = bounds.getSouthWest();
     
-        console.log(`/map/chefs?neLat=${northEast.lat}&neLng=${northEast.lng}&swLat=${southWest.lat}&swLng=${southWest.lng}`);
+        // const res = await api.get(`/map/chefs?neLat=${northEast.lat}&neLng=${northEast.lng}&swLat=${southWest.lat}&swLng=${southWest.lng}`);
 
-        // Example API query with bounding box
-        // const res = await fetch(`/api/chefs?neLat=${northEast.lat}&neLng=${northEast.lng}&swLat=${southWest.lat}&swLng=${southWest.lng}`);
-        // const data = await res.json();
-        // setChefs(data);
+        // console.log(res);
 
-        setLoading(false);
+        // setChefsInBoundary(data);
+
+        setTimeout(() => {
+
+            setLoading(false);
+        }, 2000);
     };
     
     const MapEvents = () => {

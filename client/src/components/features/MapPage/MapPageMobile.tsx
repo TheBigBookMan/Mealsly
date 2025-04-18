@@ -23,7 +23,9 @@ const MapPageMobile = () => {
     const [chefs, setChefs] = useState<Chef[]>([]);
     const [loading, setLoading] = useState(false);
 
-    
+    const setChefsInBoundary = (chefs: Chef[]) => {
+        setChefs(chefs);
+    }
 
     useEffect(() => {
         if(userLocation) {
@@ -58,7 +60,7 @@ const MapPageMobile = () => {
                 </AnimatePresence>
         
                 {mapPosition && (
-                    <Map mapPosition={mapPosition} setLoading={setLoading}>
+                    <Map mapPosition={mapPosition} setLoading={setLoading} setChefsInBoundary={setChefsInBoundary}>
                         <p>Tjhs is a popup</p>
                 
                         
