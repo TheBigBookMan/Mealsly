@@ -18,6 +18,7 @@ model User {
     id  String  @id @default(cuid())
     firebaseUid String  @unique
     email   String  @unique
+    mobile String? @unique
     firstName String?
     lastName String?
     postcode String?
@@ -25,127 +26,11 @@ model User {
     state String?
     profileImage String?
     createdAt DateTime @default(now())
+
     paymentMethods PaymentMethod[]
 
     chef Chef?
     eater Eater?
-}
-
-model Eater {
-    id String @id @default(cuid())
-    user User @relation(fields: [userId], references: [id])
-    userId String @unique
-
-    latitude Float?
-    longitude Float?
-    
-    orders Order[] @relation("EaterOrders")
-    itemReviews ItemReview[] @relation("EaterItemReviews")
-    reviews ChefReview[] @relation("EaterChefReviews")
-    recurringOrders RecurringOrder[]
-    conversations Conversation[]
-
-    chefSubscriptions ChefSubscription[]
-
-    notifications Notification[]
-}
-
-model Chef {
-    id String @id @default(cuid())
-    user User @relation(fields: [userId], references: [id])
-    userId String @unique
-    isActive Boolean @default(true)
-
-    bio String?
-    
-    latitude Float?
-    longitude Float?
-
-    Cuisines UserCuisine[]
-    listings Listing[]
-
-    conversations Conversation[]
-
-    recurringOrders RecurringOrder[]
-
-    chefReviews ChefReview[] @relation("ChefReviews")
-    itemReviews ItemReview[] @relation("ChefItemReviews")
-    orders Order[] @relation("ChefOrders")
-    schedules Schedule[]
-
-    deals Deal[]
-
-    eventChefs EventChef[]
-
-    chefSubscriptions ChefSubscription[]
-}
-
-enum NotificationType {
-    EVENT_PROMOTION
-    CHEF_PROMOTION
-    GENERAL
-}
-
-model Notification {
-    id String @id @default(cuid())
-    recipient Eater @relation(fields: [eaterId], references: [id])
-    eaterId String
-
-    title String
-    message String
-    type NotificationType
-    read Boolean @default(false)
-    createdAt DateTime @default(now())
-}
-
-model Event {
-    id String @id @default(cuid())
-    title String
-    description String?
-    startTime DateTime
-    endTime DateTime
-    latitude Float
-    longitude Float
-    address String?
-    city String?
-    country String?
-
-    eventChefs EventChef[]
-    eventCuisines EventCuisine[]
-    createdAt DateTime @default(now())
-}
-
-model EventChef {
-    id String @id @default(cuid())
-    event Event @relation(fields: [eventId], references: [id])
-    eventId String
-
-    chef Chef @relation(fields: [chefId], references: [id])
-    chefId String
-
-    @@unique([eventId, chefId])
-}
-
-model EventCuisine {
-    id String @id @default(cuid())
-    event Event @relation(fields: [eventId], references: [id])
-    eventId String
-
-    cuisine Cuisine @relation(fields: [cuisineId], references: [id])
-    cuisineId String
-
-    @@unique([eventId, cuisineId])
-}
-
-model ChefSubscription {
-    id String @id @default(cuid())
-    eater Eater @relation(fields: [eaterId], references: [id])
-    eaterId String
-
-    chef Chef @relation(fields: [chefId], references: [id])
-    chefId String
-
-    @@unique([eaterId, chefId])
 }
 
 model PaymentMethod {
@@ -161,43 +46,64 @@ model PaymentMethod {
     createdAt DateTime @default(now())
 }
 
-model Message {
+model Eater {
     id String @id @default(cuid())
-    content String
-    senderType SenderType
-    senderId String
-    recipientId String
-    conversation Conversation @relation(fields: [conversationId], references: [id])
-    conversationId String
-    createdAt DateTime @default(now())
-    read Boolean @default(false)
+    user User @relation(fields: [userId], references: [id])
+    userId String @unique
+
+    latitude Float?
+    longitude Float?
+    
+    // orders Order[] @relation("EaterOrders")
+    // itemReviews ItemReview[] @relation("EaterItemReviews")
+    // reviews ChefReview[] @relation("EaterChefReviews")
+    // recurringOrders RecurringOrder[]
+    // conversations Conversation[]
+
+    // chefSubscriptions ChefSubscription[]
+
+    // notifications Notification[]
 }
 
-enum SenderType {
-    CHEF
-    EATER
-}
-
-model Conversation {
+model Chef {
     id String @id @default(cuid())
-    eater Eater @relation(fields: [eaterId], references: [id])
-    eaterId String
-    chef Chef @relation(fields: [chefId], references: [id])
-    chefId String
-    messages Message[]
-    updatedAt DateTime @updatedAt
-    createdAt DateTime @default(now())
+    user User @relation(fields: [userId], references: [id])
+    userId String @unique
+    isActive Boolean @default(true)
+
+    bio String?
+    
+    latitude Float?
+    longitude Float?
+
+    Cuisines ChefCuisine[]
+    listings Listing[]
+
+    // conversations Conversation[]
+
+    // recurringOrders RecurringOrder[]
+
+    // chefReviews ChefReview[] @relation("ChefReviews")
+    // itemReviews ItemReview[] @relation("ChefItemReviews")
+    // orders Order[] @relation("ChefOrders")
+    // plans Plan[]
+
+    // packs Pack[]
+
+    // eventChefs EventChef[]
+
+    // chefSubscriptions ChefSubscription[]
 }
 
 model Cuisine {
     id String @id @default(cuid())
     name String @unique
-    chefs UserCuisine[]
+    chefs ChefCuisine[]
 
-    EventCuisine EventCuisine[]
+    // EventCuisine EventCuisine[]
 }
 
-model UserCuisine {
+model ChefCuisine {
     id String @id @default(cuid())
 
     chef Chef @relation(fields: [chefId], references: [id])
@@ -227,11 +133,11 @@ model Listing {
     chef Chef @relation(fields: [chefId], references: [id])
     chefId String
 
-    recurringOrders RecurringOrder[]
-    orderItems OrderItem[]
-    reviews ItemReview[]
+    // recurringOrders RecurringOrder[]
+    // orderItems OrderItem[]
+    // reviews ItemReview[]
 
-    DealListing DealListing[]
+    // PackListing PackListing[]
 }
 
 model Tag {
@@ -251,171 +157,267 @@ model ListingTag {
     @@unique([listingId, tagId])
 }
 
-model Order {
-    id String @id @default(cuid())
-    status OrderStatus
-    totalPrice Float
-    pickupTime DateTime?
-    createdAt DateTime @default(now())
+// enum NotificationType {
+//     EVENT_PROMOTION
+//     CHEF_PROMOTION
+//     GENERAL
+// }
 
-    dealId String?
+// model Notification {
+//     id String @id @default(cuid())
+//     recipient Eater @relation(fields: [eaterId], references: [id])
+//     eaterId String
 
-    chef Chef @relation("ChefOrders", fields: [chefId], references: [id])
-    chefId String
+//     title String
+//     message String
+//     type NotificationType
+//     read Boolean @default(false)
+//     createdAt DateTime @default(now())
+// }
 
-    eater Eater @relation("EaterOrders", fields: [eaterId], references: [id])
-    eaterId String
+// model Event {
+//     id String @id @default(cuid())
+//     title String
+//     description String?
+//     startTime DateTime
+//     endTime DateTime
+//     latitude Float
+//     longitude Float
+//     address String?
+//     city String?
+//     country String?
 
-    recurringOrders RecurringOrder[]
-    orderItems OrderItem[]
-    transaction Transaction?
-}
+//     eventChefs EventChef[]
+//     eventCuisines EventCuisine[]
+//     createdAt DateTime @default(now())
+// }
 
-enum OrderStatus {
-    PENDING
-    CONFIRMED
-    PREPARING
-    READY
-    COMPLETED
-    CANCELLED
-}
+// model EventChef {
+//     id String @id @default(cuid())
+//     event Event @relation(fields: [eventId], references: [id])
+//     eventId String
 
-model OrderItem {
-    id String @id @default(cuid())
-    order Order @relation(fields: [orderId], references: [id])
-    orderId String
+//     chef Chef @relation(fields: [chefId], references: [id])
+//     chefId String
 
-    listing Listing @relation(fields: [listingId], references: [id])
-    listingId String
+//     @@unique([eventId, chefId])
+// }
 
-    quantity Int
-    price Float
-}
+// model EventCuisine {
+//     id String @id @default(cuid())
+//     event Event @relation(fields: [eventId], references: [id])
+//     eventId String
 
-enum DealType {
-    DISCOUNT
-    FIXED
-}
+//     cuisine Cuisine @relation(fields: [cuisineId], references: [id])
+//     cuisineId String
 
-model Deal {
-    id String @id @default(cuid())
-    title String
-    description String?
-    dealType DealType
-    discountPercentage Float?
-    fixedPrice Float?
-    bundleQuantity Int
+//     @@unique([eventId, cuisineId])
+// }
+
+// model ChefSubscription {
+//     id String @id @default(cuid())
+//     eater Eater @relation(fields: [eaterId], references: [id])
+//     eaterId String
+
+//     chef Chef @relation(fields: [chefId], references: [id])
+//     chefId String
+
+//     @@unique([eaterId, chefId])
+// }
+
+// model Message {
+//     id String @id @default(cuid())
+//     content String
+//     senderType SenderType
+//     senderId String
+//     recipientId String
+//     conversation Conversation @relation(fields: [conversationId], references: [id])
+//     conversationId String
+//     createdAt DateTime @default(now())
+//     read Boolean @default(false)
+// }
+
+// enum SenderType {
+//     CHEF
+//     EATER
+// }
+
+// model Conversation {
+//     id String @id @default(cuid())
+//     eater Eater @relation(fields: [eaterId], references: [id])
+//     eaterId String
+//     chef Chef @relation(fields: [chefId], references: [id])
+//     chefId String
+//     messages Message[]
+//     updatedAt DateTime @updatedAt
+//     createdAt DateTime @default(now())
+// }
+
+// model Order {
+//     id String @id @default(cuid())
+//     status OrderStatus
+//     totalPrice Float
+//     pickupTime DateTime?
+//     createdAt DateTime @default(now())
+
+//     packId String?
+
+//     chef Chef @relation("ChefOrders", fields: [chefId], references: [id])
+//     chefId String
+
+//     eater Eater @relation("EaterOrders", fields: [eaterId], references: [id])
+//     eaterId String
+
+//     recurringOrders RecurringOrder[]
+//     orderItems OrderItem[]
+//     transaction Transaction?
+// }
+
+// enum OrderStatus {
+//     PENDING
+//     CONFIRMED
+//     PREPARING
+//     READY
+//     COMPLETED
+//     CANCELLED
+// }
+
+// model OrderItem {
+//     id String @id @default(cuid())
+//     order Order @relation(fields: [orderId], references: [id])
+//     orderId String
+
+//     listing Listing @relation(fields: [listingId], references: [id])
+//     listingId String
+
+//     quantity Int
+//     price Float
+// }
+
+// enum PackType {
+//     DISCOUNT
+//     FIXED
+// }
+
+// model Pack {
+//     id String @id @default(cuid())
+//     title String
+//     description String?
+//     packType PackType
+//     discountPercentage Float?
+//     fixedPrice Float?
+//     bundleQuantity Int
     
-    validFrom DateTime
-    validTo DateTime
-    chef Chef @relation(fields: [chefId], references: [id])
-    chefId String
+//     validFrom DateTime
+//     validTo DateTime
+//     chef Chef @relation(fields: [chefId], references: [id])
+//     chefId String
 
-    dealListings DealListing[]
-    createdAt DateTime @default(now())
-}
+//     PackListings PackListing[]
+//     createdAt DateTime @default(now())
+// }
 
-model DealListing {
-    id String @id @default(cuid())
-    deal Deal @relation(fields: [dealId], references: [id])
-    dealId String
-    listing Listing @relation(fields: [listingId], references: [id])
-    listingId String
+// model PackListing {
+//     id String @id @default(cuid())
+//     pack Pack @relation(fields: [packId], references: [id])
+//     packId String
+//     listing Listing @relation(fields: [listingId], references: [id])
+//     listingId String
 
-    @@unique([dealId, listingId])
-}
+//     @@unique([packId, listingId])
+// }
 
-model Transaction {
-    id String @id @default(cuid())
-    amount Float
-    status TransactionStatus
-    createdAt DateTime @default(now())
-    releasedAt DateTime?
-    paymentMethod String?
-    paymentIntentId String?
+// model Transaction {
+//     id String @id @default(cuid())
+//     amount Float
+//     status TransactionStatus
+//     createdAt DateTime @default(now())
+//     releasedAt DateTime?
+//     paymentMethod String?
+//     paymentIntentId String?
 
-    order Order @relation(fields: [orderId], references: [id])
-    orderId String @unique
-}
+//     order Order @relation(fields: [orderId], references: [id])
+//     orderId String @unique
+// }
 
-enum TransactionStatus {
-    HELD
-    RELEASED
-    REFUNDED
-    FAILED
-}
+// enum TransactionStatus {
+//     HELD
+//     RELEASED
+//     REFUNDED
+//     FAILED
+// }
 
-model RecurringOrder {
-    id String @id @default(cuid())
-    quantity Int
-    nextOrder DateTime
-    frequency Frequency
-    active Boolean @default(true)
+// model RecurringOrder {
+//     id String @id @default(cuid())
+//     quantity Int
+//     nextOrder DateTime
+//     frequency Frequency
+//     active Boolean @default(true)
 
-    eater Eater @relation(fields: [eaterId], references: [id])
-    eaterId String
+//     eater Eater @relation(fields: [eaterId], references: [id])
+//     eaterId String
 
-    chef Chef @relation(fields: [chefId], references: [id])
-    chefId String
+//     chef Chef @relation(fields: [chefId], references: [id])
+//     chefId String
 
-    listing Listing @relation(fields: [listingId], references: [id])
-    listingId String
+//     listing Listing @relation(fields: [listingId], references: [id])
+//     listingId String
 
-    orders Order[]
-}
+//     orders Order[]
+// }
 
-enum Frequency {
-    DAILY
-    WEEKLY
-    BIWEEKLY
-    MONTHLY
-}
+// enum Frequency {
+//     DAILY
+//     WEEKLY
+//     BIWEEKLY
+//     MONTHLY
+// }
 
-model ChefReview {
-    id String @id @default(cuid())
-    rating Int
-    comment String?
-    createdAt DateTime @default(now())
+// model ChefReview {
+//     id String @id @default(cuid())
+//     rating Int
+//     comment String?
+//     createdAt DateTime @default(now())
 
-    chef Chef @relation("ChefReviews", fields: [chefId], references: [id])
-    chefId String
+//     chef Chef @relation("ChefReviews", fields: [chefId], references: [id])
+//     chefId String
 
-    eater Eater @relation("EaterChefReviews", fields: [eaterId], references: [id])
-    eaterId String
-}
+//     eater Eater @relation("EaterChefReviews", fields: [eaterId], references: [id])
+//     eaterId String
+// }
 
-model ItemReview {
-    id String @id @default(cuid())
-    rating Int
-    comment String?
-    createdAt DateTime @default(now())
+// model ItemReview {
+//     id String @id @default(cuid())
+//     rating Int
+//     comment String?
+//     createdAt DateTime @default(now())
 
-    chef Chef @relation("ChefItemReviews", fields: [chefId], references: [id])
-    chefId String
+//     chef Chef @relation("ChefItemReviews", fields: [chefId], references: [id])
+//     chefId String
 
-    eater Eater @relation("EaterItemReviews", fields: [eaterId], references: [id])
-    eaterId String
+//     eater Eater @relation("EaterItemReviews", fields: [eaterId], references: [id])
+//     eaterId String
 
-    listing Listing @relation(fields: [listingId], references: [id])
-    listingId String
-}
+//     listing Listing @relation(fields: [listingId], references: [id])
+//     listingId String
+// }
 
-model Schedule {
-    id String @id @default(cuid())
-    dayOfWeek Int
-    startTime String
-    endTime String
-    pickup Boolean
-    dropoff Boolean
-    dropoffFee Float?
+// model Plan {
+//     id String @id @default(cuid())
+//     dayOfWeek Int
+//     startTime String
+//     endTime String
+//     pickup Boolean
+//     dropoff Boolean
+//     dropoffFee Float?
 
-    chef Chef @relation(fields: [chefId], references: [id])
-    chefId String
-}
+//     chef Chef @relation(fields: [chefId], references: [id])
+//     chefId String
+// }
 
-model Admin {
-    id String @id @default(cuid())
-    email String @unique
-    firebaseUid String  @unique
-    createdAt DateTime @default(now())
-}
+// model Admin {
+//     id String @id @default(cuid())
+//     email String @unique
+//     firebaseUid String  @unique
+//     createdAt DateTime @default(now())
+// }
