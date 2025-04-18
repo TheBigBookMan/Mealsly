@@ -34,6 +34,31 @@ class CuisineController {
             errorHttp(res, error, 'Error fetching cuisines', 500);
         }
     }
+
+    async updateCuisinePopularity (req, res) {
+        const {id} = req.params;
+
+        try {
+
+            const cuisineExists = await cuisineService.getExistingCuisineId(id);
+
+            if(!cuisineExists) return errorHttp(res, cuisineExists.id, 'Cuisine does not exist', 400);
+
+            const updatedPopularity = cuisineExists.popularity + 1;
+
+            await prisma.cuisine.update({
+                where: {id},
+                data: {
+                    popularity: updatedPopularity
+                }
+            });
+
+            return res.json({success: true, message: 'Successfully updated cuisine popularity'});
+
+        } catch(error) {
+            errorHttp(res, error, 'Error updating cuisine popularity', 500);
+        }
+    }
 }
 
 module.exports = new CuisineController();
