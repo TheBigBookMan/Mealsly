@@ -35,6 +35,8 @@ declare global {
     interface Cuisine {
         id: string;
         name: string;
+        popularity: number;
+        flagCode: string;
     }
 
     interface ChefCuisine {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CategoryCarousel from "../../common/ui/CategoryCarousel";
+import CuisineCarousel from "../../common/ui/CuisineCarousel";
 import { useUser } from "../../../contexts/UserContext";
 import Map from "../../common/ui/Map";
 import { AnimatePresence, motion } from "framer-motion";
@@ -18,7 +18,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const MapPageMobile = () => {
     const {userLocation} = useUser();
-    const [selectedCategory, setSelectedCategory] = useState<string>('');
+    const [selectedCuisine, setSelectedCuisine] = useState<string>('');
     const [mapPosition, setMapPosition] = useState<number[] | null>(null)
     const [chefs, setChefs] = useState<Chef[]>([]);
     const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ const MapPageMobile = () => {
     return (
         <div className="flex flex-col md:hidden h-screen w-full">
             <div className="h-[70px] w-full sticky top-0 z-10 bg-white">
-                <CategoryCarousel selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                <CuisineCarousel selectedCuisine={selectedCuisine} setSelectedCuisine={setSelectedCuisine} />
             </div>
         
             <div className="flex-1 relative w-full">

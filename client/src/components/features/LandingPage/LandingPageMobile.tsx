@@ -1,13 +1,13 @@
 import SearchBar from "./mobile/Search/SearchBar";
-import CategoryCarousel from "../../common/ui/CategoryCarousel";
+import CuisineCarousel from "../../common/ui/CuisineCarousel";
 import ListingItems from "./mobile/ListingItems";
 import { useState } from "react";
 import FoodTypes from "./mobile/FoodTypes";
 
-// TODO clicking the category can save the category in the local storage so when user comes back to it that category will be shown
+// TODO clicking the Cuisine can save the Cuisine in the local storage so when user comes back to it that Cuisine will be shown
 
 const LandingPageMobile = () => {
-    const [selectedCategory, setSelectedCategory] = useState<string>('');
+    const [selectedCuisine, setSelectedCuisine] = useState<string>('');
     const [selectedType, setSelectedType] = useState<string>('Listings');
 
     return (
@@ -16,14 +16,14 @@ const LandingPageMobile = () => {
                 <SearchBar />
                 
                 <div className="h-[70px] w-full">
-                    <CategoryCarousel setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory}/>
+                    <CuisineCarousel setSelectedCuisine={setSelectedCuisine} selectedCuisine={selectedCuisine}/>
                 </div>
 
                 <FoodTypes selectedType={selectedType} setSelectedType={setSelectedType} />
             </div>
 
             <div className="flex-1 overflow-y-auto">
-                <ListingItems selectedCategory={selectedCategory} selectedType={selectedType} />
+                <ListingItems selectedCuisine={selectedCuisine} selectedType={selectedType} />
             </div>
         </div>
     )
