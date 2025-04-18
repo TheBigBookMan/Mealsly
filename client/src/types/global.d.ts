@@ -17,13 +17,31 @@ declare global {
         state: string;
         eaterId: string;
         createdAt: string;
-        lat: number;
-        lon: number;
     }
 
     interface UserLocation {
         lat: number;
         lon: number;
+    }
+
+    interface Chef {
+        id: string;
+        latitude: number;
+        longitude: number;
+        bio: string;
+        cuisines: string[];
+    }
+
+    interface Cuisine {
+        id: string;
+        name: string;
+    }
+
+    interface ChefCuisine {
+        id: string;
+        chefId: string;
+        cuisineId: string;
+        cuisine: Cuisine;
     }
 
     interface Listing {
