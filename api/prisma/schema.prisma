@@ -98,6 +98,8 @@ model Chef {
 model Cuisine {
     id String @id @default(cuid())
     name String @unique
+    flagCode String
+    popularity Int @default(0)
     chefs ChefCuisine[]
 
     // EventCuisine EventCuisine[]
