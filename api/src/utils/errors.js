@@ -13,4 +13,4 @@ const errorHttp = (
     });
 };
 
-module.exports = errorHttp;
+module.exports = {errorHttp};

@@ -11,15 +11,20 @@ router.post("/login", verifyFirebaseToken, async (req, res) => {
     const { uid, email, name, picture } = req.firebaseUser;
 
     try {
+        // TODO somethign wrong with creation of the account this is erroring out with a unique constraint issue with the firebaseUid ?????
         let user = await prisma.user.findUnique({ where: { firebaseUid: uid }, include: {eater: true} });
 
         if (!user) {
+            const names = name.trim().split(/\s+/);
+            const firstName = names[0] || "User";
+            const lastName = names.length > 1 ? names.slice(1).join(" ") : "";
+
             user = await prisma.user.create({
                 data: {
                     firebaseUid: uid,
                     email,
-                    firstName: name || "User",
-                    lastName: "",
+                    firstName: firstName || "User",
+                    lastName: lastName,
                     profileImage: picture || null,
                     postcode: "",
                     suburb: "",
