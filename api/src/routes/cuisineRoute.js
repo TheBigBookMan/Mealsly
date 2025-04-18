@@ -4,7 +4,7 @@ const cuisineController = require('../controllers/cuisineController');
 
 // * /
 // Get all cuisines
-// router.get('/', cuisineController.getAllCuisines);
+router.get('/', cuisineController.getAllCuisines);
 // Post create a cuisine
 // router.post('/', cuisineController.createCuisine);
 
