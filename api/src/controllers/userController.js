@@ -39,6 +39,27 @@ class UserController {
             errorHttp(res, err, 'Error creating stripe setup intent', 500);
         }
     }
+
+    async getPaymentMethods (req, res) {
+        const { uid } = req.firebaseUser;
+
+        try {
+
+            const user = await prisma.user.findUnique({ where: { firebaseUid: uid } });
+            
+            if (!user?.stripeCustomerId) return res.status(404).json({ message: "No Stripe customer found." });
+            
+            const paymentMethods = await stripe.paymentMethods.list({
+                customer: user.stripeCustomerId,
+                type: "card",
+            });
+            
+            res.json(paymentMethods.data);
+
+        }catch (err) {
+            errorHttp(res, err, 'Could not get stripe payment methods', 500);
+        }
+    }
 }
 
 module.exports = new UserController();

@@ -13,8 +13,8 @@ const verifyFirebaseToken = require('../middleware/verifyFirebaseToken');
 // Post setup stripe payment intent
 router.post('/create-setup-intent', verifyFirebaseToken, userController.createStripeSetupIntent);
 
-// * /:id/add-card
-// Post new card payment
-// router.post('/:id/add-card', userController.addCardPayment);
+// * /payment-methods
+// Get users payment methods from stripe
+router.get('/payment-methods', verifyFirebaseToken, userController.getPaymentMethods);
 
 module.exports = router;

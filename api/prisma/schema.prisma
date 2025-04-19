@@ -27,23 +27,8 @@ model User {
     profileImage String?
     createdAt DateTime @default(now())
 
-    paymentMethods PaymentMethod[]
-
     chef Chef?
     eater Eater?
-}
-
-model PaymentMethod {
-    id String @id @default(cuid())
-    user User @relation(fields: [userId], references: [id])
-    userId String
-    stripeId String
-    brand String
-    last4 String
-    expMonth Int
-    expYear Int
-    isDefault Boolean @default(false)
-    createdAt DateTime @default(now())
 }
 
 model Eater {
