@@ -74,8 +74,8 @@ const PaymentPage = () => {
                     ) : error ? (
                         <ErrorMessage />
                     ) : (
-                        <ul>
-                            {paymentMethods.map(card => (
+                        <ul className='flex flex-col gap-1'>
+                            {paymentMethods.length === 0 ? <p>You don't have any saved cards</p> : paymentMethods.map(card => (
                                 <div
                                     className={`flex justify-between items-center border rounded-xl p-4 shadow-sm hover:shadow-md transition cursor-pointer `}
                                     // onClick={onSelect}
