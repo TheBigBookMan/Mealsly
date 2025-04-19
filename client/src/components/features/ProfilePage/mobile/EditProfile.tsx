@@ -5,7 +5,7 @@ import Me from '../../../../assets/Me.jpg';
 import FileUpload from "../../../common/ui/FileUpload";
 import Button from "../../../common/ui/Button";
 import Input from "../../../common/ui/Input";
-import { useUser } from "../../../../contexts/UserContext";
+import { useUser } from "../../../../contexts/userContext/useUser";
 
 interface EditProfileInterface {
     editProfileModal: boolean;

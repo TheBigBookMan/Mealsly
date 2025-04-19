@@ -1,4 +1,4 @@
-import { useUser } from "../../../contexts/UserContext";
+import { useUser } from "../../../contexts/userContext/useUser";
 import Button from "../../common/ui/Button";
 
 // TODO this will offer the restoreing of location into the database

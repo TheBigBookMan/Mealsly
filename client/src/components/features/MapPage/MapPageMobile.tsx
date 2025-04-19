@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CuisineCarousel from "../../common/ui/CuisineCarousel";
-import { useUser } from "../../../contexts/UserContext";
+import { useUser } from "../../../contexts/userContext/useUser";
 import Map from "../../common/ui/Map";
 import { AnimatePresence, motion } from "framer-motion";
 

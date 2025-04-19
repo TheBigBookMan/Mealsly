@@ -5,7 +5,6 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { PiChefHat } from "react-icons/pi";
 
 
-import ME from '../../../assets/Me.jpg';
 import Card from "../../common/ui/Card";
 import Button from "../../common/ui/Button";
 import Input from "../../common/ui/Input";
@@ -13,7 +12,7 @@ import { useState } from "react";
 import IdentityVerification from "./mobile/IdentityVerification";
 import EditProfile from "./mobile/EditProfile";
 import NavToTile from "../../common/ui/NavToTile";
-import { useUser } from "../../../contexts/UserContext";
+import { useUser } from "../../../contexts/userContext/useUser";
 import { getMonthDifference } from "../../../utils/functions";
 
 // !!! TEMP verified field

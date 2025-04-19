@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Me from '../../../assets/Me.jpg';
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useUser } from "../../../contexts/UserContext";
+import { useUser } from "../../../contexts/userContext/useUser";
 import AuthMenu from "./AuthMenu";
 import UnauthMenu from "./UnauthMenu";
 

@@ -3,7 +3,7 @@ import Input from "../components/common/ui/Input";
 import Button from "../components/common/ui/Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import { useUser } from "../contexts/UserContext";
+import { useUser } from "../contexts/userContext/useUser";
 
 interface LoginInterface {
     setLoginModal: React.Dispatch<React.SetStateAction<boolean>>;

@@ -19,6 +19,14 @@ declare global {
         createdAt: string;
     }
 
+    interface PaymentCard {
+        cardNumber: string,
+        cardExpiry: string,
+        cardCvv: string,
+        cardPostcode: string,
+        cardCountry: string
+    }
+
     interface UserLocation {
         lat: number;
         lon: number;
@@ -76,4 +84,15 @@ declare global {
         dealId: string;
         eaterId: string;
     }
+
+    type UserContextType = {
+        user: User | null;
+        loading: boolean;
+        logout: () => void;
+        loginGoogle: () => void;
+        loginFacebook: () => void;
+        loginWithEmail: ({email, password}: LoginWithEmailDetails) => void;
+        userLocation: UserLocation;
+        updateEaterLocation: (eaterId: string) => void;
+    };
 };

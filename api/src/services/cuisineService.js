@@ -1,6 +1,6 @@
 const cuisineModel = require("../models/cuisineModel");
 
-class CuisineModel {
+class CuisineService {
     async getCuisines(includeChefs = false) {
         return await cuisineModel.findAllCuisines(includeChefs);
     }
@@ -10,4 +10,4 @@ class CuisineModel {
     }
 }
 
-module.exports = new CuisineModel();
+module.exports = new CuisineService();

@@ -6,6 +6,10 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const {errorHttp} = require('../utils/errors');
 
+// TODO maybe
+// TODO add in verifyfirebase middleware
+// TODO need to break up api into controllers/model/service and add in the include flags where applicable
+
 // ? Login with google or facebook and create user as an eater if not already
 router.post("/login", verifyFirebaseToken, async (req, res) => {
     const { uid, email, name, picture } = req.firebaseUser;

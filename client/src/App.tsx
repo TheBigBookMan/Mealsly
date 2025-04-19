@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useUser } from "./contexts/UserContext";
+import { useUser } from "./contexts/userContext/useUser";
 import './utils/fixLeafletIcon';
 import LandingPage from "./pages/LandingPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -19,6 +19,7 @@ import PaymentsPage from "./pages/PaymentsPage";
 import MessagePage from "./pages/MessagePage";
 import PlanPage from "./pages/PlanPage";
 import LocationPage from "./components/features/SettingsPage/LocationPage";
+import StripeWrapper from "./components/common/ui/StripeWrapper";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -64,7 +65,12 @@ export default function App() {
                             </ProtectedRoute>
                         }
                     >
-                        <Route path="payments" element={<PaymentPage />} />
+                        <Route path="payments" element={
+                            <StripeWrapper>
+                                <PaymentPage />
+                            </StripeWrapper>
+                        }/>
+                        
                         <Route path="security" element={<SecurityPage />} />
                         <Route path="notifications" element={<NotificationsPage />} />
                         <Route path="location" element={<LocationPage />} />

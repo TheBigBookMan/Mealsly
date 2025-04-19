@@ -13,10 +13,10 @@ datasource db {
   url      = env("MYSQL_URL")
 }
 
-// TODO need to include mobile number and push to DB
 model User {
     id  String  @id @default(cuid())
     firebaseUid String  @unique
+    stripeCustomerId String?
     email   String  @unique
     mobile String? @unique
     firstName String?

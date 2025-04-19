@@ -1,4 +1,4 @@
-import { useUser } from "../../../contexts/UserContext";
+import { useUser } from "../../../contexts/userContext/useUser";
 import { Link } from "react-router-dom";
 import { MapPinIcon, MagnifyingGlassIcon, ChatBubbleLeftIcon,  CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { useLocation } from "react-router-dom";
