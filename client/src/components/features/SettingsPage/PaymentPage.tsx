@@ -20,7 +20,6 @@ const PaymentPage = () => {
         const res = await api.get('/user/payment-methods');
         const {data} = res;
 
-        console.log(data);
         return data;
     };
 

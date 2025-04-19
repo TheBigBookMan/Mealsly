@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import {auth} from '../../utils/firebase';
 import api from "../../utils/api";
-import { loginWithGoogle } from "../../utils/auth";
+import { loginWithGoogle, registerWithEmail } from "../../utils/auth";
 import { getUserLocation } from "../../utils/functions";
 import { UserContext } from "./UserContext";
 
@@ -46,7 +46,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const loginWithEmail = async ({ email, password }: LoginWithEmailDetails) => {
-        console.log("Login with email – placeholder", email, password);
+        const token = await registerWithEmail(email, password);
+        const res = await api.post("/auth/login",  {}, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (res.data) {
+            setUser(res.data);
+            await updateEaterLocation(res.data.eaterId);
+        }
     };
 
     const logout = async () => {
@@ -58,7 +66,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
             if (firebaseUser) {
                 try {
-                    const res = await api.post("/auth/login");
+                    const token = await firebaseUser.getIdToken();
+                    const res = await api.post("/auth/login", {}, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
                     setUser(res.data);
                     setUserLocation({ lat: res.data.lat, lon: res.data.lon });
                 } catch (error) {
