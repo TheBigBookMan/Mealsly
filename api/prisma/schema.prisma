@@ -31,6 +31,8 @@ model User {
     eater Eater?
 }
 
+// TODO maybe do the ChefEaterLink model where both UId are in there for easy login between accounts on the different apps
+
 model Eater {
     id String @id @default(cuid())
     user User @relation(fields: [userId], references: [id])

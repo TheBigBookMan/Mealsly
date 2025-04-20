@@ -60,29 +60,6 @@ router.post("/login", verifyFirebaseToken, async (req, res) => {
     }
 });
 
-// ? Login as eater with email and password and create eater if not already existing
-router.post("/login-email", async (req, res) => {
-    const {email, password} = req.body;
-
-    try {
-
-        // TODO need to look into how the firebaseUID will be created and stored when using email and password not google and facebook
-
-        // let user = await prisma.user.findUnique({ where: { email: email } });
-
-        // if(!user) {
-        //     user = await prisma.user.create({
-        //         data: {
-
-        //         }
-        //     })
-        // }
-
-    } catch(error) {
-        errorHttp(res, error, "Error in /login-email:", 500);
-    }
-});
-
 // ? Signup with email and password- creates firebaseUid
 router.post("/signup-email", verifyFirebaseToken, async (req, res) => {
     const { uid, email } = req.firebaseUser;
