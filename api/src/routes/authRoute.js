@@ -81,7 +81,50 @@ router.post("/login-email", async (req, res) => {
     } catch(error) {
         errorHttp(res, error, "Error in /login-email:", 500);
     }
-})
+});
+
+// ? Signup with email and password- creates firebaseUid
+router.post("/signup-email", verifyFirebaseToken, async (req, res) => {
+    const { uid, email } = req.firebaseUser;
+
+    try {
+
+        user = await prisma.user.create({
+            data: {
+                firebaseUid: uid,
+                email,
+                firstName: "",
+                lastName: "",
+                profileImage: "",
+                postcode: "",
+                suburb: "",
+                state: "",
+                eater: {
+                    create: {},
+                },
+            },
+            include: { eater: true },
+        });
+
+        res.json({
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            profileImage: user.profileImage,
+            postcode: user.postcode,
+            suburb: user.suburb,
+            state: user.state,
+            eaterId: user.eater?.id || null,
+            createdAt: user.createdAt,
+            lat: user.eater.latitude,
+            lon: user.eater.longitude
+        });
+
+    } catch (error) {
+        errorHttp(res, error, "Error in /login:", 500);
+    }
+});
 
 // ? Login with google or facebook and create user as a chef if not already existing
 router.post("/login-chef", verifyFirebaseToken, async (req, res) => {

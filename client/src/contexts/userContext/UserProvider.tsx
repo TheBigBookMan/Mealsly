@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import {auth} from '../../utils/firebase';
 import api from "../../utils/api";
-import { loginWithGoogle, registerWithEmail } from "../../utils/auth";
+import { loginWithEmail, loginWithGoogle, registerWithEmail } from "../../utils/auth";
 import { getUserLocation } from "../../utils/functions";
 import { UserContext } from "./UserContext";
+import { MdError } from "react-icons/md";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [userLocation, setUserLocation] = useState<UserLocation>({ lat: 0, lon: 0 });
     const [loading, setLoading] = useState(true);
+    
+    const skipAutoLoginRef = useRef(false);
 
     const updateEaterLocation = async (eaterId: string) => {
         if (!eaterId) return;
@@ -27,10 +30,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const loginGoogle = async (): Promise<void> => {
         try {
+            skipAutoLoginRef.current = true;
             const token = await loginWithGoogle();
+
             const res = await api.post("/auth/login", {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
+
             if (res.data) {
                 setUser(res.data);
                 await updateEaterLocation(res.data.eaterId);
@@ -45,17 +51,50 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         console.log("Login with Facebook – placeholder");
     };
 
-    const loginWithEmail = async ({ email, password }: LoginWithEmailDetails) => {
-        const token = await registerWithEmail(email, password);
-        const res = await api.post("/auth/login",  {}, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
+    const loginWithEmailFirebase = async ({ email, password }: LoginWithEmailDetails) => {
+        try {
+            skipAutoLoginRef.current = true;
+            const token = await loginWithEmail(email, password);
 
-        if (res.data) {
-            setUser(res.data);
-            await updateEaterLocation(res.data.eaterId);
+            const res = await api.post("/auth/login", {}, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+    
+            if (res.data) {
+                setUser(res.data);
+                await updateEaterLocation(res.data.eaterId);
+            }
+        } catch (err: any) {
+            const message = err?.response?.data?.message || "Login with email failed.";
+            throw new Error(message);
         }
     };
+
+    const signupWithEmail = async ({email, password}: LoginWithEmailDetails) => {
+        try {
+            skipAutoLoginRef.current = true;
+            const token = await registerWithEmail(email, password);
+
+            const res = await api.post("/auth/signup-email", {}, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            
+            if (res.data) {
+                setUser(res.data);
+                await updateEaterLocation(res.data.eaterId);
+            }
+
+        } catch(err: any) {
+            console.error("Signup with email failed.", err);
+            const message = err.message;
+            throw new Error(message);
+        } finally {
+            setTimeout(() => {
+                skipAutoLoginRef.current = false;
+            }, 300);
+        }
+    }
 
     const logout = async () => {
         await auth.signOut();
@@ -64,6 +103,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            if (skipAutoLoginRef.current) return;
+
             if (firebaseUser) {
                 try {
                     const token = await firebaseUser.getIdToken();
@@ -92,9 +133,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             logout,
             loginGoogle,
             loginFacebook,
-            loginWithEmail,
+            loginWithEmailFirebase,
             userLocation,
             updateEaterLocation,
+            signupWithEmail
         }}>
             {children}
         </UserContext.Provider>

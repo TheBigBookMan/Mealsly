@@ -7,6 +7,9 @@ import Login from "../../../pages/Login";
 import { useEffect, useState } from "react";
 import ModalSlideUp from "../ui/ModalSlideUp";
 
+// TODO need a template profile image if they sign up with email and dont have a profile pic etc
+import defaultPfp from '../../../assets/default-pfp.png';
+
 const Navbar = () => {
     const {user, loading} = useUser();
     const {pathname} = useLocation();
@@ -52,7 +55,7 @@ const Navbar = () => {
 
             {user && (
                 <Link to="/profile" className={`flex flex-col items-center ${pathname.includes('/profile') && 'text-sky-600 font-bold'}`}>
-                    <img src={user.profileImage} className={`rounded-full w-6 h-6 ${pathname.includes('/profile') && 'border-2 border-sky-600'}`} />
+                    <img src={user.profileImage === '' ? defaultPfp : user.profileImage} className={`rounded-full w-6 h-6 ${pathname.includes('/profile') && 'border-2 border-sky-600'}`} />
                     <p className='text-xs'>Profile</p>
                 </Link>
             )}

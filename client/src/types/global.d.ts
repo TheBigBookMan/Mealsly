@@ -91,8 +91,9 @@ declare global {
         logout: () => void;
         loginGoogle: () => void;
         loginFacebook: () => void;
-        loginWithEmail: ({email, password}: LoginWithEmailDetails) => void;
+        loginWithEmailFirebase: ({email, password}: LoginWithEmailDetails) => void;
         userLocation: UserLocation;
         updateEaterLocation: (eaterId: string) => void;
+        signupWithEmail: ({email, password}: LoginWithEmailDetails) => void;
     };
 };

@@ -3,7 +3,7 @@ import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 import { BellIcon, CheckIcon, PencilSquareIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { HiOutlineLogout } from "react-icons/hi";
 import { PiChefHat } from "react-icons/pi";
-
+import defaultPfp from '../../../assets/default-pfp.png';
 
 import Card from "../../common/ui/Card";
 import Button from "../../common/ui/Button";
@@ -60,7 +60,7 @@ const ProfilePageMobile = () => {
 
             <Card className="w-full flex justify-between items-center">
                 <div className='flex flex-col items-center gap-2'>
-                    <img src={user?.profileImage} className='w-24 rounded-full' />
+                    <img src={user && user?.profileImage === '' ? defaultPfp : user?.profileImage} className='w-24 rounded-full' />
 
                     <p className='text-2xl font-bold'>{user?.firstName}</p>
                 </div>

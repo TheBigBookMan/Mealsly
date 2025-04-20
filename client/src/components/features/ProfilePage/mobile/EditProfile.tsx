@@ -25,6 +25,8 @@ type EditProfileDetails = {
     phoneNumber: boolean;
 }
 
+// TODO need to set up the S3 bucket for images
+
 const EditProfile = ({editProfileModal, setEditProfileModal}: EditProfileInterface) => {   
     const {user} = useUser();
     

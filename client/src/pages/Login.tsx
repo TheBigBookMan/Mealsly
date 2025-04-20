@@ -9,14 +9,21 @@ interface LoginInterface {
     setLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// TODO need to make this a signup or login
+
 const Login = ({setLoginModal}: LoginInterface) => {
-    const {loginWithEmail, loginFacebook, loginGoogle} = useUser();
+    const {loginWithEmailFirebase, signupWithEmail, loginFacebook, loginGoogle} = useUser();
 
     const [isError, setIsError] = useState<string | null>(null);
     const [loginDetails, setLoginDetails] = useState<LoginWithEmailDetails>({
         email: "",
         password: "",
     });
+    const [signupDetails, setSignupDetails] = useState<LoginWithEmailDetails>({
+        email: "",
+        password: "",
+    });
+    const [isSignUp, setIsSignUp] = useState<boolean>(false);
 
     const loginFunc = async (type: string): Promise<void> => {
         try {
@@ -28,7 +35,7 @@ const Login = ({setLoginModal}: LoginInterface) => {
                     return;
                 }
 
-                await loginWithEmail({ email, password });
+                await loginWithEmailFirebase({ email, password });
             } else if (type === 'google') {
                 await loginGoogle();
             } else if (type === 'facebook') {
@@ -41,11 +48,30 @@ const Login = ({setLoginModal}: LoginInterface) => {
             console.error("Login error:", err.message);
             setIsError('Could not login.');
         }
+    };
+
+    const signupFunc = async () => {
+        const { email, password } = signupDetails;
+
+        if(email === '' || password === '') {
+            setIsError('Please add in your credentials.');
+            return;
+        }
+
+        try {
+
+            await signupWithEmail({email, password});
+            setLoginModal(false);
+
+        } catch(err: any) {
+            console.log(`Signup error: ${err.message}`);
+            setIsError(err.message);
+        }
     }
 
     return (
         <div className="flex flex-col h-fit w-full items-center justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-2">
+            <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg px-6 pb-6 flex flex-col gap-2">
                 <div className='flex flex-col items-center gap-2'>
                     <h1 className="text-3xl font-bold text-center text-gray-900">Mealsly</h1>
 
@@ -53,30 +79,61 @@ const Login = ({setLoginModal}: LoginInterface) => {
                     
                 </div>
 
-                <div className="space-y-4">
-                    <Input
-                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && loginFunc('email')}
-                        type="email"
-                        label="Email"
-                        value={loginDetails.email}
-                        onChange={(e) =>
-                        setLoginDetails({ ...loginDetails, email: e.target.value })
-                        }
-                    />
-                    <Input
-                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && loginFunc('email')}
-                        type="password"
-                        label="Password"
-                        value={loginDetails.password}
-                        onChange={(e) =>
-                        setLoginDetails({ ...loginDetails, password: e.target.value })
-                        }
-                    />
+                {isSignUp ? (
+                    <div className='space-y-4'>
+                        <Input
+                            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && signupFunc()}
+                            type="email"
+                            label="Email"
+                            value={signupDetails.email}
+                            onChange={(e) =>
+                            setSignupDetails({ ...signupDetails, email: e.target.value })
+                            }
+                        />
+                        <Input
+                            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && signupFunc()}
+                            type="password"
+                            label="Password"
+                            value={signupDetails.password}
+                            onChange={(e) =>
+                            setSignupDetails({ ...signupDetails, password: e.target.value })
+                            }
+                        />
 
-                    <Button onClick={() => loginFunc('email')} className="w-full py-3 rounded-xl font-semibold" variant="info">
-                        Login
-                    </Button>
-                </div>
+                        <Button onClick={() => signupFunc()} className="w-full py-3 rounded-xl font-semibold" variant="info">
+                            Signup
+                        </Button>
+
+                        <p onClick={() => {setIsSignUp(false); setIsError(null)}} className='underline'>Back</p>
+                    </div>
+                ) : (
+                    <div className="space-y-4">
+                        <Input
+                            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && loginFunc('email')}
+                            type="email"
+                            label="Email"
+                            value={loginDetails.email}
+                            onChange={(e) =>
+                            setLoginDetails({ ...loginDetails, email: e.target.value })
+                            }
+                        />
+                        <Input
+                            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && loginFunc('email')}
+                            type="password"
+                            label="Password"
+                            value={loginDetails.password}
+                            onChange={(e) =>
+                            setLoginDetails({ ...loginDetails, password: e.target.value })
+                            }
+                        />
+
+                        <Button onClick={() => loginFunc('email')} className="w-full py-3 rounded-xl font-semibold" variant="info">
+                            Login
+                        </Button>
+
+                        <p>Don't have an account? <span onClick={() => {setIsSignUp(true); setIsError(null)}} className='underline'>Signup</span></p>
+                    </div>
+                )}
 
                 <div className="relative my-4">
                     <div className="absolute inset-0 flex items-center">
