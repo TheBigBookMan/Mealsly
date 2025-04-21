@@ -29,30 +29,33 @@ import { OnboardProvider } from "./contexts/onboardContext/OnboardProvider";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
+    const location = useLocation();
 
     if (loading) return <LoadingSpinner />;
     if (!user) return <Navigate to="/" replace />;
 
-    if(user.chef && user.chef.isOnboarded === false && location.pathname !== '/onboarding') {
-        return <Navigate to='/onboarding' replace />
+    const isOnboardingPath = location.pathname.startsWith("/onboarding");
+
+    if (user.chef && !user.chef.isOnboarded && !isOnboardingPath) {
+        return <Navigate to="/onboarding" replace />;
+    }
+
+    if (user.chef && user.chef.isOnboarded && isOnboardingPath) {
+        return <Navigate to="/" replace />;
     }
 
     return <>{children}</>;
 }
 
 export default function App() {
-    const location = useLocation();
     const {user} = useUser();
-    const isOnboarding = location.pathname === "/onboarding";
     
     return (
         <div className='flex flex-col justify-between md:justify-normal min-h-screen w-screen text-slate-500 font-sans'>
-            {!isOnboarding && <Header />}
+            {user?.chef.isOnboarded && <Header />}
 
             <div className="flex-1  w-full">
                 <Routes>
-                    <Route path="*" element={<Navigate to="/" replace />} />
-
                     <Route path="/" element={
                         <ProtectedRoute>
                             <HomePage />
@@ -60,36 +63,34 @@ export default function App() {
                         } 
                     />
 
-                    {user?.chef.isOnboarded === false && (
-                        <Route
-                            path="/onboarding/*"
-                            element={
-                                <ProtectedRoute>
-                                    <OnboardProvider>
-                                        <OnboardPage />
-                                    </OnboardProvider>
-                                </ProtectedRoute>
-                            }
-                        >
-                            <Route index element={<OnboardHomePage />} />
+                    <Route
+                        path="/onboarding/*"
+                        element={
+                            <ProtectedRoute>
+                                <OnboardProvider>
+                                    <OnboardPage />
+                                </OnboardProvider>
+                            </ProtectedRoute>
+                        }
+                    >
+                        <Route index element={<OnboardHomePage />} />
 
-                            <Route path="about-you" element={<OnboardAboutYouPage />} />
+                        <Route path="about-you" element={<OnboardAboutYouPage />} />
 
-                            <Route path="uploads" element={<OnboardUploadsPage />} />
+                        <Route path="uploads" element={<OnboardUploadsPage />} />
 
-                            <Route path="tags" element={<OnboardTagsPage />} />
+                        <Route path="tags" element={<OnboardTagsPage />} />
 
-                            <Route path="address" element={<OnboardAddressPage />} />
+                        <Route path="address" element={<OnboardAddressPage />} />
 
-                            <Route path="upload-images" element={<OnboardUploadImagesPage />} />
+                        <Route path="upload-images" element={<OnboardUploadImagesPage />} />
 
-                            <Route path="payments" element={
-                                <StripeWrapper>
-                                    <OnboardPaymentsPage />
-                                </StripeWrapper>
-                            }/>
-                        </Route>
-                    )}
+                        <Route path="payments" element={
+                            <StripeWrapper>
+                                <OnboardPaymentsPage />
+                            </StripeWrapper>
+                        }/>
+                    </Route>
 
                     <Route
                         path="/profile"
@@ -184,10 +185,11 @@ export default function App() {
                         } 
                     />
 
+                    <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </div>
 
-            {!isOnboarding && <Navbar />}
+            {user?.chef.isOnboarded && <Navbar />}
         </div>
     );
 }

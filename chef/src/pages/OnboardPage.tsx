@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useUser } from "../contexts/userContext/useUser";
 import { useState } from "react";
 import ProgressBar from "../components/common/ui/ProgressBar";
@@ -11,6 +11,21 @@ import Button from "../components/common/ui/Button";
 const OnboardPage = () => {
     const {logout} = useUser();
     const {progress, setProgress, nextStep, backStep} = useOnboard();
+    // const {pathname} = useLocation();
+
+    // const currentPage = pathname.split('/')[1];
+
+    const goBack = () => {
+
+
+        backStep();
+    }
+
+    const goNext = () => {
+
+
+        nextStep();
+    }
 
     return (
         <div className="flex flex-col h-screen md:hidden w-full">
@@ -31,8 +46,9 @@ const OnboardPage = () => {
             <div className="flex flex-col gap-2 w-full h-fit border-t px-4 py-2">
                 <ProgressBar currentStep={progress.currentStep} totalSteps={progress.totalSteps} />
                 <div className="flex items-center justify-between w-full">
-                    <p onClick={backStep} className="underline text-sky-700 cursor-pointer">Back</p>
-                    <Button onClick={nextStep}>
+                    <p onClick={goBack} className="underline text-sky-700 cursor-pointer">Back</p>
+
+                    <Button onClick={goNext}>
                         <p>Next</p>
                     </Button>
                 </div>
