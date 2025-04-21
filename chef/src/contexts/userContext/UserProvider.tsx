@@ -19,14 +19,21 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         state: 'SA',
         eaterId: '123',
         createdAt: '12/02/2025',
+        chef: {
+            id: '123',
+            latitude: 123,
+            longitude: 123,
+            bio: 'I love it here',
+            isOnboarded: false
+        }
     });
     // const [user, setUser] = useState<User | null>(null);
     const [userLocation, setUserLocation] = useState<UserLocation>({ lat: 0, lon: 0 });
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     
     const skipAutoLoginRef = useRef(false);
 
-    const updateEaterLocation = async (eaterId: string) => {
+    const updateChefLocation = async (eaterId: string) => {
         if (!eaterId) return;
         try {
             const location = await getUserLocation();
@@ -51,7 +58,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
             if (res.data) {
                 setUser(res.data);
-                await updateEaterLocation(res.data.eaterId);
+                await updateChefLocation(res.data.eaterId);
             }
         } catch (err: any) {
             const message = err?.response?.data?.message || "Login with Google failed.";
@@ -74,7 +81,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     
             if (res.data) {
                 setUser(res.data);
-                await updateEaterLocation(res.data.eaterId);
+                await updateChefLocation(res.data.eaterId);
             }
         } catch (err: any) {
             const message = err?.response?.data?.message || "Login with email failed.";
@@ -94,7 +101,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             
             if (res.data) {
                 setUser(res.data);
-                await updateEaterLocation(res.data.eaterId);
+                await updateChefLocation(res.data.eaterId);
             }
 
         } catch(err: any) {
@@ -147,7 +154,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             loginFacebook,
             loginWithEmailFirebase,
             userLocation,
-            updateEaterLocation,
+            updateChefLocation,
             signupWithEmail
         }}>
             {children}

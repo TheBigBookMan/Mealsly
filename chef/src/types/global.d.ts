@@ -17,11 +17,20 @@ declare global {
         state: string;
         eaterId: string;
         createdAt: string;
+        chef: Chef;
     }
 
     interface UserLocation {
         lat: number;
         lon: number;
+    }
+
+    interface Chef {
+        id: string;
+        latitude: number;
+        longitude: number;
+        bio: string;
+        isOnboarded: boolean;
     }
 
     type UserContextType = {
@@ -32,7 +41,7 @@ declare global {
         loginFacebook: () => void;
         loginWithEmailFirebase: ({email, password}: LoginWithEmailDetails) => void;
         userLocation: UserLocation;
-        updateEaterLocation: (eaterId: string) => void;
+        updateChefLocation: (eaterId: string) => void;
         signupWithEmail: ({email, password}: LoginWithEmailDetails) => void;
     };
 };
