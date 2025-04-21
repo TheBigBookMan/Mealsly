@@ -10,15 +10,13 @@ import Button from "../components/common/ui/Button";
 
 const OnboardPage = () => {
     const {logout} = useUser();
-    const {progress, setProgress, nextStep, backStep, submitOnboardDetails} = useOnboard();
+    const {progress, nextStep, backStep, submitOnboardDetails} = useOnboard();
     const {pathname} = useLocation();
     const nav = useNavigate();
 
     const currentPage = pathname.split('/')[2];
-    console.log(currentPage);
 
     const goBack = () => {
-        console.log(currentPage);
         switch (currentPage){
             case 'about-you':
                 nav('/onboarding');
@@ -50,7 +48,6 @@ const OnboardPage = () => {
     }
 
     const goNext = () => {
-        console.log(currentPage);
         switch (currentPage){
             case 'about-you':
                 nav('/onboarding/tags');

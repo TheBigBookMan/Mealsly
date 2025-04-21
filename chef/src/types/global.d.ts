@@ -69,7 +69,6 @@ declare global {
         onboardDetails: OnboardDetails;
         setOnboardDetails: React.Dispatch<React.SetStateAction<OnboardDetails>>;
         progress: StepsType;
-        setProgress: React.Dispatch<React.SetStateAction<StepsType>>;
         nextStep: () => void;
         backStep: () => void;
         submitOnboardDetails: () => void;

@@ -60,7 +60,6 @@ export const OnboardProvider = ({ children }: { children: React.ReactNode }) => 
             onboardDetails,
             setOnboardDetails,
             progress,
-            setProgress,
             nextStep,
             backStep,
             submitOnboardDetails
