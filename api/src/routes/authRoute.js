@@ -108,7 +108,7 @@ router.post("/login-chef", verifyFirebaseToken, async (req, res) => {
     const { uid, email, name, picture } = req.firebaseUser;
 
     try {
-        let user = await prisma.user.findUnique({ where: { firebaseUid: uid } });
+        let user = await prisma.user.findUnique({ where: { firebaseUid: uid }, include: { chef: true } });
 
         if (!user) {
             user = await prisma.user.create({
@@ -122,15 +122,8 @@ router.post("/login-chef", verifyFirebaseToken, async (req, res) => {
                     suburb: "",
                     state: "",
                 },
+                include: { chef: true },
             });
-
-            await prisma.chef.create({
-                data: {
-                    userId: user.id
-                }
-            });
-
-            user = await prisma.user.findUnique({where: {id: user.id}, include: {chef: true}});
         }
 
         res.json(user);

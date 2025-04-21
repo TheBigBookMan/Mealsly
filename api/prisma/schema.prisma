@@ -57,6 +57,7 @@ model Chef {
     user User @relation(fields: [userId], references: [id])
     userId String @unique
     isActive Boolean @default(true)
+    isOnboarded Boolean @default(false)
 
     bio String?
     
