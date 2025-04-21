@@ -72,5 +72,6 @@ declare global {
         setProgress: React.Dispatch<React.SetStateAction<StepsType>>;
         nextStep: () => void;
         backStep: () => void;
+        submitOnboardDetails: () => void;
     }
 };

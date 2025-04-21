@@ -17,7 +17,7 @@ export const OnboardProvider = ({ children }: { children: React.ReactNode }) => 
     // TODO fix the totalSteps when know it
     const [progress, setProgress] = useState<StepsType>({
         currentStep: 0,
-        totalSteps: 10
+        totalSteps: 6
     });
 
     const nextStep = (): void => {
@@ -42,6 +42,17 @@ export const OnboardProvider = ({ children }: { children: React.ReactNode }) => 
             ...progress,
             currentStep: newCurrentStep
         })
+    };
+
+    const submitOnboardDetails = () => {
+        console.log("submitttt");
+        console.log(onboardDetails);
+
+        // TODO submit to database
+
+        // TODO check off isOnboarded
+
+        // TODO navigate to add in a listing page
     }
 
     return (
@@ -51,7 +62,8 @@ export const OnboardProvider = ({ children }: { children: React.ReactNode }) => 
             progress,
             setProgress,
             nextStep,
-            backStep
+            backStep,
+            submitOnboardDetails
         }}>
             {children}
         </OnboardContext.Provider>

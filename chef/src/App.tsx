@@ -26,6 +26,7 @@ import OnboardTagsPage from "./components/features/Onboarding/OnboardTagsPage";
 import OnboardUploadImagesPage from "./components/features/Onboarding/OnboardUploadImagesPage";
 import OnboardAddressPage from "./components/features/Onboarding/OnboardAddressPage";
 import { OnboardProvider } from "./contexts/onboardContext/OnboardProvider";
+import OnboardFinishPage from "./components/features/Onboarding/OnboardFinishPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -84,6 +85,8 @@ export default function App() {
                         <Route path="address" element={<OnboardAddressPage />} />
 
                         <Route path="upload-images" element={<OnboardUploadImagesPage />} />
+
+                        <Route path="finish" element={<OnboardFinishPage />} />
 
                         <Route path="payments" element={
                             <StripeWrapper>
