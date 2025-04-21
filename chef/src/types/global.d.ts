@@ -1,3 +1,5 @@
+import React from "react";
+
 export {};
 
 declare global {
@@ -32,6 +34,19 @@ declare global {
         bio: string;
         isOnboarded: boolean;
     }
+    
+    type OnboardDetails = {
+        email: string;
+        firstName: string;
+        lastName: string;
+        profileImage: string;
+        postcode: string;
+        suburb: string;
+        state: string;
+        latitude: number;
+        longitude: number;
+        bio: string;
+    }
 
     type UserContextType = {
         user: User | null;
@@ -44,4 +59,18 @@ declare global {
         updateChefLocation: (eaterId: string) => void;
         signupWithEmail: ({email, password}: LoginWithEmailDetails) => void;
     };
+
+    interface StepsType {
+        currentStep: number;
+        totalSteps: number;
+    }
+
+    type OnboardContextType = {
+        onboardDetails: OnboardDetails;
+        setOnboardDetails: React.Dispatch<React.SetStateAction<OnboardDetails>>;
+        progress: StepsType;
+        setProgress: React.Dispatch<React.SetStateAction<StepsType>>;
+        nextStep: () => void;
+        backStep: () => void;
+    }
 };

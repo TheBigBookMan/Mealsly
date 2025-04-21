@@ -18,6 +18,14 @@ import EarningsPage from "./pages/EarningsPage";
 import MenuPage from "./pages/MenuPage";
 import OnboardPage from "./pages/OnboardPage";
 import LoadingSpinner from "./components/common/ui/LoadingSpinner";
+import OnboardUploadsPage from "./components/features/Onboarding/OnboardUploadsPage";
+import OnboardPaymentsPage from "./components/features/Onboarding/OnboardPaymentsPage";
+import OnboardHomePage from "./components/features/Onboarding/OnboardHomePage";
+import OnboardAboutYouPage from "./components/features/Onboarding/OnboardAboutYouPage";
+import OnboardTagsPage from "./components/features/Onboarding/OnboardTagsPage";
+import OnboardUploadImagesPage from "./components/features/Onboarding/OnboardUploadImagesPage";
+import OnboardAddressPage from "./components/features/Onboarding/OnboardAddressPage";
+import { OnboardProvider } from "./contexts/onboardContext/OnboardProvider";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useUser();
@@ -44,7 +52,7 @@ export default function App() {
             <div className="flex-1  w-full">
                 <Routes>
                     <Route path="*" element={<Navigate to="/" replace />} />
-                    
+
                     <Route path="/" element={
                         <ProtectedRoute>
                             <HomePage />
@@ -54,13 +62,33 @@ export default function App() {
 
                     {user?.chef.isOnboarded === false && (
                         <Route
-                            path="/onboarding"
+                            path="/onboarding/*"
                             element={
                                 <ProtectedRoute>
-                                    <OnboardPage />
+                                    <OnboardProvider>
+                                        <OnboardPage />
+                                    </OnboardProvider>
                                 </ProtectedRoute>
                             }
-                        />
+                        >
+                            <Route index element={<OnboardHomePage />} />
+
+                            <Route path="about-you" element={<OnboardAboutYouPage />} />
+
+                            <Route path="uploads" element={<OnboardUploadsPage />} />
+
+                            <Route path="tags" element={<OnboardTagsPage />} />
+
+                            <Route path="address" element={<OnboardAddressPage />} />
+
+                            <Route path="upload-images" element={<OnboardUploadImagesPage />} />
+
+                            <Route path="payments" element={
+                                <StripeWrapper>
+                                    <OnboardPaymentsPage />
+                                </StripeWrapper>
+                            }/>
+                        </Route>
                     )}
 
                     <Route
