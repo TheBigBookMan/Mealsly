@@ -58,8 +58,10 @@ model Chef {
     userId String @unique
     isActive Boolean @default(true)
     isOnboarded Boolean @default(false)
+    type ChefType @default(HOME)
 
     bio String?
+    businessName String?
     
     latitude Float?
     longitude Float?
@@ -81,6 +83,11 @@ model Chef {
     // eventChefs EventChef[]
 
     // chefSubscriptions ChefSubscription[]
+}
+
+enum ChefType {
+    HOME
+    BUSINESS
 }
 
 model Cuisine {

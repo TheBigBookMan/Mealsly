@@ -3,8 +3,8 @@
 
 const OnboardAboutYouPage = () => {
     return (
-        <div>
-            <p>Onboard details</p>
+        <div className='flex flex-col gap-4'>
+            <p className='text-xl text-black'>Tell us about your</p>
         </div>
     )
 }
