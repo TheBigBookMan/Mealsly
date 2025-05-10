@@ -7,6 +7,7 @@ const eaterRoutes = require('./eaterRoute');
 const mapRoutes = require('./mapRoute');
 const cuisineRoutes = require('./cuisineRoute');
 const listingRoutes = require('./listingRoute');
+const tagRoutes = require('./tagRoute');
 const orderRoutes = require('./orderRoute');
 const transactionRoutes = require('./transactionRoute');
 
@@ -19,7 +20,8 @@ router.use('/chef', chefRoutes);
 router.use('/eater', eaterRoutes);
 router.use('/map', mapRoutes);
 router.use('/cuisine', cuisineRoutes);
-// router.use('/listing', listingRoutes);
+router.use('/listing', listingRoutes);
+router.use('/tag', tagRoutes);
 // router.use('/order', orderRoutes);
 // router.use('/transaction', transactionRoutes);
 
