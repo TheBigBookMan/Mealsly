@@ -97,6 +97,8 @@ model Cuisine {
     popularity Int @default(0)
     chefs ChefCuisine[]
 
+    Listing Listing[]
+    
     // EventCuisine EventCuisine[]
 }
 
@@ -126,6 +128,9 @@ model Listing {
     pickupAddressLatLon String?
 
     dietryTags ListingTag[]
+
+    cuisine Cuisine @relation(fields: [cuisineId], references: [id])
+    cuisineId String
 
     chef Chef @relation(fields: [chefId], references: [id])
     chefId String
