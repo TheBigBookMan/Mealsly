@@ -12,6 +12,17 @@ class ListingModel {
         });
     }
 
+    async findAllListingsByChef(chefId) {
+        return prisma.listing.findMany({
+            where: {chefId},
+            include: {
+                cuising: true,
+                dietryTags: {include: {tag: true}}
+            }
+        });
+    }
+
+
 }
 
 module.exports = new ListingModel();
