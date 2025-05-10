@@ -98,7 +98,7 @@ model Cuisine {
     chefs ChefCuisine[]
 
     Listing Listing[]
-    
+
     // EventCuisine EventCuisine[]
 }
 
@@ -145,6 +145,7 @@ model Listing {
 model Tag {
     id String @id @default(cuid())
     name String @unique
+    description String?
     listings ListingTag[]
 }
 
