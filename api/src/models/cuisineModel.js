@@ -9,7 +9,7 @@ class CuisineModel {
         });
     }
 
-    async getExistingCuisineId(id, includeChefs) {
+    async getExistingCuisineId(id, includeChefs = false) {
         return await prisma.cuisine.findUnique({
             where: {id},
             include: {
