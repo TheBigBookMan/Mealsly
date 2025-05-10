@@ -9,5 +9,7 @@ const verifyFirebaseToken = require('../middleware/verifyFirebaseToken');
 // * /
 // Get all tags
 router.get('/', tagController.getAllTags);
+// Post create a tag
+router.post('/', tagController.createTag);
 
 module.exports = router;
