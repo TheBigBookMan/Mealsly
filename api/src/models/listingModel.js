@@ -22,7 +22,16 @@ class ListingModel {
         });
     }
 
-
+    async findListingById(listingId) {
+        return prisma.listing.findUnique({
+            where: {id: listingId},
+            include: {
+                cuising: true,
+                chef: true,
+                dietryTags: {include: {tag: true}}
+            }
+        })
+    }
 }
 
 module.exports = new ListingModel();
