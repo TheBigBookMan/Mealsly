@@ -1,6 +1,17 @@
 const {prisma} = require('../db/prisma');
 
 class ListingModel {
+    async createListing(data) {
+        return await prisma.listing.create({
+            data,
+            include: {
+                dietryTags: {
+                    include: { tag: true },
+                },
+            },
+        });
+    }
+
     async findListingById(listingId, includeCuisine = false, includeChef = false, includeTags = false) {
         return prisma.listing.findUnique({
             where: {id: listingId},
@@ -12,25 +23,25 @@ class ListingModel {
         })
     }
 
-    async findAllListingsByCuisine(cuisineId) {
-        return prisma.listing.findMany({
-            where: {cuisineId},
-            include: {
-                chef: true,
-                dietryTags: {include: {tag: true}}
-            }
-        });
-    }
+    // async findAllListingsByCuisine(cuisineId) {
+    //     return prisma.listing.findMany({
+    //         where: {cuisineId},
+    //         include: {
+    //             chef: true,
+    //             dietryTags: {include: {tag: true}}
+    //         }
+    //     });
+    // }
 
-    async findAllListingsByChef(chefId) {
-        return prisma.listing.findMany({
-            where: {chefId},
-            include: {
-                cuisine: true,
-                dietryTags: {include: {tag: true}}
-            }
-        });
-    }
+    // async findAllListingsByChef(chefId) {
+    //     return prisma.listing.findMany({
+    //         where: {chefId},
+    //         include: {
+    //             cuisine: true,
+    //             dietryTags: {include: {tag: true}}
+    //         }
+    //     });
+    // }
 
     async findAllListingsByTag(tagId) {
         return await prisma.listing.findMany({
@@ -44,17 +55,6 @@ class ListingModel {
             include: {
                 cuisine: true,
                 chef: true,
-                dietryTags: {
-                    include: { tag: true },
-                },
-            },
-        });
-    }
-
-    async createListing(data) {
-        return await prisma.listing.create({
-            data,
-            include: {
                 dietryTags: {
                     include: { tag: true },
                 },
