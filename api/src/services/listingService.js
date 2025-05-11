@@ -43,10 +43,12 @@ class ListingService {
 
     async getListingsByCuisine (cuisineId) {
          // TODO better error handling for throwing errors to be caught in controller
-        const cuisine = await cuisineModel.getExistingCuisineId(cuisineId);
-        if(!cuisine)  throw new Error(`Cuisine with ID ${cuisineId} does not exist`);
+        return await cuisineModel.getCuisineWithListings(cuisineId);
+    }
 
-        return await listingModel.findAllListingsByCuisine(cuisineId);
+    async getListingsByChef (chefId) {
+        // TODO better error handling for throwing areas
+        return await chefModel.getChefWithListings(chefId);
     }
 }
 
