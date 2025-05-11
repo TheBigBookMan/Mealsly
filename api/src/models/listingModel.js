@@ -1,6 +1,17 @@
 const {prisma} = require('../db/prisma');
 
 class ListingModel {
+    async findListingById(listingId, includeCuisine = false, includeChef = false, includeTags = false) {
+        return prisma.listing.findUnique({
+            where: {id: listingId},
+            include: {
+                cuisine: includeCuisine,
+                chef: includeChef,
+                dietryTags: {include: {tag: includeTags}}
+            }
+        })
+    }
+
     async findAllListingsByCuisine(cuisineId) {
         return prisma.listing.findMany({
             where: {cuisineId},
@@ -38,17 +49,6 @@ class ListingModel {
                 },
             },
         });
-    }
-
-    async findListingById(listingId) {
-        return prisma.listing.findUnique({
-            where: {id: listingId},
-            include: {
-                cuisine: true,
-                chef: true,
-                dietryTags: {include: {tag: true}}
-            }
-        })
     }
 
     async createListing(data) {
