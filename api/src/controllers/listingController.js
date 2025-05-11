@@ -22,12 +22,23 @@ class ListingController {
         }
     }
 
+    async getListingById (req, res) {
+        const {listingId} = req.params;
+
+        try {
+            const listing = await listingService.getListingById(listingId);
+            return res.status(200).json({success: true, listing});
+        } catch(err) {
+            errorHttp(res, err, 'Error getting listing', 500);
+        }
+    }
+
     async getListingsByCuisine (req, res) {
         const {cuisineId} = req.params;
 
         try {
             const listings = await listingService.getListingsByCuisine(cuisineId);
-            return res.status(201).json({success: true, listings});
+            return res.status(200).json({success: true, listings});
         } catch(err) {
             errorHttp(res, err, 'Error getting listings by cuisine', 500);
         }
