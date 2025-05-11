@@ -5,7 +5,6 @@ class ListingModel {
         return prisma.listing.findMany({
             where: {cuisineId},
             include: {
-                cuisine: true,
                 chef: true,
                 dietryTags: {include: {tag: true}}
             }
