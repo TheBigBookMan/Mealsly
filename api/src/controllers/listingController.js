@@ -60,6 +60,17 @@ class ListingController {
             errorHttp(res, err, 'Error getting listings by chef', 500);
         }
     }
+
+    async getListingsByTag (req, res) {
+        const {tagId} = req.params;
+
+        try {
+            const listings = await listingService.getListingsByTag(tagId);
+            res.json(listings);
+        } catch(err) {
+            errorHttp(res, err, 'Error getting listings by tag', 500);
+        }
+    }
 }
 
 module.exports = new ListingController();
