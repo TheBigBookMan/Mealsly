@@ -8,30 +8,15 @@ const cuisineModel = require('../models/cuisineModel');
 
 class ListingController {
     async createListing (req, res) {
-        const {title, description, price, image, available, cuisineId, chefId, delivery, pickup, pickupAddressLatLon} = req.body;
+        const {title, description, price, available, cuisineId, chefId, delivery, pickup, pickupAddressLatLon} = req.body;
 
         try {
 
-            const chef = await chefModel.getExistingChefId(chefId);
-            if(!chef) return errorHttp(res, `ChefId: ${chefId}`, 'Chef does not exist', 400);
-
-            const cuisine = await cuisineModel.getExistingCuisineId(cuisineId);
-            if(!cuisine) return errorHttp(res, `CuisineId: ${cuisineId}`, 'Cuisine does not exist', 400);
-
-            // TODO need to add image to S3 bucket
-
-            await listingModel.create({
-                title,
-                description,
-                price,
-                cuisineId,
-                chefId,
-                image,
-                delivery,
-                pickup,
-                pickupAddressLatLon,
-                available
-            });
+            // TODO install a file manager package
+            const listing = await listingService.createListing(
+                {title, description, price, available, cuisineId, chefId, delivery, pickup, pickupAddressLatLon, tagIds},
+                req.file
+            );
 
             return res.status(201).json({ success: true, listing});
             
