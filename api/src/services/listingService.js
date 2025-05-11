@@ -38,7 +38,7 @@ class ListingService {
     }
 
     async getExistingListingById (listingId, includeCuisine = false, includeChef = false, includeTags = false) {
-        return await listingModel.findListingById(listingId, includeCuisine, includeChef, includeTags);
+        return await listingModel.getListingById(listingId, includeCuisine, includeChef, includeTags);
     }
 
     async getListingsByCuisine (cuisineId) {
@@ -49,6 +49,11 @@ class ListingService {
     async getListingsByChef (chefId) {
         // TODO better error handling for throwing areas
         return await chefModel.getChefWithListings(chefId);
+    }
+
+    async getListingsByTag (tagId) {
+        // TODO better error handling for throwing areas
+        return await listingModel.getAllListingsByTag(tagId);
     }
 }
 
