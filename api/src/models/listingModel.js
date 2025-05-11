@@ -22,6 +22,24 @@ class ListingModel {
         });
     }
 
+    async findAllListingsByTag(tagId) {
+        return await prisma.listing.findMany({
+            where: {
+                dietryTags: {
+                    some: {
+                        tagId: tagId,
+                    },
+                },
+            },
+            include: {
+                cuisine: true,
+                chef: true,
+                dietryTags: {
+                    include: { tag: true },
+                },
+            },
+        });
+    }
 
     async findListingById(listingId) {
         return prisma.listing.findUnique({
