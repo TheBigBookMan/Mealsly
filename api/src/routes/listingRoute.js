@@ -18,6 +18,8 @@ router.get('/:listingId', listingController.getListingById);
 // Get listings by cuisine
 router.get('/cuisine/:cuisineId', listingController.getListingsByCuisine);
 
-
+// * /chef/:chefId
+// Get listings by chef
+router.get('/chef/:chefId', listingController.getListingsByChef);
 
 module.exports = router;
