@@ -12,7 +12,7 @@ class ListingModel {
         });
     }
 
-    async findListingById(listingId, includeCuisine = false, includeChef = false, includeTags = false) {
+    async getListingById(listingId, includeCuisine = false, includeChef = false, includeTags = false) {
         return prisma.listing.findUnique({
             where: {id: listingId},
             include: {
@@ -43,7 +43,7 @@ class ListingModel {
     //     });
     // }
 
-    async findAllListingsByTag(tagId) {
+    async getAllListingsByTag(tagId) {
         return await prisma.listing.findMany({
             where: {
                 dietryTags: {
