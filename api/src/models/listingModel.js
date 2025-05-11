@@ -16,21 +16,33 @@ class ListingModel {
         return prisma.listing.findMany({
             where: {chefId},
             include: {
-                cuising: true,
+                cuisine: true,
                 dietryTags: {include: {tag: true}}
             }
         });
     }
 
+
     async findListingById(listingId) {
         return prisma.listing.findUnique({
             where: {id: listingId},
             include: {
-                cuising: true,
+                cuisine: true,
                 chef: true,
                 dietryTags: {include: {tag: true}}
             }
         })
+    }
+
+    async createListing(data) {
+        return await prisma.listing.create({
+            data,
+            include: {
+                dietryTags: {
+                    include: { tag: true },
+                },
+            },
+        });
     }
 }
 
