@@ -10,4 +10,8 @@ const verifyFirebaseToken = require('../middleware/verifyFirebaseToken');
 // Post create a listing
 router.post('/', listingController.createListing);
 
+// * /cuisine/:cuisineId
+// Get listings by cuisine
+router.get('/cuisine/:cuisineId', listingController.getListingsByCuisine);
+
 module.exports = router;
