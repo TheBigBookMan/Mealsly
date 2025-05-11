@@ -24,10 +24,16 @@ class ListingController {
 
     async getListingById (req, res) {
         const {listingId} = req.params;
+        const includeCuisine = req.query.includeCuisine === 'true';
+        const includeChef = req.query.includeChef === 'true';
+        const includeTag = req.query.includeTag === 'true';
 
         try {
-            const listing = await listingService.getListingById(listingId);
-            return res.status(200).json({success: true, listing});
+            const listing = await listingService.getExistingListingById(listingId, includeCuisine, includeChef, includeTag);
+
+            if(!listing) return errorHttp(res, `Existing: ${listingId}`, 'Listing does not exist', 400);
+
+            res.json(listing);
         } catch(err) {
             errorHttp(res, err, 'Error getting listing', 500);
         }
@@ -38,7 +44,7 @@ class ListingController {
 
         try {
             const listings = await listingService.getListingsByCuisine(cuisineId);
-            return res.status(200).json({success: true, listings});
+            res.json(listings);
         } catch(err) {
             errorHttp(res, err, 'Error getting listings by cuisine', 500);
         }
