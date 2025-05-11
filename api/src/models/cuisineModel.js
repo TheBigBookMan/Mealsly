@@ -17,6 +17,23 @@ class CuisineModel {
             }
         });
     }
+
+    async getCuisineWithListings(cuisineId) {
+        const cuisine = await prisma.cuisine.findUnique({
+            where: { id: cuisineId },
+            include: {
+                Listing: {
+                    include: {
+                        chef: true,
+                        dietryTags: { include: { tag: true } },
+                    },
+                },
+            },
+        });
+
+        if (!cuisine) throw new Error(`Cuisine with ID ${cuisineId} does not exist`);
+        return cuisine;
+    }
 }
 
 module.exports = new CuisineModel();
