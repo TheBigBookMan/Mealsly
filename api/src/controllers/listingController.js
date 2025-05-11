@@ -49,6 +49,17 @@ class ListingController {
             errorHttp(res, err, 'Error getting listings by cuisine', 500);
         }
     }
+
+    async getListingsByChef (req, re) {
+        const {chefId} = req.params;
+
+        try {
+            const listings = await listingService.getListingsByChef(chefId);
+            res.json(listings);
+        } catch(err) {
+            errorHttp(res, err, 'Error getting listings by chef', 500);
+        }
+    }
 }
 
 module.exports = new ListingController();
