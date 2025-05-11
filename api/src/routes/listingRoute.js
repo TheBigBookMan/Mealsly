@@ -22,4 +22,8 @@ router.get('/cuisine/:cuisineId', listingController.getListingsByCuisine);
 // Get listings by chef
 router.get('/chef/:chefId', listingController.getListingsByChef);
 
+// * /tag/:tagId
+// Get listings by tag
+router.get('/tag/:tagId', listingController.getListingsByTag);
+
 module.exports = router;
