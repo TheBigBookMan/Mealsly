@@ -37,6 +37,10 @@ class ListingService {
         });
     }
 
+    async getExistingListingById (listingId, includeCuisine = false, includeChef = false, includeTags = false) {
+        return await listingModel.findListingById(listingId, includeCuisine, includeChef, includeTags);
+    }
+
     async getListingsByCuisine (cuisineId) {
          // TODO better error handling for throwing errors to be caught in controller
         const cuisine = await cuisineModel.getExistingCuisineId(cuisineId);
