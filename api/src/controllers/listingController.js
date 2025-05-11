@@ -11,17 +11,25 @@ class ListingController {
         const {title, description, price, available, cuisineId, chefId, delivery, pickup, pickupAddressLatLon} = req.body;
 
         try {
-
             // TODO install a file manager package
             const listing = await listingService.createListing(
                 {title, description, price, available, cuisineId, chefId, delivery, pickup, pickupAddressLatLon, tagIds},
                 req.file
             );
-
             return res.status(201).json({ success: true, listing});
-            
         } catch(err) {
             errorHttp(res, err, 'Error creating listing', 500);
+        }
+    }
+
+    async getListingsByCuisine (req, res) {
+        const {cuisineId} = req.params;
+
+        try {
+            const listings = await listingService.getListingsByCuisine(cuisineId);
+            return res.status(201).json({success: true, listings});
+        } catch(err) {
+            errorHttp(res, err, 'Error getting listings by cuisine', 500);
         }
     }
 }
