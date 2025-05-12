@@ -18,4 +18,8 @@ router.get('/:orderId', orderController.getOrderById);
 // Get all orders from an eater
 router.get('/eater/:eaterId', orderController.getOrdersByEater);
 
+// * /chef/:chefId?includeeater=false/true
 // Get all orders from a chef
+router.get('/chef/:chefId', orderController.getOrdersByChef);
+
+module.exports = router;
