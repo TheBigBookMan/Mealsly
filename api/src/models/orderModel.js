@@ -50,6 +50,13 @@ class OrderModel {
             }
         })
     }
+
+    async updateOrderStatus(orderId, newStatus) {
+        return await prisma.order.update({
+            where: { id: orderId },
+            data: { status: newStatus },
+        });
+    }
 }
 
 module.exports = new OrderModel();
