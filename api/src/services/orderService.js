@@ -40,6 +40,10 @@ class OrderService {
     async getOrdersByEater(eaterId, includeChef = false) {
         return await orderModel.getOrdersByEater(eaterId, includeChef);
     }
+
+    async getOrdersByChef(chefId, includeEater = false) {
+        return await orderModel.getOrdersByChef(chefId, includeEater);
+    }
 }
 
 module.exports = new OrderService();
