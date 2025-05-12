@@ -1,8 +1,6 @@
 const { prisma } = require('../db/prisma');
 const listingService = require('../services/listingService');
-const chefModel = require('../models/chefModel');
 const {errorHttp} = require('../utils/errors');
-const cuisineModel = require('../models/cuisineModel');
 
 // TODO add in dietrytags as well when created but this will need to connect to tags created- through listingTag table
 
