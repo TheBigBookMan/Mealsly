@@ -48,6 +48,18 @@ class OrderController {
             errorHttp(res, err, 'Could not get orders by chef', 500);
         }
     }
+
+    async updateOrderStatus (req, res) {
+        const {orderId} = res.params;
+        const orderStatus = req.query.orderStatus;
+
+        try {   
+            const order = await orderService.updateOrderStatus(orderId, orderStatus);
+            res.status(204).json(order);
+        } catch(err) {
+            errorHttp(res, err, 'Could not update order status', 500);
+        }
+    }
 }
 
 module.exports = new OrderController();
