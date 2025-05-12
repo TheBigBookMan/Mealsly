@@ -36,6 +36,18 @@ class OrderController {
             errorHttp(res, err, 'Could not get orders by eater', 500);
         }
     }
+
+    async getOrdersByChef (req, res) {
+        const {chefId} = req.params;
+        const includeEater = req.query.includeEater === 'true';
+
+        try {
+            const orders = await orderService.getOrdersByChef(chefId, includeEater);
+            res.json(orders);
+        } catch(err) {
+            errorHttp(res, err, 'Could not get orders by chef', 500);
+        }
+    }
 }
 
 module.exports = new OrderController();
