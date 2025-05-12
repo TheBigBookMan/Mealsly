@@ -205,6 +205,27 @@ model OrderItem {
     price Float
 }
 
+// model Transaction {
+//     id String @id @default(cuid())
+//     amount Float
+//     status TransactionStatus
+//     createdAt DateTime @default(now())
+//     releasedAt DateTime?
+//     paymentMethod String?
+//     paymentIntentId String?
+
+//     order Order @relation(fields: [orderId], references: [id])
+//     orderId String @unique
+// }
+
+// enum TransactionStatus {
+//     HELD
+//     RELEASED
+//     REFUNDED
+//     FAILED
+// }
+
+
 // enum NotificationType {
 //     EVENT_PROMOTION
 //     CHEF_PROMOTION
@@ -332,26 +353,6 @@ model OrderItem {
 //     listingId String
 
 //     @@unique([packId, listingId])
-// }
-
-// model Transaction {
-//     id String @id @default(cuid())
-//     amount Float
-//     status TransactionStatus
-//     createdAt DateTime @default(now())
-//     releasedAt DateTime?
-//     paymentMethod String?
-//     paymentIntentId String?
-
-//     order Order @relation(fields: [orderId], references: [id])
-//     orderId String @unique
-// }
-
-// enum TransactionStatus {
-//     HELD
-//     RELEASED
-//     REFUNDED
-//     FAILED
 // }
 
 // model RecurringOrder {
