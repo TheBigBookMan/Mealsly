@@ -22,7 +22,7 @@ router.use('/map', mapRoutes);
 router.use('/cuisine', cuisineRoutes);
 router.use('/listing', listingRoutes);
 router.use('/tag', tagRoutes);
-// router.use('/order', orderRoutes);
+router.use('/order', orderRoutes);
 // router.use('/transaction', transactionRoutes);
 
 module.exports = router;
