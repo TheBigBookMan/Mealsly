@@ -13,6 +13,19 @@ class OrderModel {
             },
         });
     }
+
+    async getOrderById(orderId, includeChef = false, includeEater = false) {
+        return await prisma.order.findUnique({
+            where: { id: orderId },
+            include: {
+                orderItems: {
+                    include: { listing: true },
+                },
+                chef: includeChef,
+                eater: includeEater,
+            },
+        });
+    }
 }
 
 module.exports = new OrderModel();
