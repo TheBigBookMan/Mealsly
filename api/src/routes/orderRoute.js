@@ -14,7 +14,7 @@ router.post('/', orderController.createOrder);
 // Get a single order
 router.get('/:orderId', orderController.getOrderById);
 
-// * /:orderId?status=PENDING/CONFIRMED/PREPARING/READY/COMPLETED/CANCELLED
+// * /:orderId?orderStatus=PENDING/CONFIRMED/PREPARING/READY/COMPLETED/CANCELLED
 // Update order status
 router.put('/:orderId', orderController.updateOrderStatus);
 
