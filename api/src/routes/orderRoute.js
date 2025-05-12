@@ -10,6 +10,10 @@ const verifyFirebaseToken = require('../middleware/verifyFirebaseToken');
 // Post create a new order
 router.post('/', orderController.createOrder);
 
+// * /:orderId
 // Get a single order
+router.get('/:orderId', orderController.getOrderById);
 
-// Get all orders from an account
+// Get all orders from an eater
+
+// Get all orders from a chef
