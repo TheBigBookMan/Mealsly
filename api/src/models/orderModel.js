@@ -38,6 +38,18 @@ class OrderModel {
             },
         });
     }
+
+    async getOrdersByChef (chefId, includeEater = false) {
+        return await prisma.order.findMany({
+            where: {chefId},
+            include: {
+                orderItems: {
+                    include: {listing: true}
+                },
+                eater: includeEater
+            }
+        })
+    }
 }
 
 module.exports = new OrderModel();
