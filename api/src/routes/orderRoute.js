@@ -14,6 +14,10 @@ router.post('/', orderController.createOrder);
 // Get a single order
 router.get('/:orderId', orderController.getOrderById);
 
+// * /:orderId?status=PENDING/CONFIRMED/PREPARING/READY/COMPLETED/CANCELLED
+// Update order status
+router.put('/:orderId', orderController.updateOrderStatus);
+
 // * /eater/:eaterId?includeChef=false/true
 // Get all orders from an eater
 router.get('/eater/:eaterId', orderController.getOrdersByEater);
