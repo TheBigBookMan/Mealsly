@@ -11,6 +11,19 @@ class OrderController {
             errorHttp(res, err, 'Could not create order', 500);
         }
     }
+
+    async getOrderById (req, res) {
+        const {orderId} = req;
+        const includeChef = req.query.includeChef === 'true';
+        const includeEater = req.query.includeEater === 'true';
+
+        try {
+            const order = await orderService.getOrderById(orderId, includeChef, includeEater);
+            res.json(order);
+        } catch(err) {
+            errorHttp(res, err, 'Could not get order by Id', 500);
+        }
+    }
 }
 
 module.exports = new OrderController();
