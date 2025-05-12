@@ -32,6 +32,10 @@ class OrderService {
             },
         });
     }
+
+    async getOrderById (orderId, includeChef = false, includeEater = false) {
+        return await orderModel.getOrderById(orderId, includeChef, includeEater);
+    }
 }
 
 module.exports = new OrderService();
