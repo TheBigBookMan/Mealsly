@@ -13,7 +13,7 @@ class OrderController {
     }
 
     async getOrderById (req, res) {
-        const {orderId} = req;
+        const {orderId} = req.params;
         const includeChef = req.query.includeChef === 'true';
         const includeEater = req.query.includeEater === 'true';
 
@@ -22,6 +22,18 @@ class OrderController {
             res.json(order);
         } catch(err) {
             errorHttp(res, err, 'Could not get order by Id', 500);
+        }
+    }
+
+    async getOrdersByEater (req, res) {
+        const {eaterId} = req.params;
+        const includeChef  = req.query.includeChef === 'true';
+
+        try {
+            const orders = await orderService.getOrdersByEater(eaterId, includeChef);
+            res.json(orders);
+        } catch(err) {
+            errorHttp(res, err, 'Could not get orders by eater', 500);
         }
     }
 }
